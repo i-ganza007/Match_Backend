@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Gender{
+  MALE 
+  FEMALE
+}
+
+
+enum AnimalSpecies{
+  HOLSTEIN_COW
+  FREISIAN_COW
+  ANKOLE_COW
+  BROWN_SWISS_COW
+  GIROLANDO_COW
+  JERSEY_COW
+  LARGE_WHITE_PIG
+  DUROC_PIG
+  MERINO_SHEEP
+  LOCAL_GOAT
+  
+}
+
+enum AnimalType {
+  COW
+  GOAT
+  PIG
+  SHEEP
+}
+
+enum BreedingMethod{
+  NATURAL
+  ARTIFICIAL_INSEMINATION
+  EMBRYO_TRANSFER
+  OTHER
+}
+
+enum AnimalHealth{
+  HEALTHY
+  SICK
+  RECOVERING
+}
+
+enum AnimalStatus {
+  ALIVE
+  DECEASED
+  SOLD
+  PREGNANT
+  OTHER
+}
+
+model User{
+  userId String @id @default(uuid())
+  name String
+  sex  Gender   
+  phone_number String @unique
+  email String? @unique
+  createdAt DateTime @default(now())
+  lastActive DateTime
+  farmingSystem String
+  district String
+  sector String
+  village String
+  cell    String
+  latitude String
+  longitude String
+  
+  // Relations
+  animals Animal[]
+  breedingsInvolved Breeding[]     
+}
+
+model Animal{
+  animalId String @id @default(uuid())
+  name     String? @default("")
+  sex      Gender
+  birthDate DateTime
+  type      AnimalType
+  registrationDate DateTime @default(now())
+  profilePhoto String @default("")
+  additionalPhotos Json[]
+  updatedAt  DateTime @updatedAt()
+  status     AnimalStatus @default(ALIVE)
+  motherId   String?
+  fatherId   String?
+  ownerId    String
+  specie     AnimalSpecies
+  breed_confidence Float
+  mother   Animal?  @relation("AnimalMother", fields: [motherId], references: [animalId])
+  father   Animal?  @relation("AnimalFather", fields: [fatherId], references: [animalId])
+  offspring Animal[] @relation("AnimalChild")
+  owner    User     @relation(fields: [ownerId], references: [userId])
+  
+  // Breeding relations
+  breedings Breeding[]  @relation("BreedingAnimals")
+  
+  // Breeding recommendations
+   breedingRecommendations Breeding_Rec[] @relation("BreedingRecommendations")
+  // Relatedness estimates
+  relatednessRecords  RelatedNess_Estimates[] @relation("animalRelatedNess")
+  
+  // Performance records
+  performanceRecords   Perfomance_Records[]
+}
+
+model Breeding{
+  breedingId String @id @default(uuid())
+  motherId      String  @unique()
+  fatherId     String   @unique()
+  calfId        String?
+  breedingDate  DateTime 
+  method        BreedingMethod
+  expectedCalvingDate DateTime?
+  calving_date DateTime?
+  userRating    Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt()  
+  
+  // Relations
+  breedingAnimals Animal @relation("BreedingAnimals",fields: [motherId,fatherId,calfId],references: [animalId])
+  farmers      User[]  
+}
+
+model Breeding_Rec{
+  breedingRecId String @id @default(uuid())
+  animalInitial   String
+  recommendedAnimal   String
+  overall_score Float
+  user_accepted Boolean
+  generatedAt  DateTime @default(now())
+  userFeedback String?  @default("")
+  genetic_diversity_score Float
+  inbreeding_risk_score Float
+  breed_composition_match_score Float
+  
+  // Relations
+  animals Animal @relation("BreedingRecommendations",fields: [animalInitial,recommendedAnimal],references: [animalId])
+}
+
+model RelatedNess_Estimates{
+  id  String @id @default(uuid())
+  animal1   String
+  animal2   String
+  confidence    Float
+  relatedness_prob  Float
+  pedigree_coeff   Float
+  
+  // Relations
+  animalRelation Animal @relation("animalRelatedNess",fields: [animal1,animal2],references: [animalId])
+  
+}
+
+model Perfomance_Records{
+  id  String @id @default(uuid())
+  animalId   String
+  animal       Animal @relation(fields: [animalId],references: [animalId])
+  milk_yield Float
+  weight     Float
+  health_status AnimalHealth @default(HEALTHY)
+  recordedAt DateTime @default(now())
+}
+
+

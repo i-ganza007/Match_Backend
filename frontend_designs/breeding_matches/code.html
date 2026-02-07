@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Breeding Matches</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#1c5f20",
+                    "accent-orange": "#d35400",
+                    "terracotta": "#E07A5F",
+                    "background-light": "#f6f8f6",
+                    "background-dark": "#050505",
+                },
+                fontFamily: {
+                    "display": ["Inter", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "3xl": "2.5rem", "full": "9999px"},
+            },
+        },
+    }
+</script>
+<style>.glass-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 
+            0 25px 50px -12px rgba(0, 0, 0, 0.5),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    .glass-card-stack-1 {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card-stack-2 {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }.liquid-gauge {
+        background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    .liquid-gauge::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transform: skewX(-20deg);
+        filter: blur(2px);
+    }
+    .match-glow {
+        box-shadow: 0 0 35px rgba(34, 197, 94, 0.5);
+    }
+    .super-like-glow {
+        box-shadow: 0 0 25px rgba(234, 179, 8, 0.3);
+    }
+    .reject-glow {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-white min-h-screen flex flex-col overflow-hidden relative selection:bg-primary selection:text-white">
+<div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-accent-orange/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="flex items-center bg-transparent p-6 pb-2 justify-between z-20 relative">
+<div class="text-white flex size-12 shrink-0 items-center justify-start cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</div>
+<div class="flex flex-col items-center">
+<h2 class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Elite Sires</h2>
+<h1 class="text-white text-lg font-bold tracking-tight">Breeding Matches</h1>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/5 backdrop-blur-md transition-colors">
+<span class="material-symbols-outlined text-white text-xl">tune</span>
+</button>
+</div>
+</div>
+<div class="flex-1 relative px-6 mt-2 flex items-center justify-center z-10 w-full max-w-md mx-auto">
+<div class="absolute w-[85%] h-[80%] glass-card-stack-2 rounded-[2.5rem] rotate-6 translate-y-8 scale-90 blur-sm"></div>
+<div class="absolute w-[92%] h-[80%] glass-card-stack-1 rounded-[2.5rem] -rotate-3 translate-y-3 scale-95 blur-[1px]"></div>
+<div class="glass-card relative w-full h-full max-h-[620px] rounded-[2.5rem] overflow-hidden flex flex-col z-20">
+<div class="relative h-[65%] w-full group overflow-hidden">
+<div class="absolute inset-0 bg-center bg-no-repeat bg-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-[1.15] contrast-[1.05]" data-alt="High fidelity photo of a healthy Holstein-Friesian cow with professional lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCH5bm989_D3HyyoGwhcjF44HJwrpP-4dDUiUssdxnlowfMj9OaM093Qlkff6QiRfBX3sgRR_Os3TWkAZLSCROjdakDltdrYlM5BhFlXv_Bi7vUbaFYImo2Rxc4htPm3KMRjnuwhONwOPVISAyVZdjTb9apLRcT1Xu8WrLWvp52vjdIc3F8wQU_el3swG67R9CkF51ryLFlavOLRdZow9XQn_Di23d_XZtIjaPE3_CBtyc6zucRqEkd1y4vtdcVfDcSOE-C3YQ36mM");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent opacity-60"></div>
+<div class="absolute top-5 right-5">
+<div class="flex items-center gap-1.5 bg-terracotta/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-white/10">
+<span class="material-symbols-outlined text-[16px] text-white">shield_with_heart</span>
+<span class="text-white text-[11px] font-bold uppercase tracking-wider">0.2% Inbreeding</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-6 pb-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-sm border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">Top 1% Genetic Merit</span>
+</div>
+<h3 class="text-white text-4xl font-black tracking-tight drop-shadow-lg">Holstein-Friesian</h3>
+<div class="flex items-center gap-2 mt-2 text-white/90">
+<span class="material-symbols-outlined text-green-400 text-sm">location_on</span>
+<p class="text-sm font-medium tracking-wide">Rwandan Highlands • Nyagatare</p>
+</div>
+</div>
+</div>
+<div class="flex-1 px-6 py-4 flex flex-col justify-center gap-4 bg-gradient-to-b from-white/5 to-transparent">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-white/60 text-xs font-semibold uppercase tracking-wider">Milk Yield</span>
+<span class="text-white text-lg font-bold">Excellent</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-white">32L</span>
+<span class="text-white/50 text-sm font-medium">/day</span>
+</div>
+</div>
+<div class="relative h-3 w-full bg-white/10 rounded-full overflow-hidden shadow-inner border border-white/5">
+<div class="absolute inset-y-0 left-0 bg-white/5 w-full"></div>
+<div class="h-full rounded-full liquid-gauge relative" style="width: 92%;">
+<div class="absolute right-0 top-0 bottom-0 w-[10px] bg-white/40 blur-[4px]"></div>
+</div>
+</div>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="material-symbols-outlined text-green-400 text-sm">trending_up</span>
+<p class="text-green-400 text-xs font-medium">+15% vs Regional Avg</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-6 py-6 pb-10 flex justify-center items-center gap-6 z-20 w-full max-w-md mx-auto">
+<button class="group flex size-14 items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-red-500 shadow-lg hover:bg-black/60 hover:scale-110 active:scale-95 transition-all duration-300 reject-glow">
+<span class="material-symbols-outlined text-3xl group-hover:text-red-400 transition-colors">close</span>
+</button>
+<button class="group flex size-20 items-center justify-center rounded-full bg-gradient-to-tr from-green-600 to-green-500 text-white shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 match-glow border border-white/20">
+<span class="material-symbols-outlined text-4xl font-bold drop-shadow-md" style="font-variation-settings: 'FILL' 1">favorite</span>
+</button>
+<button class="group flex size-14 items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-amber-400 shadow-lg hover:bg-black/60 hover:scale-110 active:scale-95 transition-all duration-300 super-like-glow">
+<span class="material-symbols-outlined text-3xl group-hover:text-amber-300 transition-colors" style="font-variation-settings: 'FILL' 1">star</span>
+</button>
+</div>
+
+</body></html>

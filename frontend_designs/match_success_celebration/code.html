@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Match Success Celebration</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#eebd2b",
+                "background-light": "#f8f7f6",
+                "background-dark": "#221d10",
+                },
+                fontFamily: {
+                "display": ["Epilogue", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                animation: {
+                    'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'float': 'float 6s ease-in-out infinite',
+                },
+                keyframes: {
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(-10px)' },
+                    }
+                }
+            },
+            },
+        }
+    </script>
+<style>
+        /* Custom utilities for glassmorphism and decorations */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-circle {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(238, 189, 43, 0.5);
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 14px;
+            background: #eebd2b;
+            opacity: 0.7;
+        }
+
+        /* Abstract bg pattern */
+        .bg-pattern {
+            background-image: radial-gradient(circle at 50% 0%, rgba(238, 189, 43, 0.15) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 40%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-white h-screen w-full overflow-hidden flex flex-col relative bg-pattern">
+<!-- Simulated Confetti Background Elements (Static Representation) -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<!-- Gold Confetti -->
+<div class="absolute top-[15%] left-[10%] w-3 h-3 bg-primary rounded-sm rotate-12 opacity-60"></div>
+<div class="absolute top-[25%] right-[15%] w-2 h-4 bg-primary rounded-sm -rotate-45 opacity-80"></div>
+<div class="absolute top-[10%] right-[30%] w-3 h-3 border-2 border-primary rounded-full opacity-50"></div>
+<div class="absolute bottom-[40%] left-[5%] w-2 h-2 bg-primary rounded-full opacity-60"></div>
+<!-- Green Confetti (Genetic Growth Theme) -->
+<div class="absolute top-[20%] left-[25%] w-2 h-5 bg-emerald-500 rounded-sm rotate-90 opacity-60"></div>
+<div class="absolute top-[30%] right-[5%] w-3 h-3 bg-emerald-400 rounded-full opacity-50"></div>
+<div class="absolute bottom-[35%] right-[20%] w-2 h-4 bg-emerald-500 rounded-sm rotate-12 opacity-70"></div>
+<!-- Blurs -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 relative z-10 w-full max-w-md mx-auto">
+<!-- Celebration Header -->
+<div class="text-center mb-8 animate-[float_4s_ease-in-out_infinite]">
+<div class="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-primary/10 border border-primary/30">
+<span class="material-icons-round text-primary text-2xl">stars</span>
+</div>
+<h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary to-amber-100 text-glow leading-tight tracking-tight">
+                It's a<br/>Match!
+            </h1>
+<p class="text-white/60 mt-3 text-lg font-medium">96% Genetic Compatibility</p>
+</div>
+<!-- The Match Visuals -->
+<div class="relative w-full flex items-center justify-center h-64 mt-4">
+<!-- Left Animal: Boer Goat -->
+<div class="absolute left-2 top-1/2 -translate-y-1/2 z-10">
+<div class="w-36 h-36 glass-circle rounded-full p-2 relative flex items-center justify-center transform -rotate-6 transition-transform duration-700 hover:rotate-0 hover:z-30 hover:scale-105">
+<div class="w-full h-full rounded-full overflow-hidden relative">
+<img alt="Close up portrait of a Boer goat with distinctive brown head and white body" class="w-full h-full object-cover" data-alt="Close up portrait of a Boer goat with distinctive brown head and white body" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCds4ssulAa0EEy8Dab64aamb9GexT1KOAITortTZqcVodWp2br0LNYvUCOBCai1-xllGN8tcU0Ss--Lf_g3hpX8zC3svKNv8XkXbXM5dAIS8Oz7Ih10NXkrdn1dMlSdsu-SnDgP0wfswZmFarLT8_ocNXNcJG4NNRJ12Tnf6DJWlc03xx3KCFNxGsNj-PJ_EvXJ-Q2K3_YupZlTjEPBim9M1qwmXn2z5kXwmFC4j62KMkkDlcavJXtyiLuqGqNM8yG2_33ubBaiGg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+<!-- Badge -->
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-background-dark/80 backdrop-blur border border-white/10 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                        Boer Premium
+                    </div>
+</div>
+</div>
+<!-- Right Animal: Local Breed -->
+<div class="absolute right-2 top-1/2 -translate-y-1/2 z-10">
+<div class="w-36 h-36 glass-circle rounded-full p-2 relative flex items-center justify-center transform rotate-6 transition-transform duration-700 hover:rotate-0 hover:z-30 hover:scale-105">
+<div class="w-full h-full rounded-full overflow-hidden relative">
+<img alt="Close up of a Rwandan local goat breed grazing in a field" class="w-full h-full object-cover" data-alt="Close up of a Rwandan local goat breed grazing in a field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF5B2CwrbBjoRJakx9qVhbjx-rY2rp6paNXjaDf1YX89TP2Ll8CXjEOLl7S0SqISTKkYEu63n5mnwJDVOC7Ac552cz5z8Etn21I-4u0NP_6RBIQj4Agg0n_SKZXibaFAaZoDFarnrextgbmWHEjOjkRlJbfcak9AsTHaRuuTXhnY-mMVB5R3rwr2PLHs28eZwlH6XKP0XW7lGLIBDgCceW9jpT_B0Ic8fD_XFjLh8b0nJ1JqkjABscBV-swY54vTrmyB85NafAi5s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+<!-- Badge -->
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-background-dark/80 backdrop-blur border border-white/10 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                        Local Mubende
+                    </div>
+</div>
+</div>
+<!-- Connecting Heart (Center) -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(238,189,43,0.6)] animate-pulse-slow border-4 border-background-dark">
+<span class="material-icons-round text-background-dark text-4xl">favorite</span>
+</div>
+</div>
+<!-- Connecting Line Glow -->
+<div class="absolute left-[20%] right-[20%] top-1/2 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent blur-[1px] z-0"></div>
+</div>
+<!-- Additional Match Details Text -->
+<div class="mt-8 text-center px-4">
+<p class="text-white/80 text-sm leading-relaxed">
+<span class="text-primary font-bold">Great match!</span> The offspring are projected to have <span class="text-white font-semibold">25% higher growth rates</span> and improved disease resistance.
+            </p>
+</div>
+</main>
+<!-- Bottom Actions Glass Card -->
+<div class="w-full max-w-md mx-auto p-4 z-20">
+<div class="glass-panel rounded-lg p-5 w-full flex flex-col gap-3 shadow-2xl">
+<!-- Primary Action -->
+<button class="w-full bg-primary text-background-dark font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95">
+<span class="material-icons-round">chat_bubble</span>
+                Message Breeder
+            </button>
+<!-- Secondary Action -->
+<button class="w-full bg-white/5 border border-white/10 text-white font-semibold text-lg py-4 rounded-xl hover:bg-white/10 transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-icons-round">analytics</span>
+                View Genetic Details
+            </button>
+<button class="w-full text-white/40 text-sm font-medium py-2 hover:text-white transition-colors">
+                Keep swiping
+            </button>
+</div>
+</div>
+</body></html>

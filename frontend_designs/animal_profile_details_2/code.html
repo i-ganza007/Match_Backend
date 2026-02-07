@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1c5f20",
+                        "terracotta": "#c05e3a",
+                        "emerald-deep": "#062c1a",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#0a120b",
+                        "gold": "#fbbf24",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glass-card {
+            background: rgba(6, 44, 26, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neumorphic-fab {
+            background: linear-gradient(135deg, #1c5f20, #0d3811);
+            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.5), 
+                        -4px -4px 12px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .hero-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-white selection:bg-gold/30">
+<div class="relative min-h-screen max-w-[430px] mx-auto overflow-x-hidden shadow-2xl bg-background-dark">
+<div class="hero-sticky h-[520px] w-full overflow-hidden relative">
+<div class="absolute inset-0 bg-center bg-no-repeat bg-cover transform scale-125 origin-center" data-alt="Close up high-quality portrait of a healthy Rwandan cow" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwugccuUEHSc3y-bSEBBvWmaBoqgA2OTAjxDuPB0jZPkkCTdW_h_x6VrleAYol1Qr8zmA0y3arBgL-OMjGuC1Kz5KfifyPcd78S6pkklz0tCaMlmvd97xtzcelhYcmAtDIZHLC6yUzPQlz6JxojbrWuL7YWfa3U30pGdf7Rv-Y9TtHYeSiBJONqYr0Kas0N7Dv347_fQwubtQtZ10oaxD0JZ5GE5FH10Qtbb-inu6UPXW1uNTUEVIqGaNHr7mfzSPllADzQUEb1As");'>
+<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background-dark/90"></div>
+</div>
+<div class="absolute top-0 left-0 right-0 flex items-center p-6 justify-between z-20">
+<div class="glass size-11 flex items-center justify-center rounded-full text-white cursor-pointer hover:bg-white/10 transition">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-white/90 text-lg font-bold tracking-tight drop-shadow-md">Kaze's Profile</h2>
+<div class="flex gap-2">
+<div class="glass size-11 flex items-center justify-center rounded-full text-white cursor-pointer hover:bg-white/10 transition">
+<span class="material-symbols-outlined">share</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-24 left-0 right-0 px-4 flex flex-col gap-4 z-10">
+<div class="grid grid-cols-2 gap-3">
+<div class="glass rounded-xl p-4 flex flex-col justify-between h-28 border-l-2 border-l-gold/30">
+<p class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Breed</p>
+<div>
+<p class="text-white text-xl font-bold tracking-tight">Ankole-Watusi</p>
+<p class="text-terracotta text-xs font-semibold mt-0.5">Purebred Elite</p>
+</div>
+</div>
+<div class="glass rounded-xl p-4 flex flex-col justify-between h-28 border-l-2 border-l-gold/30">
+<div class="flex justify-between items-start">
+<p class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Milk Yield</p>
+<p class="text-gold text-[10px] font-bold text-glow">+12%</p>
+</div>
+<div class="flex items-end gap-1.5 h-8">
+<div class="bg-gold/30 w-full rounded-t-sm" style="height: 40%"></div>
+<div class="bg-gold/50 w-full rounded-t-sm" style="height: 60%"></div>
+<div class="bg-gold/70 w-full rounded-t-sm" style="height: 50%"></div>
+<div class="bg-gold/90 w-full rounded-t-sm" style="height: 85%"></div>
+<div class="bg-gold w-full rounded-t-sm shadow-[0_0_10px_rgba(251,191,36,0.6)]" style="height: 100%"></div>
+</div>
+<p class="text-gold text-2xl font-bold text-glow">28.5 L<span class="text-xs font-medium text-white/60 ml-1">/day</span></p>
+</div>
+</div>
+<div class="glass rounded-xl p-4 flex items-center justify-between border-l-2 border-l-gold/30">
+<div class="flex flex-col">
+<p class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Inbreeding Score</p>
+<p class="text-gold text-2xl font-bold text-glow mt-1">4.2%</p>
+<p class="text-emerald-400 text-[10px] font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> Optimal Diversity
+                    </p>
+</div>
+<div class="relative size-14 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewBox="0 0 36 36">
+<circle class="stroke-white/5" cx="18" cy="18" fill="none" r="16" stroke-width="2.5"></circle>
+<circle class="stroke-gold drop-shadow-[0_0_4px_rgba(251,191,36,0.8)]" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="95.8" stroke-linecap="round" stroke-width="2.5"></circle>
+</svg>
+<span class="absolute text-[9px] font-bold text-white tracking-wider">LOW</span>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-30 -mt-16 pb-32">
+<div class="glass rounded-t-[2.5rem] p-6 pt-10 min-h-[600px] flex flex-col gap-10 border-t border-white/10 backdrop-blur-xl bg-background-dark/60">
+<div class="w-12 h-1 bg-white/20 rounded-full mx-auto -mt-4 mb-2"></div>
+<div>
+<h3 class="text-gold/80 text-[10px] font-bold uppercase tracking-[0.25em] mb-6 flex items-center gap-2">
+<span class="w-4 h-[1px] bg-gold/50"></span>Genetic Traits
+                </h3>
+<div class="space-y-5">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium text-sm">Heat Tolerance</p>
+<p class="text-gold text-xs font-bold">Superior</p>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+<div class="h-full bg-gradient-to-r from-terracotta to-gold w-[92%] shadow-[0_0_10px_rgba(192,94,58,0.4)]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium text-sm">Disease Resistance</p>
+<p class="text-emerald-400 text-xs font-bold">High</p>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+<div class="h-full bg-gradient-to-r from-primary to-emerald-400 w-[78%]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium text-sm">Growth Rate</p>
+<p class="text-white/60 text-xs font-bold">Average</p>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+<div class="h-full bg-white/30 w-[54%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-gold/80 text-[10px] font-bold uppercase tracking-[0.25em] mb-6 flex items-center gap-2">
+<span class="w-4 h-[1px] bg-gold/50"></span>Lineage
+                </h3>
+<div class="relative border-l border-white/10 ml-2 pl-8 space-y-8">
+<div class="relative">
+<div class="absolute -left-[37px] top-1.5 size-4 rounded-full bg-background-dark border-2 border-gold shadow-[0_0_10px_rgba(251,191,36,0.3)] z-10"></div>
+<p class="text-terracotta text-[10px] font-bold uppercase tracking-wider mb-1">Sire (Father)</p>
+<div class="glass-card p-3 rounded-lg border border-white/5">
+<p class="text-white font-bold text-base">Biguma Gold #402</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-gold text-[14px]">stars</span>
+<p class="text-white/50 text-[11px] italic">Imported Genetic - 2019</p>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1.5 size-4 rounded-full bg-background-dark border-2 border-white/30 z-10"></div>
+<p class="text-terracotta text-[10px] font-bold uppercase tracking-wider mb-1">Dam (Mother)</p>
+<div class="glass-card p-3 rounded-lg border border-white/5">
+<p class="text-white font-bold text-base">Nyampinga Queen</p>
+<p class="text-white/50 text-[11px] italic mt-1">Local Elite Registry</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-gold/80 text-[10px] font-bold uppercase tracking-[0.25em] mb-6 flex items-center gap-2">
+<span class="w-4 h-[1px] bg-gold/50"></span>Health Records
+                </h3>
+<div class="glass-card rounded-xl p-5 border border-white/5 flex gap-4 items-start">
+<div class="bg-primary/20 p-2.5 rounded-full text-emerald-400 border border-emerald-500/20">
+<span class="material-symbols-outlined">vaccines</span>
+</div>
+<div>
+<p class="text-white font-semibold text-sm">FMD Vaccination</p>
+<p class="text-white/50 text-xs mt-1 leading-relaxed">Administered Oct 12, 2023 by Dr. Mateso. Next booster required in <span class="text-white font-bold">2 months</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-8 right-6 neumorphic-fab size-16 rounded-full flex items-center justify-center text-white z-50 transition transform active:scale-95 hover:shadow-lg hover:shadow-primary/40 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300">edit</span>
+</button>
+<div class="h-6 bg-background-dark"></div>
+</div>
+
+</body></html>

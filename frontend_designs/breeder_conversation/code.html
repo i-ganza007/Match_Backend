@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Breeder Conversation</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d41e",
+                        "primary-dark": "#0ea618",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102211",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(16, 34, 17, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-message-incoming {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-message-outgoing {
+            background: linear-gradient(135deg, rgba(17, 212, 30, 0.8) 0%, rgba(14, 166, 24, 0.9) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px -3px rgba(17, 212, 30, 0.3);
+        }
+
+        /* Background Image Animation */
+        .bg-zoom {
+            animation: zoomEffect 20s infinite alternate;
+        }
+        @keyframes zoomEffect {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display h-screen w-full overflow-hidden bg-background-dark text-white selection:bg-primary selection:text-white">
+<!-- Background Layer -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+<div class="absolute inset-0 bg-black/40 z-10"></div> <!-- Overlay for contrast -->
+<div class="w-full h-full bg-cover bg-center bg-no-repeat blur-md bg-zoom scale-105" data-alt="Blurred lush green rolling hills of a Rwandan farm landscape" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxI_IUze0V2zQ3Q4EvlddshMWYb6g1T7lBSGUeltWjnxI8kL2da3aQKgcj6rB8ifwwZH90stzVy8N41xhIhsSUm3r0pnJRZqZNUVGrNBJ9xdjVH54OwHIrootCgq7hEhImtFctCrAui-n5e-sccRCSidkyLWWuiP-Q_ZewRw230vRMu5EO9fsYcHBtQHt4DJKVLWfaUZF8aPKusrPgU70DTKfThhP-f4pqWPU-iESScUvn-f1u817BfbouvhMfEa7jg1mOorXW2EM');">
+</div>
+</div>
+<!-- Main App Container -->
+<div class="relative z-10 flex flex-col h-full w-full max-w-md mx-auto shadow-2xl overflow-hidden bg-transparent border-x border-white/5">
+<!-- Header -->
+<header class="flex items-center justify-between p-4 pt-6 glass-panel rounded-b-xl z-30 sticky top-0">
+<button class="size-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+</button>
+<div class="flex flex-col items-center flex-1 mx-2">
+<div class="relative">
+<div class="size-12 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Portrait of Jean-Paul the breeder smiling warmly" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHJ0AROg-JwtBI-y-7F6T_jNHjEtdWk_ekKZRZWKq90E-zGkYjnrbpMku4dlmtag9MutuPN19JnBIAVdXFL1tdj708nc35VujaLaMyf8txSdAgICcqTEJ8QUGAOMcpcgm2fhQn-LxQOpg9Og8gmYwzqIV3RukUUH2uWgm5lXqMxYdNVGwHu59Z7lE4Q1cN10SxAjRYsu8zF0wgT_6Mspy2xMBORNq2rlbFHYOwy32Ayo-XeC77s1_CkWba2eujyDMDDwiM10PHY8E"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-sm border border-gray-200">
+<img class="w-4 h-4 object-contain" data-alt="Small icon representing a Jersey cow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA36yzkoJYk1pxOPssbpWghdqDoMcHa3et43FOoCT8RAlIGl1XxvelF3E-2wH_GoP4Y8-tDix7B8sNisZO9ux2oL9rAfKy7VCyG9uhel9sFnL3o0x2k7K8Bn5AD1N-f3Vt1q2jJZ9833mVFq7k2TMiHz_Ac3O2NXnQAylV4In1G74gSpsftoHuAQsg-MEeoFKbR6JVIQPGdQOs8N_ptouQisSU2blXdEoAtzTKQHgMJ5AlKCWGYyKXPuXHlLQCQxbZ10Q1RQggsx5o"/>
+</div>
+</div>
+<h1 class="text-sm font-bold mt-1 text-white text-shadow-sm">Jean-Paul (Breeder)</h1>
+<span class="text-[10px] text-green-200 font-medium">Active now</span>
+</div>
+<button class="size-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-2xl">info</span>
+</button>
+</header>
+<!-- Chat Area -->
+<main class="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth pb-4">
+<!-- Timestamp -->
+<div class="flex justify-center">
+<span class="text-[10px] bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full text-gray-300">Today, 9:41 AM</span>
+</div>
+<!-- Message 1: Incoming -->
+<div class="flex items-end gap-3 group">
+<div class="size-8 rounded-full overflow-hidden shrink-0 border border-white/10 self-end mb-1">
+<img class="w-full h-full object-cover" data-alt="Small avatar of Jean-Paul" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPfKKP2o3ZSI2_MPiUOIEVRDTDZTQZTFVsB8gK7-SzwGXrsxMpEONG-1lFCwBFkChitVyz84YCYwP0tMQ3zo7nFoqQ3QzCJtLInReSMvSSRF4DxHVJ_1Cgi-C7Vf6KT39f4gUveZIZMteR0L30brE-4sTjCvJxKrPYXhlF_9Oup330fWbl3s7JxpZDv9vBLWPOQ71hF-YRmrGwX30VFvqj6brTdpnSKn0A4VqZMbkIxU2PJEIZ9tEAOMWOei0YK4MebBJrmLhQlCc"/>
+</div>
+<div class="flex flex-col gap-1 max-w-[75%]">
+<span class="text-xs text-gray-300 ml-1">Jean-Paul</span>
+<div class="glass-message-incoming p-3.5 rounded-2xl rounded-bl-sm text-sm leading-relaxed text-white">
+<p>Muraho! I received your inquiry about the Jersey bull genetics.</p>
+</div>
+</div>
+</div>
+<!-- Message 2: Outgoing -->
+<div class="flex items-end gap-3 justify-end group">
+<div class="flex flex-col gap-1 items-end max-w-[75%]">
+<div class="glass-message-outgoing p-3.5 rounded-2xl rounded-br-sm text-sm leading-relaxed text-white">
+<p>Yes, I am looking to improve milk yield for the next season. Is he available?</p>
+</div>
+<span class="text-[10px] text-gray-300 mr-1 flex items-center gap-1">
+                        Read 9:45 AM <span class="material-symbols-outlined text-[14px]">done_all</span>
+</span>
+</div>
+</div>
+<!-- Message 3: Incoming with Media -->
+<div class="flex items-end gap-3 group">
+<div class="size-8 rounded-full overflow-hidden shrink-0 border border-white/10 self-end mb-1">
+<img class="w-full h-full object-cover" data-alt="Small avatar of Jean-Paul" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw9Ktw0telGg3nwtoPxn8HYcUFSLJLSL4060Y9cXanE6JkKievtfMU8SypVKJNbf5pcgX4PuT_ubD3fj3A2yrpZC00Uge_mM2uYXhvVB-BUeZKUMQ53QN5Se-72kM3fUPrw4NPZUQvvfWucOEKYdGtUsoKDo8TcxKDfmu34r6DiPNT-L52lV6zvTIbhg8BDmnQh6DzN-3TWx3Dxl_XWTclNihgaxVIjWzvttilECKtZOyDvWQgGMZY7oLSQuCVcA2jatTAkLeY21c"/>
+</div>
+<div class="flex flex-col gap-1 max-w-[80%]">
+<span class="text-xs text-gray-300 ml-1">Jean-Paul</span>
+<div class="glass-message-incoming p-3 rounded-2xl rounded-bl-sm flex flex-col gap-2">
+<p class="text-sm px-1 pt-1">He is available. Here is his recent health certificate and profile.</p>
+<div class="relative rounded-xl overflow-hidden mt-1 group cursor-pointer">
+<img class="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A healthy brown Jersey cow grazing in a field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNquQW5mLuXUAmbHg_VGLI2NTWh-PQD56BNJTxQOIprN2BL1OKpDfv8GlNVb4Qab4-IneE-a5I3dv7y65rZY0qCaWRoca5RTgsZizc-hMmz8cvAZ_4GYNFXX0wRiy_jJO5U6-YleAGIwO2e-Xsjc6lz9KKRU_cw_t1r4UnS8HF3WFAIo9HnjNlVd7Vygdv1LDNesgj-T5QYLI8Zifsf8P8czdo0UJXIO1wJe0Nu_B4TrfzOrJ2tBGIIpq_98eSgZEOR6Pn3CmkTO0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+<span class="text-xs font-medium text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span> View details
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Message 4: Outgoing -->
+<div class="flex items-end gap-3 justify-end group">
+<div class="flex flex-col gap-1 items-end max-w-[75%]">
+<div class="glass-message-outgoing p-3.5 rounded-2xl rounded-br-sm text-sm leading-relaxed text-white">
+<p>Perfect. Can we meet to finalize?</p>
+</div>
+</div>
+</div>
+<div class="h-24"></div> <!-- Spacer for footer -->
+</main>
+<!-- Footer / Action Area -->
+<div class="absolute bottom-0 w-full z-30">
+<!-- Quick Actions Bar (Floating) -->
+<div class="w-full px-4 mb-2">
+<div class="glass-panel rounded-2xl p-2 flex justify-between items-center gap-2 overflow-x-auto no-scrollbar">
+<button class="flex flex-col items-center gap-1 px-3 py-2 min-w-[80px] rounded-xl hover:bg-white/10 transition-colors group">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm group-hover:text-white transition-colors">photo_camera</span>
+</div>
+<span class="text-[10px] font-medium text-gray-200">Photo</span>
+</button>
+<button class="flex flex-col items-center gap-1 px-3 py-2 min-w-[80px] rounded-xl hover:bg-white/10 transition-colors group">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm group-hover:text-white transition-colors">location_on</span>
+</div>
+<span class="text-[10px] font-medium text-gray-200">Location</span>
+</button>
+<button class="flex flex-col items-center gap-1 px-3 py-2 min-w-[80px] rounded-xl hover:bg-white/10 transition-colors group">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm group-hover:text-white transition-colors">calendar_month</span>
+</div>
+<span class="text-[10px] font-medium text-gray-200">Meeting</span>
+</button>
+<button class="flex flex-col items-center gap-1 px-3 py-2 min-w-[80px] rounded-xl hover:bg-white/10 transition-colors group">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm group-hover:text-white transition-colors">payments</span>
+</div>
+<span class="text-[10px] font-medium text-gray-200">Offer</span>
+</button>
+</div>
+</div>
+<!-- Input Bar -->
+<div class="bg-background-dark/80 backdrop-blur-xl border-t border-white/10 p-4 pb-8">
+<div class="flex items-end gap-3">
+<button class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<div class="flex-1 relative">
+<textarea class="w-full bg-white/10 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary/50 resize-none min-h-[44px] max-h-32" placeholder="Type a message..." rows="1"></textarea>
+</div>
+<button class="bg-primary hover:bg-primary-dark text-white p-3 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
