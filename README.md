@@ -12,6 +12,9 @@
 
 **Match Backend** is a comprehensive livestock breeding management system built with NestJS and TypeScript. The system provides intelligent breeding recommendations, tracks animal genealogy, manages performance records, and helps farmers make data-driven breeding decisions to improve their livestock quality and genetic diversity.
 
+**Link to Video Description**
+https://www.veed.io/view/fa77b508-3329-4426-a103-4e39c7325c44?source=editor&panel=share
+
 ### 🎯 Key Features
 
 - **Animal Management**: Complete livestock inventory with detailed profiles
