@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#19e65e",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom glassmorphism utilities */
+        .glass-panel {
+            background: rgba(17, 33, 22, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #19e65e;
+            box-shadow: 0 0 15px rgba(25, 230, 94, 0.1);
+        }
+
+        .shine-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* Abstract golden accents in background */
+        .golden-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.15), transparent 60%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-black">
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden">
+<!-- Background Decorations -->
+<div class="absolute top-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] left-[-20%] h-[400px] w-[400px] rounded-full bg-amber-500/10 blur-[80px] golden-glow"></div>
+<div class="absolute top-[40%] left-[20%] h-[300px] w-[300px] rounded-full bg-blue-900/20 blur-[90px]"></div>
+<!-- Top App Bar -->
+<div class="relative z-10 flex items-center px-6 pt-6 pb-2 justify-between">
+<button class="text-white/80 hover:text-white flex size-10 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-white/10">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Sign Up</h2>
+</div>
+<!-- Page Indicators -->
+<div class="relative z-10 flex w-full flex-row items-center justify-center gap-3 py-6">
+<div class="h-2.5 w-8 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+<div class="h-2.5 w-2.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/10"></div>
+<div class="h-2.5 w-2.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/10"></div>
+</div>
+<!-- Main Content -->
+<div class="relative z-10 flex flex-col px-6 flex-1">
+<!-- Headlines -->
+<div class="pb-6">
+<h1 class="text-white tracking-tight text-[32px] font-bold leading-tight pb-2">Create Account</h1>
+<p class="text-white/70 text-base font-normal leading-normal">Join the premium network for genetic matching.</p>
+</div>
+<!-- Form Container -->
+<div class="glass-panel w-full rounded-2xl p-6 mb-6 shadow-xl">
+<div class="flex flex-col gap-5">
+<!-- Name Input -->
+<div class="flex flex-col gap-2">
+<label class="text-white/90 text-sm font-medium ml-1">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/40">person</span>
+<input class="glass-input w-full rounded-xl py-4 pl-12 pr-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-0" placeholder="Enter your full name" type="text"/>
+</div>
+</div>
+<!-- Phone Input -->
+<div class="flex flex-col gap-2">
+<label class="text-white/90 text-sm font-medium ml-1">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/40">call</span>
+<input class="glass-input w-full rounded-xl py-4 pl-12 pr-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-0" placeholder="+250 7XX XXX XXX" type="tel"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-2">
+<label class="text-white/90 text-sm font-medium ml-1">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/40">lock</span>
+<input class="glass-input w-full rounded-xl py-4 pl-12 pr-12 text-white placeholder:text-white/30 focus:outline-none focus:ring-0" placeholder="Create a password" type="password" value="Pass123"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-white/40 cursor-pointer hover:text-white/70">visibility_off</span>
+</div>
+<!-- Password Strength Bar -->
+<div class="mt-2 flex flex-col gap-1">
+<div class="flex justify-between items-center px-1">
+<span class="text-xs font-medium text-emerald-400">Strong</span>
+<span class="text-xs text-white/40">Password Strength</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full w-3/4 rounded-full bg-gradient-to-r from-amber-600 via-emerald-500 to-primary relative overflow-hidden">
+<!-- Simple CSS ripple effect overlay -->
+<div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="mt-auto mb-8">
+<button class="shine-button w-full bg-primary hover:bg-green-400 text-background-dark font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(25,230,94,0.3)] transition-all transform active:scale-[0.98]">
+                    Create Account
+                </button>
+<p class="text-center text-white/50 text-sm mt-6">
+                    Already have an account? <a class="text-primary hover:text-green-300 font-medium transition-colors" href="#">Sign In</a>
+</p>
+</div>
+</div>
+</div>
+</body></html>

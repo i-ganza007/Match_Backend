@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1c5f20",
+                        "terracotta": "#c05e3a",
+                        "emerald-deep": "#062c1a",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#0a120b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neumorphic-fab {
+            background: #1c5f20;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4), 
+                        -2px -2px 8px rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white selection:bg-primary/30">
+<div class="relative min-h-screen max-w-[430px] mx-auto overflow-x-hidden shadow-2xl">
+<!-- Header Image & Hero Section -->
+<div class="relative h-[460px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-center bg-no-repeat bg-cover scale-110" data-alt="Close up high-quality portrait of a healthy Rwandan cow" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwugccuUEHSc3y-bSEBBvWmaBoqgA2OTAjxDuPB0jZPkkCTdW_h_x6VrleAYol1Qr8zmA0y3arBgL-OMjGuC1Kz5KfifyPcd78S6pkklz0tCaMlmvd97xtzcelhYcmAtDIZHLC6yUzPQlz6JxojbrWuL7YWfa3U30pGdf7Rv-Y9TtHYeSiBJONqYr0Kas0N7Dv347_fQwubtQtZ10oaxD0JZ5GE5FH10Qtbb-inu6UPXW1uNTUEVIqGaNHr7mfzSPllADzQUEb1As");'>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background-dark"></div>
+</div>
+<!-- Top App Bar (Overlaid) -->
+<div class="absolute top-0 left-0 right-0 flex items-center p-6 justify-between z-20">
+<div class="glass size-11 flex items-center justify-center rounded-full text-white cursor-pointer">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-white text-lg font-bold tracking-tight">Kaze's Profile</h2>
+<div class="flex gap-2">
+<div class="glass size-11 flex items-center justify-center rounded-full text-white cursor-pointer">
+<span class="material-symbols-outlined">share</span>
+</div>
+</div>
+</div>
+<!-- Glassy Stat Cards Overlaid on Hero -->
+<div class="absolute bottom-6 left-0 right-0 px-4 flex flex-col gap-4 z-10">
+<div class="grid grid-cols-2 gap-3">
+<!-- Breed Card -->
+<div class="glass rounded-xl p-4 flex flex-col justify-between h-28">
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Breed</p>
+<div>
+<p class="text-white text-xl font-bold">Ankole-Watusi</p>
+<p class="text-terracotta text-xs font-semibold">Purebred Elite</p>
+</div>
+</div>
+<!-- Milk Yield Card (Mini Chart) -->
+<div class="glass rounded-xl p-4 flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Milk Yield</p>
+<p class="text-green-400 text-[10px] font-bold">+12%</p>
+</div>
+<div class="flex items-end gap-1 h-8">
+<div class="bg-primary w-full rounded-t-sm" style="height: 40%"></div>
+<div class="bg-primary w-full rounded-t-sm" style="height: 60%"></div>
+<div class="bg-primary w-full rounded-t-sm" style="height: 50%"></div>
+<div class="bg-primary w-full rounded-t-sm" style="height: 85%"></div>
+<div class="bg-white w-full rounded-t-sm" style="height: 100%"></div>
+</div>
+<p class="text-white text-lg font-bold">28.5 L<span class="text-xs font-normal">/day</span></p>
+</div>
+</div>
+<!-- Inbreeding Score Card -->
+<div class="glass rounded-xl p-4 flex items-center justify-between">
+<div class="flex flex-col">
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Inbreeding Score</p>
+<p class="text-white text-xl font-bold">4.2%</p>
+<p class="text-green-400 text-[10px] font-medium mt-1">Optimal Genetic Diversity</p>
+</div>
+<div class="relative size-14 flex items-center justify-center">
+<svg class="size-full" viewbox="0 0 36 36">
+<circle class="stroke-white/10" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="95" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold">LOW</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Scrollable Content Section -->
+<div class="relative px-4 pb-24 -mt-4 z-20">
+<div class="glass rounded-t-3xl p-6 min-h-[500px] flex flex-col gap-8 shadow-inner">
+<!-- Section: Key Traits -->
+<div>
+<h3 class="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-4">Genetic Traits</h3>
+<div class="space-y-4">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium">Heat Tolerance</p>
+<p class="text-white text-sm">Superior</p>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-terracotta" style="width: 92%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium">Disease Resistance</p>
+<p class="text-white text-sm">High</p>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 78%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<p class="text-white font-medium">Growth Rate</p>
+<p class="text-white text-sm">Average</p>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-white/40" style="width: 54%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Lineage -->
+<div>
+<h3 class="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-4">Lineage</h3>
+<div class="relative border-l-2 border-primary/30 ml-2 pl-6 space-y-6">
+<div class="relative">
+<div class="absolute -left-[31px] top-1 size-3 rounded-full bg-primary ring-4 ring-background-dark"></div>
+<p class="text-terracotta text-[10px] font-bold uppercase">Sire (Father)</p>
+<p class="text-white font-bold">Biguma Gold #402</p>
+<p class="text-white/50 text-xs italic">Imported Genetic - 2019</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[31px] top-1 size-3 rounded-full bg-primary/40 ring-4 ring-background-dark"></div>
+<p class="text-terracotta text-[10px] font-bold uppercase">Dam (Mother)</p>
+<p class="text-white font-bold">Nyampinga Queen</p>
+<p class="text-white/50 text-xs italic">Local Elite Registry</p>
+</div>
+</div>
+</div>
+<!-- Section: Notes/History -->
+<div>
+<h3 class="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-4">Health Records</h3>
+<div class="bg-emerald-deep/40 rounded-xl p-4 border border-white/5">
+<div class="flex gap-4 items-start">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">vaccines</span>
+</div>
+<div>
+<p class="text-white font-semibold">FMD Vaccination</p>
+<p class="text-white/60 text-xs mt-1">Last administered Oct 12, 2023. Next due in 2 months.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 neumorphic-fab size-16 rounded-full flex items-center justify-center text-white z-50">
+<span class="material-symbols-outlined text-3xl">edit</span>
+</button>
+<!-- Bottom Navigation Spacer -->
+<div class="h-10 bg-background-dark"></div>
+</div>
+</body></html>

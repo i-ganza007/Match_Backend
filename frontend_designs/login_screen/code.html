@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2cc0d",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#221f10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<!-- Main Container with Background Image -->
+<div class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-cover bg-center" data-alt="Blurred rolling hills of Rwanda tea plantation landscape" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpzH-IzFbfoedUjyrYY3aYxsYZQKO56id8J-r6jghyp4iLoAcYpdsnuw7-7yhDePTxnrMIYSkG6zmenDAK3H86ViJGVt8c8AQBgQfxx0pxc6KQ59oOw97wXZQ84bfckwX-V_v6D2_mbPrmyUd-hlIIpdQTJAQtS9ZIJ3WqZ0YJJsKiPEOiAmpzae2r_CNtDQVmXDXwPg470wlN5S0K0iKarH7D855iIB0p80nq1whaU_oyfThqjYI1Vrs5HP558s7Ko_qFo49B4mg');">
+<!-- Glassmorphism Overlay/Backdrop Blur -->
+<div class="absolute inset-0 bg-[#221f10]/70 backdrop-blur-md"></div>
+<!-- Glassy Login Card -->
+<div class="relative w-full max-w-md p-6 mx-4">
+<!-- Top Bar (Back Button) -->
+<div class="flex items-center justify-between mb-8">
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<div class="w-10"></div> <!-- Spacer for centering if needed -->
+</div>
+<div class="flex flex-col gap-6 bg-[#27251b]/40 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]">
+<!-- Headline -->
+<div class="text-center space-y-2">
+<h1 class="text-white text-3xl font-bold tracking-tight">Welcome Back</h1>
+<p class="text-gray-300 text-sm font-medium">Access premium genetics for your farm</p>
+</div>
+<!-- Form Fields -->
+<div class="space-y-4">
+<!-- Email/Phone Input -->
+<div class="group relative">
+<label class="block text-gray-200 text-sm font-medium mb-2 pl-1" for="email">Email or Phone</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="w-full h-14 bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 hover:border-white/30 backdrop-blur-sm" id="email" placeholder="Enter your email or phone" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="group relative">
+<label class="block text-gray-200 text-sm font-medium mb-2 pl-1" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full h-14 bg-white/5 border border-white/10 rounded-xl pl-11 pr-12 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 hover:border-white/30 backdrop-blur-sm" id="password" placeholder="Enter your password" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Forgot Password -->
+<div class="flex justify-end">
+<a class="text-primary text-sm font-medium hover:text-yellow-300 transition-colors" href="#">Forgot Password?</a>
+</div>
+<!-- Main Login Button -->
+<button class="w-full h-14 rounded-xl bg-primary text-black font-bold text-lg shadow-[0_0_20px_rgba(242,204,13,0.3)] hover:shadow-[0_0_30px_rgba(242,204,13,0.5)] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2">
+<span>Log In</span>
+<span class="material-symbols-outlined text-[20px]">login</span>
+</button>
+<!-- Divider -->
+<div class="relative flex py-2 items-center">
+<div class="flex-grow border-t border-white/10"></div>
+<span class="flex-shrink-0 mx-4 text-gray-400 text-xs uppercase tracking-wider">Or continue with</span>
+<div class="flex-grow border-t border-white/10"></div>
+</div>
+<!-- Biometric Options -->
+<div class="flex justify-center gap-6">
+<button class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center group transition-all duration-300 hover:scale-110 hover:border-primary/50">
+<span class="material-symbols-outlined text-white/70 group-hover:text-primary text-[32px] transition-colors">fingerprint</span>
+</button>
+<button class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center group transition-all duration-300 hover:scale-110 hover:border-primary/50">
+<span class="material-symbols-outlined text-white/70 group-hover:text-primary text-[32px] transition-colors">face</span>
+</button>
+</div>
+<!-- Sign Up Link -->
+<div class="text-center mt-2">
+<p class="text-gray-400 text-sm">
+                        Don't have an account? 
+                        <a class="text-white font-semibold hover:text-primary transition-colors underline decoration-primary/50 underline-offset-4" href="#">Sign Up</a>
+</p>
+</div>
+</div>
+<!-- Bottom decorative element -->
+<div class="mt-8 text-center opacity-60">
+<p class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Protected by Biometrics</p>
+</div>
+</div>
+</div>
+</body></html>

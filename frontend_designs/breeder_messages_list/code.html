@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Breeder Messages List</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d41e",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102211",
+                        "glass-surface": "rgba(255, 255, 255, 0.05)",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'rwandan-night': 'radial-gradient(circle at 50% 0%, #1a3c28 0%, #102211 60%, #050b05 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased selection:bg-primary selection:text-white">
+<!-- Main Container -->
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden bg-rwandan-night">
+<!-- Background Ambient Glows -->
+<div class="fixed top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[100px] pointer-events-none"></div>
+<div class="fixed bottom-0 right-[-10%] h-[400px] w-[400px] rounded-full bg-blue-900/20 blur-[100px] pointer-events-none"></div>
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-[#102211]/30 border-b border-white/5">
+<button class="group flex h-10 w-10 items-center justify-center rounded-full bg-white/5 transition-colors hover:bg-white/10 active:scale-95">
+<span class="material-symbols-outlined text-white">arrow_back</span>
+</button>
+<h1 class="flex-1 text-center text-xl font-bold tracking-tight text-white drop-shadow-sm">Messages</h1>
+<button class="flex items-center justify-center rounded-full px-3 py-1.5 transition-colors hover:bg-white/5">
+<span class="text-sm font-semibold text-primary tracking-wide">New Chat</span>
+</button>
+</header>
+<!-- Search Bar -->
+<div class="px-6 py-4 z-10">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+<span class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full rounded-2xl border border-white/10 bg-glass-surface py-3.5 pl-12 pr-4 text-white placeholder-gray-400 backdrop-blur-sm focus:border-primary/50 focus:bg-white/10 focus:ring-0 focus:outline-none transition-all shadow-lg shadow-black/20" placeholder="Search breeders or livestock..." type="text"/>
+</div>
+</div>
+<!-- Messages List -->
+<main class="flex-1 px-4 pb-8 space-y-3 z-10">
+<!-- Item 1: Active Match (Golden Highlight) -->
+<div class="group relative flex items-center gap-4 rounded-2xl border border-yellow-500/40 bg-gradient-to-r from-yellow-900/20 to-transparent p-3 pr-4 shadow-[0_0_20px_rgba(234,179,8,0.1)] backdrop-blur-md transition-all active:scale-[0.98]">
+<div class="absolute -left-[1px] top-1/2 h-1/2 w-1 -translate-y-1/2 rounded-r-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.8)]"></div>
+<div class="relative shrink-0">
+<div class="h-16 w-16 overflow-hidden rounded-full ring-2 ring-yellow-500/50 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+<img alt="Portrait of a healthy brown bull in a field" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz2fkWPuoSCSY-A6QT0DWMqeY42H3iwLgaQlgGQlNLkTz3hVv0vLxsrM-fUUyup0-7yHeJE7pvl4nb6lc_-77BZMDwZ5v6FWnS2g0hSqNf2JZIDLKx1xpadrVYPDTCHmArJxtSAoYOb6wWu3vh-kOc0xKbZibmFaqZrlWLylb0FCb_IAGzb0TxBUcapi7_61ByVy3jX30fnBF-P1TmwbWw-pCRS8UidubcaE4Ga023O-FVfbmeZbSDUMgexnI19pVLIxAJkNvGvxY"/>
+</div>
+<!-- Online Status -->
+<div class="absolute bottom-0 right-0 h-4 w-4 rounded-full border-[3px] border-[#102211] bg-primary shadow-[0_0_8px_rgba(17,212,30,0.8)]"></div>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h3 class="font-display text-lg font-bold text-white truncate pr-2">Jean-Paul (Golden Match)</h3>
+<span class="shrink-0 text-xs font-medium text-yellow-500">Now</span>
+</div>
+<p class="truncate text-sm font-medium text-yellow-100/80">Is the bull available for transport to Musanze?</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group flex items-center gap-4 rounded-2xl border border-white/5 bg-glass-surface p-3 pr-4 backdrop-blur-md transition-all hover:bg-white/10 active:scale-[0.98]">
+<div class="relative shrink-0">
+<div class="h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/10">
+<img alt="Black and white dairy cow grazing" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfbueZVF_vLGlnUfVQQP3M0V5z3Y1PPcIGqYk9Fcs36AWbAteimZN98T87Xt7zOdYwiY_mOuauyeZnd1EOM2Hi6MFn9lpVhk1LbYpd6tfbbApaXX9vIt2aSIkWBmyB6mTKsOnTZVyCl0q76gP3pzGKJzlySgwkIxdEj1j62YAcYFTaJu7AT6Mmvo6N0UniHGKRQ9BMGveze1VCpEpq5sNw53f9rxwDav9jJ-Pn3nLlVK1-C4W7Lfm1EUVkk3l7-ycUZc48GfPOa1o"/>
+</div>
+<div class="absolute bottom-0 right-0 h-4 w-4 rounded-full border-[3px] border-[#102211] bg-primary shadow-[0_0_8px_rgba(17,212,30,0.8)]"></div>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h3 class="font-display text-lg font-semibold text-white truncate pr-2">Marie Uwase</h3>
+<span class="shrink-0 text-xs font-medium text-gray-400">2m ago</span>
+</div>
+<p class="truncate text-sm text-gray-400 group-hover:text-gray-300">Excellent milk yields reported from the last batch.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group flex items-center gap-4 rounded-2xl border border-white/5 bg-glass-surface p-3 pr-4 backdrop-blur-md transition-all hover:bg-white/10 active:scale-[0.98]">
+<div class="relative shrink-0">
+<div class="h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/10">
+<img alt="Modern laboratory equipment for genetics" class="h-full w-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN4Oihws7n2R16y1yF6WTNRYrA3zs0idX-WucgFhA4Sdo65SnWUgcNyecwHwuxzX8OnevtdcCxFAkCyR1aZjpYNL7OE8KAOVlhCwQN5f9hRmqQavjP7IGHLQh4v0YTm77qiwngZ1QymI8ZnyJnf2KeGm0TnhgN5k5GdOaReqgCzGNQlcITr0fGryTZvLnpdpAkCZhrz_8t2rySaOMd7lB1ghV-QqQddqMmf8pVJYvBoOYfTLiI7F64jgC23lbjOO1r3-nmAZMMgok"/>
+</div>
+<!-- Offline/Away Status (Grey) -->
+<div class="absolute bottom-0 right-0 h-4 w-4 rounded-full border-[3px] border-[#102211] bg-gray-500"></div>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h3 class="font-display text-lg font-semibold text-white truncate pr-2">Kigali Genetics</h3>
+<span class="shrink-0 text-xs font-medium text-gray-400">1h ago</span>
+</div>
+<div class="flex items-center gap-1 text-gray-400 group-hover:text-gray-300">
+<span class="material-symbols-outlined text-[16px]">attach_file</span>
+<p class="truncate text-sm">Genetic report attached for review.</p>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group flex items-center gap-4 rounded-2xl border border-white/5 bg-glass-surface p-3 pr-4 backdrop-blur-md transition-all hover:bg-white/10 active:scale-[0.98]">
+<div class="relative shrink-0">
+<div class="h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/10">
+<img alt="Close up of a goat face" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-YK3WrDcycUpx5MwV_ETFUpR2L_yKbixNhY3qYDIpB90mQI-IWFDLdvCCIGa49lT5mVeTsQDgBj0fv25mo0uh_0B9wyx8KLel2f2h2LhzmBN8jS_7geCb2G_EHZ3FwnMlZR-i14vQBVTDTXMGsMVjCPub15j_vxeVkVT8Wsa5nMLgKCLYFAFdrtzTPAPTsMo3WMNGVXitvJv80ZTY2_c0USPu_TJaPYS6vMIejX9ylR--L6BgxDCogJq2PUqDc7DSdOb56DVP47g"/>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h3 class="font-display text-lg font-semibold text-white truncate pr-2">Emmanuel N.</h3>
+<span class="shrink-0 text-xs font-medium text-gray-400">Yesterday</span>
+</div>
+<p class="truncate text-sm text-gray-400 group-hover:text-gray-300">Can we schedule a viewing for Saturday?</p>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="group flex items-center gap-4 rounded-2xl border border-white/5 bg-glass-surface p-3 pr-4 backdrop-blur-md transition-all hover:bg-white/10 active:scale-[0.98]">
+<div class="relative shrink-0">
+<div class="h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/10">
+<img alt="Flock of sheep in a green field" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8hzNT5OE4O4DaKW-_vyERXTzBWhbGE0A9qvdXhcHYOpNP32lUS_LUSPHrkFKq1Kl8pY9miiSqwhXmtG2L8Wl9AABd8C0uBbD6sjhxJlAuXbsfQ-AY3edP9kgyBmnVEo8OeDAIqkeSfL90fmJEBS88yaGe9Uh9MXO8099p0Ca86-UaquCt4tV743RpHzdEzIX7aG4C-qrzO12RMVtBG6I79WDkY_iNMR51CA_1-yRow5dqIGXaavx0amCC3aWwjCHK3U5J08wppJo"/>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h3 class="font-display text-lg font-semibold text-white truncate pr-2">Cooperative Abahizi</h3>
+<span class="shrink-0 text-xs font-medium text-gray-400">Yesterday</span>
+</div>
+<p class="truncate text-sm text-gray-400 group-hover:text-gray-300">The vaccination records are updated.</p>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Optional for "Compose") -->
+<button class="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-[0_0_20px_rgba(17,212,30,0.4)] transition-transform hover:scale-105 active:scale-95 z-40">
+<span class="material-symbols-outlined text-black" style="font-size: 28px;">add_comment</span>
+</button>
+</div>
+</body></html>
