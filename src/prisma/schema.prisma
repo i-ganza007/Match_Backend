@@ -100,16 +100,21 @@ model Animal{
   breed_confidence Float
   mother   Animal?  @relation("AnimalMother", fields: [motherId], references: [animalId])
   father   Animal?  @relation("AnimalFather", fields: [fatherId], references: [animalId])
-  offspring Animal[] @relation("AnimalChild")
+  offspringsAsFather  Animal[] @relation("AnimalFather")
+  offspringAsMother   Animal[] @relation("AnimalMother")
   owner    User     @relation(fields: [ownerId], references: [userId])
   
   // Breeding relations
-  breedings Breeding[]  @relation("BreedingAnimals")
-  
+  breedingAsMother Breeding[]  @relation("BreedingAsMother")
+  breedingAsFather Breeding[]  @relation("BreedingAsFather")
+  breedingEventId  String  
+  breedingEvent    Breeding    @relation("OriginBreedingEvent",fields: [breedingEventId],references: [breedingId])
   // Breeding recommendations
-   breedingRecommendations Breeding_Rec[] @relation("BreedingRecommendations")
-  // Relatedness estimates
-  relatednessRecords  RelatedNess_Estimates[] @relation("animalRelatedNess")
+  originalBreedingRecs Breeding_Rec[] @relation("OriginalAnimal")
+  recommendedBreedingRecs Breeding_Rec[] @relation("RecommendedAnimal")  
+  relatednessAsAnimal1  RelatedNess_Estimates[] @relation("Animal1")
+  relatednessAsAnimal2  RelatedNess_Estimates[] @relation("Animal2")
+  
   
   // Performance records
   performanceRecords   Perfomance_Records[]
@@ -117,9 +122,8 @@ model Animal{
 
 model Breeding{
   breedingId String @id @default(uuid())
-  motherId      String  @unique()
-  fatherId     String   @unique()
-  calfId        String?
+  motherId      String  
+  fatherId     String  
   breedingDate  DateTime 
   method        BreedingMethod
   expectedCalvingDate DateTime?
@@ -129,14 +133,16 @@ model Breeding{
   updatedAt     DateTime  @updatedAt()  
   
   // Relations
-  breedingAnimals Animal @relation("BreedingAnimals",fields: [motherId,fatherId,calfId],references: [animalId])
+  offspring    Animal[]  @relation("OriginBreedingEvent")
+  mother  Animal? @relation("BreedingAsMother",fields: [motherId],references: [animalId])
+  father  Animal? @relation("BreedingAsFather",fields: [fatherId],references: [animalId])  
   farmers      User[]  
 }
 
 model Breeding_Rec{
   breedingRecId String @id @default(uuid())
   animalInitial   String
-  recommendedAnimal   String
+  recommendedAnimalId String 
   overall_score Float
   user_accepted Boolean
   generatedAt  DateTime @default(now())
@@ -146,7 +152,9 @@ model Breeding_Rec{
   breed_composition_match_score Float
   
   // Relations
-  animals Animal @relation("BreedingRecommendations",fields: [animalInitial,recommendedAnimal],references: [animalId])
+  originalAnimal Animal @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
+  recommendedAnimal Animal @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
+
 }
 
 model RelatedNess_Estimates{
@@ -158,7 +166,8 @@ model RelatedNess_Estimates{
   pedigree_coeff   Float
   
   // Relations
-  animalRelation Animal @relation("animalRelatedNess",fields: [animal1,animal2],references: [animalId])
+  animal1Relation Animal @relation("Animal1", fields: [animal1], references: [animalId])
+  animal2Relation Animal @relation("Animal2", fields: [animal2], references: [animalId])
   
 }
 
