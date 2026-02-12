@@ -14,6 +14,8 @@
 
 **Link to Video Description**
 https://www.veed.io/view/fa77b508-3329-4426-a103-4e39c7325c44?source=editor&panel=share
+**Link to Figma Design**
+https://www.figma.com/design/kk0PiZgGxhqPJRBm13AtuY/Match-Frontend?node-id=0-1&t=2wUfrSXoHvn7lXY1-1
 
 ### 🎯 Key Features
 
