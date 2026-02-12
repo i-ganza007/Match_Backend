@@ -65,6 +65,7 @@ model User{
   userId String @id @default(uuid())
   name String
   sex  Gender   
+  password String
   phone_number String @unique
   email String? @unique
   createdAt DateTime @default(now())
