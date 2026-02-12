@@ -21,6 +21,7 @@ CREATE TABLE "User" (
     "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "sex" "Gender" NOT NULL,
+    "password" TEXT NOT NULL,
     "phone_number" TEXT NOT NULL,
     "email" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
