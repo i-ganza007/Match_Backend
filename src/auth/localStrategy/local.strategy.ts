@@ -9,5 +9,7 @@ export class LocalStrategy extends PassportStrategy(Strategy){
         })
     }
 
-    async validate(){}
+    async validate(payload){
+        return payload;
+    }
 }
