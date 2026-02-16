@@ -17,7 +17,6 @@ export class AuthController {
         if(result){
             // Set only the token string in the cookie, not the whole object
             res.cookie('user_token', result.access_token)
-            console.log('Cookie set with token:', result.access_token)
             return {
                 message: "Successful SignIn",
                 user: result.user
