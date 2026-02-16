@@ -1,6 +1,6 @@
 import { Body, Controller,Res,Req, Post,UseFilters,UseGuards } from "@nestjs/common";
 import {UserCreationDTO,UserLoginDTO} from '../lib/user.dto'
-import {CustomHttpExceptionFilter} from '../lib/customErrors/intServer.error'
+import {CustomHttpExceptionFilter} from '../customErrors/intServer.error'
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "@nestjs/passport";
 import type {Request,Response} from 'express'
@@ -12,14 +12,15 @@ export class AuthController {
     @UseFilters( CustomHttpExceptionFilter)
     @Post("login")
     async login(@Body() body:UserLoginDTO,@Req() req:Request,@Res({passthrough:true}) res:Response ){
-        let result = await this.authService.logIn(body)
+        const userId = req?.user!.userId
+        const email = req?.user!.email!
+        let result = await this.authService.logIn({userId,email})
         console.log('Login result:', result)
         if(result){
             // Set only the token string in the cookie, not the whole object
             res.cookie('user_token', result.access_token)
             return {
                 message: "Successful SignIn",
-                user: result.user
             }
         }
     }

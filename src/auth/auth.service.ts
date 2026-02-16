@@ -28,30 +28,35 @@ export class AuthService {
         return this.userService.createUser({...body,password:hashed_password})
     }
 
-    async logIn(body: UserLoginDTO){
+    async logIn(body: Partial<UserLoginDTO>){
+            const payload = { userId: body.userId, email: body.email };
+            let signature = await this.jwtService.signAsync(payload)
+            return { access_token: signature, user_Id: payload?.userId }
+        }
+
+        
+    
+
+    async validateUser(body:{email:string,password:string}){
         const present = await this.prismaService.users.findFirst({where:{
-             email: body.email 
+             email: body.email
         }})
         if(present){
             // Verify password
             const pass_hash = this.configService.get('PASSWORD_HASH')
             const isValidPassword = await argon2.verify(
-                present.password, 
-                body.password, 
+                present.password,
+                body.password,
                 { secret: pass_hash ? Buffer.from(pass_hash) : undefined }
             );
-            
+
             if (!isValidPassword) {
                 throw new UnauthorizedException('Invalid credentials')
             }
-            
-            const payload = { userId: present.userId, email: present.email };
-            let signature = await this.jwtService.signAsync(payload)
-            return { access_token: signature, user: present }
+            return present
         }
         else{
             throw new NotFoundException("User not found")
         }
-        
     }
 }

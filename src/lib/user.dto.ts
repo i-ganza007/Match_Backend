@@ -98,8 +98,8 @@ export class UserCreationDTO {
 }
 
 export class UserLoginDTO{
+    @IsString()
+    userId
     @IsEmail()
     email
-    @IsAlphanumeric()
-    password
 }
