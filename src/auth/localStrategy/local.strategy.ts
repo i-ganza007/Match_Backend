@@ -5,7 +5,7 @@ import { Strategy } from "passport-local";
 export class LocalStrategy extends PassportStrategy(Strategy){
     constructor(){
         super({
-            usernameField:'email'
+            usernameField:'email',
         })
     }
 

@@ -13,6 +13,7 @@ import { JwtModule as NestJwtModule } from '@nestjs/jwt';
             }),
             inject: [ConfigService],
         })],
-  providers: [Jwtservice,JwtGuard]
+  providers: [Jwtservice,JwtGuard],
+  exports:[Jwtservice]
 })
 export class JwtserviceModule {}

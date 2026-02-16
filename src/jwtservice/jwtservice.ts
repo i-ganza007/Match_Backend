@@ -8,7 +8,7 @@ export class Jwtservice extends PassportStrategy(Strategy, 'jwt') {
     constructor(private configService:ConfigService){
         super({
             jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-            secretOrKey: configService.get('JWT_SECRET') || process.env.JWT_SECRET ,
+            secretOrKey: configService.get('JWT_SECRET') || process.env.JWT_SECRET || 'fallback-secret',
             ignoreExpiration:false
         })
     }
