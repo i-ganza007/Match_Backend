@@ -56,4 +56,8 @@ export class UsersService {
                 userId:id
             }})
     }
+
+    async wipeout(){
+        return await this.prismaService.users.deleteMany({})
+    }
 }

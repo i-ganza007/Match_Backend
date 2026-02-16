@@ -13,10 +13,15 @@ export class AuthController {
     @Post("login")
     async login(@Body() body:UserLoginDTO,@Req() req:Request,@Res({passthrough:true}) res:Response ){
         let result = await this.authService.logIn(body)
-        console.log(req?.user)
+        console.log('Login result:', result)
         if(result){
-            res.cookie('user_token',result)
-            return "Successful SignIn"
+            // Set only the token string in the cookie, not the whole object
+            res.cookie('user_token', result.access_token)
+            console.log('Cookie set with token:', result.access_token)
+            return {
+                message: "Successful SignIn",
+                user: result.user
+            }
         }
     }
 
