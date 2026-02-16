@@ -1,15 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
+import {UserLoginDTO} from '../../lib/user.dto'
+import {AuthService} from '../auth.service'
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy){
-    constructor(){
+    constructor(private authService:AuthService){
         super({
-            usernameField:'email'
+            usernameField:'email',
         })
     }
 
-    async validate(payload){
-        return payload;
+    async validate(email:string,password:string){
+        const results = await this.authService.validateUser({email,password})
+        return results;
     }
 }
