@@ -69,6 +69,7 @@ model User{
   sex  Gender   
   password String
   phone_number String @unique
+  profile_url  String? @default("")
   email String? @unique
   createdAt DateTime @default(now())
   lastActive DateTime
