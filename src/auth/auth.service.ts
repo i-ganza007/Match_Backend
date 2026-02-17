@@ -5,7 +5,7 @@ import { ConfigService } from "@nestjs/config";
 import * as argon2 from 'argon2';
 import { PrismaService } from "src/prisma-service/prisma-service";
 import { JwtService } from "@nestjs/jwt";
-
+import {Request} from 'express'
 @Injectable()
 export class AuthService {
     constructor(private userService:UsersService,private configService:ConfigService,private prismaService:PrismaService,private jwtService:JwtService){}
@@ -58,5 +58,9 @@ export class AuthService {
         else{
             throw new NotFoundException("User not found")
         }
+    }
+
+    async  loggedInUser(user:{userId:string,email:string}){
+        return await this.prismaService.users.findUnique({where:{userId:user.userId}})
     }
 }
