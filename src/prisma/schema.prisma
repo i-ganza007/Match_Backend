@@ -7,11 +7,12 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generated"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  extensions = [postgis]
 }
 
 enum Gender{
@@ -68,6 +69,7 @@ model User{
   sex  Gender   
   password String
   phone_number String @unique
+  profile_url  String? @default("")
   email String? @unique
   createdAt DateTime @default(now())
   lastActive DateTime
@@ -78,6 +80,7 @@ model User{
   cell    String
   latitude String
   longitude String
+  location Unsupported("geography(Point, 4326)")?
   
   // Relations
   animals Animal[]
