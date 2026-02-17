@@ -1,9 +1,10 @@
-import { Body, Controller,Res,Req, Post,UseFilters,UseGuards } from "@nestjs/common";
+import { Body, Controller,Res,Req, Post,UseFilters,UseGuards, Get } from "@nestjs/common";
 import {UserCreationDTO,UserLoginDTO} from '../lib/user.dto'
 import {CustomHttpExceptionFilter} from '../customErrors/intServer.error'
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "@nestjs/passport";
 import type {Request,Response} from 'express'
+import {CookieUser} from '../lib/cookieDecorator'
 @Controller("auth")
 export class AuthController {
     constructor(private authService:AuthService){}
@@ -29,5 +30,18 @@ export class AuthController {
     @Post('signup')
     async signup(@Body() body:UserCreationDTO){
         return await this.authService.signUp(body)
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @UseFilters(CustomHttpExceptionFilter)
+    @Get("loggedIn")
+    async loggedInUser(@CookieUser() user:{userId:string,email:string}) {
+        return await this.authService.loggedInUser(user)
+    }
+
+    @Get("logOut")
+    async logOut(@Res({passthrough:true}) res:Response){
+        res.clearCookie('user_token')
+        return {message:"Signed Out Successfully"}
     }
 }
