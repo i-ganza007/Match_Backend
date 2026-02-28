@@ -86,7 +86,6 @@ model User{
   email String? @unique
   createdAt DateTime @default(now())
   lastActive DateTime
-  farmingSystem String
   district String
   sector String
   village String
@@ -106,7 +105,7 @@ model Animal{
   animalId String @id @default(uuid())
   name     String? @default("")
   sex      Gender
-  birthDate DateTime
+  birthDate DateTime?
   type      AnimalType
   registrationDate DateTime @default(now())
   profilePhoto String @default("")
@@ -195,7 +194,7 @@ model Perfomance_Records{
   id  String @id @default(uuid())
   animalId   String
   animal       Animal @relation(fields: [animalId],references: [animalId])
-  milk_yield Float
+  milk_yield Float?
   weight     Float
   health_status AnimalHealth @default(HEALTHY)
   recordedAt DateTime @default(now())

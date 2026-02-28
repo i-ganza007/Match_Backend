@@ -15,12 +15,9 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
                            process.env.DATABASE_URL || 
                            'postgresql://testuser:testpassword@localhost:5432/matchDB';
         
-        console.log('Database URL:', databaseUrl);
-        console.log('Database URL type:', typeof databaseUrl);
+
         
         if (!databaseUrl || typeof databaseUrl !== 'string') {
-            console.error('Config SERVICE:', this.config.get('DATABASE_URL'));
-            console.error('PROCESS ENV:', process.env.DATABASE_URL);
             throw new Error('DATABASE_URL must be a valid string');
         }
 
