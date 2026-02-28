@@ -1,14 +1,4 @@
 services:
-  match:
-    build: .
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    volumes:
-      - ./src:/app/src
-    depends_on:
-      - match_db
   match_db:
     image: postgis/postgis:17-master
     ports:

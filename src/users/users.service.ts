@@ -25,7 +25,6 @@ export class UsersService {
             phone_number:body.phone_number,
             email:body.email,
             lastActive:body.lastActive,
-            farmingSystem:body.farmingSystem,
             district:body.district,
             sector:body.sector,
             village:body.village,

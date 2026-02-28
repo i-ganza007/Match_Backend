@@ -43,6 +43,16 @@ export type RelatedNess_Estimates = $Result.DefaultSelection<Prisma.$RelatedNess
  * 
  */
 export type Perfomance_Records = $Result.DefaultSelection<Prisma.$Perfomance_RecordsPayload>
+/**
+ * Model Messages
+ * 
+ */
+export type Messages = $Result.DefaultSelection<Prisma.$MessagesPayload>
+/**
+ * Model spatial_ref_sys
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ */
+export type spatial_ref_sys = $Result.DefaultSelection<Prisma.$spatial_ref_sysPayload>
 
 /**
  * Enums
@@ -70,6 +80,26 @@ export const AnimalSpecies: {
 };
 
 export type AnimalSpecies = (typeof AnimalSpecies)[keyof typeof AnimalSpecies]
+
+
+export const MessageSentStatus: {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED',
+  LOADING: 'LOADING'
+};
+
+export type MessageSentStatus = (typeof MessageSentStatus)[keyof typeof MessageSentStatus]
+
+
+export const MessageType: {
+  TEXT: 'TEXT',
+  FILE: 'FILE',
+  IMAGE: 'IMAGE'
+};
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
 export const AnimalType: {
@@ -120,6 +150,14 @@ export const Gender: typeof $Enums.Gender
 export type AnimalSpecies = $Enums.AnimalSpecies
 
 export const AnimalSpecies: typeof $Enums.AnimalSpecies
+
+export type MessageSentStatus = $Enums.MessageSentStatus
+
+export const MessageSentStatus: typeof $Enums.MessageSentStatus
+
+export type MessageType = $Enums.MessageType
+
+export const MessageType: typeof $Enums.MessageType
 
 export type AnimalType = $Enums.AnimalType
 
@@ -313,6 +351,26 @@ export class PrismaClient<
     * ```
     */
   get perfomance_Records(): Prisma.Perfomance_RecordsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.messages`: Exposes CRUD operations for the **Messages** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.messages.findMany()
+    * ```
+    */
+  get messages(): Prisma.MessagesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spatial_ref_sys`: Exposes CRUD operations for the **spatial_ref_sys** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Spatial_ref_sys
+    * const spatial_ref_sys = await prisma.spatial_ref_sys.findMany()
+    * ```
+    */
+  get spatial_ref_sys(): Prisma.spatial_ref_sysDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -752,7 +810,9 @@ export namespace Prisma {
     Breeding: 'Breeding',
     Breeding_Rec: 'Breeding_Rec',
     RelatedNess_Estimates: 'RelatedNess_Estimates',
-    Perfomance_Records: 'Perfomance_Records'
+    Perfomance_Records: 'Perfomance_Records',
+    Messages: 'Messages',
+    spatial_ref_sys: 'spatial_ref_sys'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -768,7 +828,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "animal" | "breeding" | "breeding_Rec" | "relatedNess_Estimates" | "perfomance_Records"
+      modelProps: "user" | "animal" | "breeding" | "breeding_Rec" | "relatedNess_Estimates" | "perfomance_Records" | "messages" | "spatial_ref_sys"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1216,6 +1276,154 @@ export namespace Prisma {
           }
         }
       }
+      Messages: {
+        payload: Prisma.$MessagesPayload<ExtArgs>
+        fields: Prisma.MessagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          findFirst: {
+            args: Prisma.MessagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          findMany: {
+            args: Prisma.MessagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+          }
+          create: {
+            args: Prisma.MessagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          createMany: {
+            args: Prisma.MessagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessagesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+          }
+          delete: {
+            args: Prisma.MessagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          update: {
+            args: Prisma.MessagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.MessagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessagesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+          }
+          upsert: {
+            args: Prisma.MessagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagesPayload>
+          }
+          aggregate: {
+            args: Prisma.MessagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessages>
+          }
+          groupBy: {
+            args: Prisma.MessagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessagesCountArgs<ExtArgs>
+            result: $Utils.Optional<MessagesCountAggregateOutputType> | number
+          }
+        }
+      }
+      spatial_ref_sys: {
+        payload: Prisma.$spatial_ref_sysPayload<ExtArgs>
+        fields: Prisma.spatial_ref_sysFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.spatial_ref_sysFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.spatial_ref_sysFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          findFirst: {
+            args: Prisma.spatial_ref_sysFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.spatial_ref_sysFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          findMany: {
+            args: Prisma.spatial_ref_sysFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[]
+          }
+          create: {
+            args: Prisma.spatial_ref_sysCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          createMany: {
+            args: Prisma.spatial_ref_sysCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.spatial_ref_sysCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[]
+          }
+          delete: {
+            args: Prisma.spatial_ref_sysDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          update: {
+            args: Prisma.spatial_ref_sysUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          deleteMany: {
+            args: Prisma.spatial_ref_sysDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.spatial_ref_sysUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.spatial_ref_sysUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[]
+          }
+          upsert: {
+            args: Prisma.spatial_ref_sysUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>
+          }
+          aggregate: {
+            args: Prisma.Spatial_ref_sysAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpatial_ref_sys>
+          }
+          groupBy: {
+            args: Prisma.spatial_ref_sysGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Spatial_ref_sysGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.spatial_ref_sysCountArgs<ExtArgs>
+            result: $Utils.Optional<Spatial_ref_sysCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1330,6 +1538,8 @@ export namespace Prisma {
     breeding_Rec?: Breeding_RecOmit
     relatedNess_Estimates?: RelatedNess_EstimatesOmit
     perfomance_Records?: Perfomance_RecordsOmit
+    messages?: MessagesOmit
+    spatial_ref_sys?: spatial_ref_sysOmit
   }
 
   /* Types for Logging */
@@ -1411,11 +1621,15 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     animals: number
+    receiverMessage: number
+    senderMessages: number
     breedingsInvolved: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     animals?: boolean | UserCountOutputTypeCountAnimalsArgs
+    receiverMessage?: boolean | UserCountOutputTypeCountReceiverMessageArgs
+    senderMessages?: boolean | UserCountOutputTypeCountSenderMessagesArgs
     breedingsInvolved?: boolean | UserCountOutputTypeCountBreedingsInvolvedArgs
   }
 
@@ -1440,6 +1654,20 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountReceiverMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagesWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSenderMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagesWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountBreedingsInvolvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BreedingWhereInput
   }
@@ -1452,25 +1680,25 @@ export namespace Prisma {
   export type AnimalCountOutputType = {
     offspringsAsFather: number
     offspringAsMother: number
-    breedingAsMother: number
     breedingAsFather: number
+    breedingAsMother: number
     originalBreedingRecs: number
     recommendedBreedingRecs: number
+    performanceRecords: number
     relatednessAsAnimal1: number
     relatednessAsAnimal2: number
-    performanceRecords: number
   }
 
   export type AnimalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     offspringsAsFather?: boolean | AnimalCountOutputTypeCountOffspringsAsFatherArgs
     offspringAsMother?: boolean | AnimalCountOutputTypeCountOffspringAsMotherArgs
-    breedingAsMother?: boolean | AnimalCountOutputTypeCountBreedingAsMotherArgs
     breedingAsFather?: boolean | AnimalCountOutputTypeCountBreedingAsFatherArgs
+    breedingAsMother?: boolean | AnimalCountOutputTypeCountBreedingAsMotherArgs
     originalBreedingRecs?: boolean | AnimalCountOutputTypeCountOriginalBreedingRecsArgs
     recommendedBreedingRecs?: boolean | AnimalCountOutputTypeCountRecommendedBreedingRecsArgs
+    performanceRecords?: boolean | AnimalCountOutputTypeCountPerformanceRecordsArgs
     relatednessAsAnimal1?: boolean | AnimalCountOutputTypeCountRelatednessAsAnimal1Args
     relatednessAsAnimal2?: boolean | AnimalCountOutputTypeCountRelatednessAsAnimal2Args
-    performanceRecords?: boolean | AnimalCountOutputTypeCountPerformanceRecordsArgs
   }
 
   // Custom InputTypes
@@ -1501,14 +1729,14 @@ export namespace Prisma {
   /**
    * AnimalCountOutputType without action
    */
-  export type AnimalCountOutputTypeCountBreedingAsMotherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AnimalCountOutputTypeCountBreedingAsFatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BreedingWhereInput
   }
 
   /**
    * AnimalCountOutputType without action
    */
-  export type AnimalCountOutputTypeCountBreedingAsFatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AnimalCountOutputTypeCountBreedingAsMotherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BreedingWhereInput
   }
 
@@ -1529,6 +1757,13 @@ export namespace Prisma {
   /**
    * AnimalCountOutputType without action
    */
+  export type AnimalCountOutputTypeCountPerformanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Perfomance_RecordsWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
   export type AnimalCountOutputTypeCountRelatednessAsAnimal1Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RelatedNess_EstimatesWhereInput
   }
@@ -1538,13 +1773,6 @@ export namespace Prisma {
    */
   export type AnimalCountOutputTypeCountRelatednessAsAnimal2Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RelatedNess_EstimatesWhereInput
-  }
-
-  /**
-   * AnimalCountOutputType without action
-   */
-  export type AnimalCountOutputTypeCountPerformanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: Perfomance_RecordsWhereInput
   }
 
 
@@ -1611,13 +1839,13 @@ export namespace Prisma {
     email: string | null
     createdAt: Date | null
     lastActive: Date | null
-    farmingSystem: string | null
     district: string | null
     sector: string | null
     village: string | null
     cell: string | null
     latitude: string | null
     longitude: string | null
+    profile_url: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1629,13 +1857,13 @@ export namespace Prisma {
     email: string | null
     createdAt: Date | null
     lastActive: Date | null
-    farmingSystem: string | null
     district: string | null
     sector: string | null
     village: string | null
     cell: string | null
     latitude: string | null
     longitude: string | null
+    profile_url: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1647,13 +1875,13 @@ export namespace Prisma {
     email: number
     createdAt: number
     lastActive: number
-    farmingSystem: number
     district: number
     sector: number
     village: number
     cell: number
     latitude: number
     longitude: number
+    profile_url: number
     _all: number
   }
 
@@ -1667,13 +1895,13 @@ export namespace Prisma {
     email?: true
     createdAt?: true
     lastActive?: true
-    farmingSystem?: true
     district?: true
     sector?: true
     village?: true
     cell?: true
     latitude?: true
     longitude?: true
+    profile_url?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1685,13 +1913,13 @@ export namespace Prisma {
     email?: true
     createdAt?: true
     lastActive?: true
-    farmingSystem?: true
     district?: true
     sector?: true
     village?: true
     cell?: true
     latitude?: true
     longitude?: true
+    profile_url?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1703,13 +1931,13 @@ export namespace Prisma {
     email?: true
     createdAt?: true
     lastActive?: true
-    farmingSystem?: true
     district?: true
     sector?: true
     village?: true
     cell?: true
     latitude?: true
     longitude?: true
+    profile_url?: true
     _all?: true
   }
 
@@ -1794,13 +2022,13 @@ export namespace Prisma {
     email: string | null
     createdAt: Date
     lastActive: Date
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1829,14 +2057,16 @@ export namespace Prisma {
     email?: boolean
     createdAt?: boolean
     lastActive?: boolean
-    farmingSystem?: boolean
     district?: boolean
     sector?: boolean
     village?: boolean
     cell?: boolean
     latitude?: boolean
     longitude?: boolean
+    profile_url?: boolean
     animals?: boolean | User$animalsArgs<ExtArgs>
+    receiverMessage?: boolean | User$receiverMessageArgs<ExtArgs>
+    senderMessages?: boolean | User$senderMessagesArgs<ExtArgs>
     breedingsInvolved?: boolean | User$breedingsInvolvedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1850,13 +2080,13 @@ export namespace Prisma {
     email?: boolean
     createdAt?: boolean
     lastActive?: boolean
-    farmingSystem?: boolean
     district?: boolean
     sector?: boolean
     village?: boolean
     cell?: boolean
     latitude?: boolean
     longitude?: boolean
+    profile_url?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1868,13 +2098,13 @@ export namespace Prisma {
     email?: boolean
     createdAt?: boolean
     lastActive?: boolean
-    farmingSystem?: boolean
     district?: boolean
     sector?: boolean
     village?: boolean
     cell?: boolean
     latitude?: boolean
     longitude?: boolean
+    profile_url?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1886,18 +2116,20 @@ export namespace Prisma {
     email?: boolean
     createdAt?: boolean
     lastActive?: boolean
-    farmingSystem?: boolean
     district?: boolean
     sector?: boolean
     village?: boolean
     cell?: boolean
     latitude?: boolean
     longitude?: boolean
+    profile_url?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "name" | "sex" | "password" | "phone_number" | "email" | "createdAt" | "lastActive" | "farmingSystem" | "district" | "sector" | "village" | "cell" | "latitude" | "longitude", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "name" | "sex" | "password" | "phone_number" | "email" | "createdAt" | "lastActive" | "district" | "sector" | "village" | "cell" | "latitude" | "longitude" | "profile_url", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     animals?: boolean | User$animalsArgs<ExtArgs>
+    receiverMessage?: boolean | User$receiverMessageArgs<ExtArgs>
+    senderMessages?: boolean | User$senderMessagesArgs<ExtArgs>
     breedingsInvolved?: boolean | User$breedingsInvolvedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1908,6 +2140,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       animals: Prisma.$AnimalPayload<ExtArgs>[]
+      receiverMessage: Prisma.$MessagesPayload<ExtArgs>[]
+      senderMessages: Prisma.$MessagesPayload<ExtArgs>[]
       breedingsInvolved: Prisma.$BreedingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1919,13 +2153,13 @@ export namespace Prisma {
       email: string | null
       createdAt: Date
       lastActive: Date
-      farmingSystem: string
       district: string
       sector: string
       village: string
       cell: string
       latitude: string
       longitude: string
+      profile_url: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2321,6 +2555,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     animals<T extends User$animalsArgs<ExtArgs> = {}>(args?: Subset<T, User$animalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receiverMessage<T extends User$receiverMessageArgs<ExtArgs> = {}>(args?: Subset<T, User$receiverMessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    senderMessages<T extends User$senderMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$senderMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     breedingsInvolved<T extends User$breedingsInvolvedArgs<ExtArgs> = {}>(args?: Subset<T, User$breedingsInvolvedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2359,13 +2595,13 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly lastActive: FieldRef<"User", 'DateTime'>
-    readonly farmingSystem: FieldRef<"User", 'String'>
     readonly district: FieldRef<"User", 'String'>
     readonly sector: FieldRef<"User", 'String'>
     readonly village: FieldRef<"User", 'String'>
     readonly cell: FieldRef<"User", 'String'>
     readonly latitude: FieldRef<"User", 'String'>
     readonly longitude: FieldRef<"User", 'String'>
+    readonly profile_url: FieldRef<"User", 'String'>
   }
     
 
@@ -2778,6 +3014,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.receiverMessage
+   */
+  export type User$receiverMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    where?: MessagesWhereInput
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    cursor?: MessagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
+   * User.senderMessages
+   */
+  export type User$senderMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    where?: MessagesWhereInput
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    cursor?: MessagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
    * User.breedingsInvolved
    */
   export type User$breedingsInvolvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3051,7 +3335,7 @@ export namespace Prisma {
     animalId: string
     name: string | null
     sex: $Enums.Gender
-    birthDate: Date
+    birthDate: Date | null
     type: $Enums.AnimalType
     registrationDate: Date
     profilePhoto: string
@@ -3102,19 +3386,19 @@ export namespace Prisma {
     specie?: boolean
     breed_confidence?: boolean
     breedingEventId?: boolean
-    mother?: boolean | Animal$motherArgs<ExtArgs>
+    breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
     father?: boolean | Animal$fatherArgs<ExtArgs>
     offspringsAsFather?: boolean | Animal$offspringsAsFatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
     offspringAsMother?: boolean | Animal$offspringAsMotherArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
-    breedingAsMother?: boolean | Animal$breedingAsMotherArgs<ExtArgs>
     breedingAsFather?: boolean | Animal$breedingAsFatherArgs<ExtArgs>
-    breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    breedingAsMother?: boolean | Animal$breedingAsMotherArgs<ExtArgs>
     originalBreedingRecs?: boolean | Animal$originalBreedingRecsArgs<ExtArgs>
     recommendedBreedingRecs?: boolean | Animal$recommendedBreedingRecsArgs<ExtArgs>
+    performanceRecords?: boolean | Animal$performanceRecordsArgs<ExtArgs>
     relatednessAsAnimal1?: boolean | Animal$relatednessAsAnimal1Args<ExtArgs>
     relatednessAsAnimal2?: boolean | Animal$relatednessAsAnimal2Args<ExtArgs>
-    performanceRecords?: boolean | Animal$performanceRecordsArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
@@ -3135,10 +3419,10 @@ export namespace Prisma {
     specie?: boolean
     breed_confidence?: boolean
     breedingEventId?: boolean
-    mother?: boolean | Animal$motherArgs<ExtArgs>
-    father?: boolean | Animal$fatherArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
     breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    father?: boolean | Animal$fatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
   export type AnimalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3158,10 +3442,10 @@ export namespace Prisma {
     specie?: boolean
     breed_confidence?: boolean
     breedingEventId?: boolean
-    mother?: boolean | Animal$motherArgs<ExtArgs>
-    father?: boolean | Animal$fatherArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
     breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    father?: boolean | Animal$fatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
   export type AnimalSelectScalar = {
@@ -3185,56 +3469,56 @@ export namespace Prisma {
 
   export type AnimalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"animalId" | "name" | "sex" | "birthDate" | "type" | "registrationDate" | "profilePhoto" | "additionalPhotos" | "updatedAt" | "status" | "motherId" | "fatherId" | "ownerId" | "specie" | "breed_confidence" | "breedingEventId", ExtArgs["result"]["animal"]>
   export type AnimalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mother?: boolean | Animal$motherArgs<ExtArgs>
+    breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
     father?: boolean | Animal$fatherArgs<ExtArgs>
     offspringsAsFather?: boolean | Animal$offspringsAsFatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
     offspringAsMother?: boolean | Animal$offspringAsMotherArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
-    breedingAsMother?: boolean | Animal$breedingAsMotherArgs<ExtArgs>
     breedingAsFather?: boolean | Animal$breedingAsFatherArgs<ExtArgs>
-    breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    breedingAsMother?: boolean | Animal$breedingAsMotherArgs<ExtArgs>
     originalBreedingRecs?: boolean | Animal$originalBreedingRecsArgs<ExtArgs>
     recommendedBreedingRecs?: boolean | Animal$recommendedBreedingRecsArgs<ExtArgs>
+    performanceRecords?: boolean | Animal$performanceRecordsArgs<ExtArgs>
     relatednessAsAnimal1?: boolean | Animal$relatednessAsAnimal1Args<ExtArgs>
     relatednessAsAnimal2?: boolean | Animal$relatednessAsAnimal2Args<ExtArgs>
-    performanceRecords?: boolean | Animal$performanceRecordsArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnimalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mother?: boolean | Animal$motherArgs<ExtArgs>
-    father?: boolean | Animal$fatherArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
     breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    father?: boolean | Animal$fatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AnimalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mother?: boolean | Animal$motherArgs<ExtArgs>
-    father?: boolean | Animal$fatherArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
     breedingEvent?: boolean | BreedingDefaultArgs<ExtArgs>
+    father?: boolean | Animal$fatherArgs<ExtArgs>
+    mother?: boolean | Animal$motherArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $AnimalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Animal"
     objects: {
-      mother: Prisma.$AnimalPayload<ExtArgs> | null
+      breedingEvent: Prisma.$BreedingPayload<ExtArgs>
       father: Prisma.$AnimalPayload<ExtArgs> | null
       offspringsAsFather: Prisma.$AnimalPayload<ExtArgs>[]
+      mother: Prisma.$AnimalPayload<ExtArgs> | null
       offspringAsMother: Prisma.$AnimalPayload<ExtArgs>[]
       owner: Prisma.$UserPayload<ExtArgs>
-      breedingAsMother: Prisma.$BreedingPayload<ExtArgs>[]
       breedingAsFather: Prisma.$BreedingPayload<ExtArgs>[]
-      breedingEvent: Prisma.$BreedingPayload<ExtArgs>
+      breedingAsMother: Prisma.$BreedingPayload<ExtArgs>[]
       originalBreedingRecs: Prisma.$Breeding_RecPayload<ExtArgs>[]
       recommendedBreedingRecs: Prisma.$Breeding_RecPayload<ExtArgs>[]
+      performanceRecords: Prisma.$Perfomance_RecordsPayload<ExtArgs>[]
       relatednessAsAnimal1: Prisma.$RelatedNess_EstimatesPayload<ExtArgs>[]
       relatednessAsAnimal2: Prisma.$RelatedNess_EstimatesPayload<ExtArgs>[]
-      performanceRecords: Prisma.$Perfomance_RecordsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       animalId: string
       name: string | null
       sex: $Enums.Gender
-      birthDate: Date
+      birthDate: Date | null
       type: $Enums.AnimalType
       registrationDate: Date
       profilePhoto: string
@@ -3641,19 +3925,19 @@ export namespace Prisma {
    */
   export interface Prisma__AnimalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    mother<T extends Animal$motherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$motherArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    breedingEvent<T extends BreedingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BreedingDefaultArgs<ExtArgs>>): Prisma__BreedingClient<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     father<T extends Animal$fatherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$fatherArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     offspringsAsFather<T extends Animal$offspringsAsFatherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$offspringsAsFatherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mother<T extends Animal$motherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$motherArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     offspringAsMother<T extends Animal$offspringAsMotherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$offspringAsMotherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    breedingAsMother<T extends Animal$breedingAsMotherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$breedingAsMotherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     breedingAsFather<T extends Animal$breedingAsFatherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$breedingAsFatherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    breedingEvent<T extends BreedingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BreedingDefaultArgs<ExtArgs>>): Prisma__BreedingClient<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    breedingAsMother<T extends Animal$breedingAsMotherArgs<ExtArgs> = {}>(args?: Subset<T, Animal$breedingAsMotherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BreedingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     originalBreedingRecs<T extends Animal$originalBreedingRecsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$originalBreedingRecsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Breeding_RecPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     recommendedBreedingRecs<T extends Animal$recommendedBreedingRecsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$recommendedBreedingRecsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Breeding_RecPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    performanceRecords<T extends Animal$performanceRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$performanceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Perfomance_RecordsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     relatednessAsAnimal1<T extends Animal$relatednessAsAnimal1Args<ExtArgs> = {}>(args?: Subset<T, Animal$relatednessAsAnimal1Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RelatedNess_EstimatesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     relatednessAsAnimal2<T extends Animal$relatednessAsAnimal2Args<ExtArgs> = {}>(args?: Subset<T, Animal$relatednessAsAnimal2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RelatedNess_EstimatesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    performanceRecords<T extends Animal$performanceRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$performanceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Perfomance_RecordsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4095,25 +4379,6 @@ export namespace Prisma {
   }
 
   /**
-   * Animal.mother
-   */
-  export type Animal$motherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Animal
-     */
-    select?: AnimalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Animal
-     */
-    omit?: AnimalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AnimalInclude<ExtArgs> | null
-    where?: AnimalWhereInput
-  }
-
-  /**
    * Animal.father
    */
   export type Animal$fatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4157,6 +4422,25 @@ export namespace Prisma {
   }
 
   /**
+   * Animal.mother
+   */
+  export type Animal$motherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+  }
+
+  /**
    * Animal.offspringAsMother
    */
   export type Animal$offspringAsMotherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4181,9 +4465,9 @@ export namespace Prisma {
   }
 
   /**
-   * Animal.breedingAsMother
+   * Animal.breedingAsFather
    */
-  export type Animal$breedingAsMotherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Animal$breedingAsFatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Breeding
      */
@@ -4205,9 +4489,9 @@ export namespace Prisma {
   }
 
   /**
-   * Animal.breedingAsFather
+   * Animal.breedingAsMother
    */
-  export type Animal$breedingAsFatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Animal$breedingAsMotherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Breeding
      */
@@ -4277,6 +4561,30 @@ export namespace Prisma {
   }
 
   /**
+   * Animal.performanceRecords
+   */
+  export type Animal$performanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perfomance_Records
+     */
+    select?: Perfomance_RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Perfomance_Records
+     */
+    omit?: Perfomance_RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Perfomance_RecordsInclude<ExtArgs> | null
+    where?: Perfomance_RecordsWhereInput
+    orderBy?: Perfomance_RecordsOrderByWithRelationInput | Perfomance_RecordsOrderByWithRelationInput[]
+    cursor?: Perfomance_RecordsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Perfomance_RecordsScalarFieldEnum | Perfomance_RecordsScalarFieldEnum[]
+  }
+
+  /**
    * Animal.relatednessAsAnimal1
    */
   export type Animal$relatednessAsAnimal1Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4322,30 +4630,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RelatedNess_EstimatesScalarFieldEnum | RelatedNess_EstimatesScalarFieldEnum[]
-  }
-
-  /**
-   * Animal.performanceRecords
-   */
-  export type Animal$performanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perfomance_Records
-     */
-    select?: Perfomance_RecordsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Perfomance_Records
-     */
-    omit?: Perfomance_RecordsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: Perfomance_RecordsInclude<ExtArgs> | null
-    where?: Perfomance_RecordsWhereInput
-    orderBy?: Perfomance_RecordsOrderByWithRelationInput | Perfomance_RecordsOrderByWithRelationInput[]
-    cursor?: Perfomance_RecordsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Perfomance_RecordsScalarFieldEnum | Perfomance_RecordsScalarFieldEnum[]
   }
 
   /**
@@ -4606,8 +4890,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     offspring?: boolean | Breeding$offspringArgs<ExtArgs>
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
     farmers?: boolean | Breeding$farmersArgs<ExtArgs>
     _count?: boolean | BreedingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["breeding"]>
@@ -4623,8 +4907,8 @@ export namespace Prisma {
     userRating?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["breeding"]>
 
   export type BreedingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4638,8 +4922,8 @@ export namespace Prisma {
     userRating?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["breeding"]>
 
   export type BreedingSelectScalar = {
@@ -4658,26 +4942,26 @@ export namespace Prisma {
   export type BreedingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"breedingId" | "motherId" | "fatherId" | "breedingDate" | "method" | "expectedCalvingDate" | "calving_date" | "userRating" | "createdAt" | "updatedAt", ExtArgs["result"]["breeding"]>
   export type BreedingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     offspring?: boolean | Breeding$offspringArgs<ExtArgs>
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
     farmers?: boolean | Breeding$farmersArgs<ExtArgs>
     _count?: boolean | BreedingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BreedingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
   }
   export type BreedingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mother?: boolean | Breeding$motherArgs<ExtArgs>
-    father?: boolean | Breeding$fatherArgs<ExtArgs>
+    father?: boolean | AnimalDefaultArgs<ExtArgs>
+    mother?: boolean | AnimalDefaultArgs<ExtArgs>
   }
 
   export type $BreedingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Breeding"
     objects: {
       offspring: Prisma.$AnimalPayload<ExtArgs>[]
-      mother: Prisma.$AnimalPayload<ExtArgs> | null
-      father: Prisma.$AnimalPayload<ExtArgs> | null
+      father: Prisma.$AnimalPayload<ExtArgs>
+      mother: Prisma.$AnimalPayload<ExtArgs>
       farmers: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5086,8 +5370,8 @@ export namespace Prisma {
   export interface Prisma__BreedingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     offspring<T extends Breeding$offspringArgs<ExtArgs> = {}>(args?: Subset<T, Breeding$offspringArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    mother<T extends Breeding$motherArgs<ExtArgs> = {}>(args?: Subset<T, Breeding$motherArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    father<T extends Breeding$fatherArgs<ExtArgs> = {}>(args?: Subset<T, Breeding$fatherArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    father<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    mother<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     farmers<T extends Breeding$farmersArgs<ExtArgs> = {}>(args?: Subset<T, Breeding$farmersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5545,44 +5829,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AnimalScalarFieldEnum | AnimalScalarFieldEnum[]
-  }
-
-  /**
-   * Breeding.mother
-   */
-  export type Breeding$motherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Animal
-     */
-    select?: AnimalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Animal
-     */
-    omit?: AnimalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AnimalInclude<ExtArgs> | null
-    where?: AnimalWhereInput
-  }
-
-  /**
-   * Breeding.father
-   */
-  export type Breeding$fatherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Animal
-     */
-    select?: AnimalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Animal
-     */
-    omit?: AnimalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AnimalInclude<ExtArgs> | null
-    where?: AnimalWhereInput
   }
 
   /**
@@ -8104,7 +8350,7 @@ export namespace Prisma {
   export type Perfomance_RecordsGroupByOutputType = {
     id: string
     animalId: string
-    milk_yield: number
+    milk_yield: number | null
     weight: number
     health_status: $Enums.AnimalHealth
     recordedAt: Date
@@ -8187,7 +8433,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       animalId: string
-      milk_yield: number
+      milk_yield: number | null
       weight: number
       health_status: $Enums.AnimalHealth
       recordedAt: Date
@@ -9036,6 +9282,2131 @@ export namespace Prisma {
 
 
   /**
+   * Model Messages
+   */
+
+  export type AggregateMessages = {
+    _count: MessagesCountAggregateOutputType | null
+    _min: MessagesMinAggregateOutputType | null
+    _max: MessagesMaxAggregateOutputType | null
+  }
+
+  export type MessagesMinAggregateOutputType = {
+    messageId: string | null
+    senderId: string | null
+    receiverId: string | null
+    createdAt: Date | null
+    messageType: $Enums.MessageType | null
+    content: string | null
+    status: $Enums.MessageSentStatus | null
+  }
+
+  export type MessagesMaxAggregateOutputType = {
+    messageId: string | null
+    senderId: string | null
+    receiverId: string | null
+    createdAt: Date | null
+    messageType: $Enums.MessageType | null
+    content: string | null
+    status: $Enums.MessageSentStatus | null
+  }
+
+  export type MessagesCountAggregateOutputType = {
+    messageId: number
+    senderId: number
+    receiverId: number
+    createdAt: number
+    messageType: number
+    content: number
+    status: number
+    _all: number
+  }
+
+
+  export type MessagesMinAggregateInputType = {
+    messageId?: true
+    senderId?: true
+    receiverId?: true
+    createdAt?: true
+    messageType?: true
+    content?: true
+    status?: true
+  }
+
+  export type MessagesMaxAggregateInputType = {
+    messageId?: true
+    senderId?: true
+    receiverId?: true
+    createdAt?: true
+    messageType?: true
+    content?: true
+    status?: true
+  }
+
+  export type MessagesCountAggregateInputType = {
+    messageId?: true
+    senderId?: true
+    receiverId?: true
+    createdAt?: true
+    messageType?: true
+    content?: true
+    status?: true
+    _all?: true
+  }
+
+  export type MessagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to aggregate.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessagesMaxAggregateInputType
+  }
+
+  export type GetMessagesAggregateType<T extends MessagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessages[P]>
+      : GetScalarType<T[P], AggregateMessages[P]>
+  }
+
+
+
+
+  export type MessagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagesWhereInput
+    orderBy?: MessagesOrderByWithAggregationInput | MessagesOrderByWithAggregationInput[]
+    by: MessagesScalarFieldEnum[] | MessagesScalarFieldEnum
+    having?: MessagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessagesCountAggregateInputType | true
+    _min?: MessagesMinAggregateInputType
+    _max?: MessagesMaxAggregateInputType
+  }
+
+  export type MessagesGroupByOutputType = {
+    messageId: string
+    senderId: string
+    receiverId: string
+    createdAt: Date
+    messageType: $Enums.MessageType
+    content: string
+    status: $Enums.MessageSentStatus
+    _count: MessagesCountAggregateOutputType | null
+    _min: MessagesMinAggregateOutputType | null
+    _max: MessagesMaxAggregateOutputType | null
+  }
+
+  type GetMessagesGroupByPayload<T extends MessagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessagesGroupByOutputType[P]>
+            : GetScalarType<T[P], MessagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    messageId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    createdAt?: boolean
+    messageType?: boolean
+    content?: boolean
+    status?: boolean
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messages"]>
+
+  export type MessagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    messageId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    createdAt?: boolean
+    messageType?: boolean
+    content?: boolean
+    status?: boolean
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messages"]>
+
+  export type MessagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    messageId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    createdAt?: boolean
+    messageType?: boolean
+    content?: boolean
+    status?: boolean
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messages"]>
+
+  export type MessagesSelectScalar = {
+    messageId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    createdAt?: boolean
+    messageType?: boolean
+    content?: boolean
+    status?: boolean
+  }
+
+  export type MessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"messageId" | "senderId" | "receiverId" | "createdAt" | "messageType" | "content" | "status", ExtArgs["result"]["messages"]>
+  export type MessagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MessagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Messages"
+    objects: {
+      receiver: Prisma.$UserPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      messageId: string
+      senderId: string
+      receiverId: string
+      createdAt: Date
+      messageType: $Enums.MessageType
+      content: string
+      status: $Enums.MessageSentStatus
+    }, ExtArgs["result"]["messages"]>
+    composites: {}
+  }
+
+  type MessagesGetPayload<S extends boolean | null | undefined | MessagesDefaultArgs> = $Result.GetResult<Prisma.$MessagesPayload, S>
+
+  type MessagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessagesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessagesCountAggregateInputType | true
+    }
+
+  export interface MessagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Messages'], meta: { name: 'Messages' } }
+    /**
+     * Find zero or one Messages that matches the filter.
+     * @param {MessagesFindUniqueArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessagesFindUniqueArgs>(args: SelectSubset<T, MessagesFindUniqueArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Messages that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessagesFindUniqueOrThrowArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessagesFindUniqueOrThrowArgs>(args: SelectSubset<T, MessagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindFirstArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessagesFindFirstArgs>(args?: SelectSubset<T, MessagesFindFirstArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Messages that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindFirstOrThrowArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessagesFindFirstOrThrowArgs>(args?: SelectSubset<T, MessagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.messages.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.messages.findMany({ take: 10 })
+     * 
+     * // Only select the `messageId`
+     * const messagesWithMessageIdOnly = await prisma.messages.findMany({ select: { messageId: true } })
+     * 
+     */
+    findMany<T extends MessagesFindManyArgs>(args?: SelectSubset<T, MessagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Messages.
+     * @param {MessagesCreateArgs} args - Arguments to create a Messages.
+     * @example
+     * // Create one Messages
+     * const Messages = await prisma.messages.create({
+     *   data: {
+     *     // ... data to create a Messages
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessagesCreateArgs>(args: SelectSubset<T, MessagesCreateArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Messages.
+     * @param {MessagesCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const messages = await prisma.messages.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessagesCreateManyArgs>(args?: SelectSubset<T, MessagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Messages and returns the data saved in the database.
+     * @param {MessagesCreateManyAndReturnArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const messages = await prisma.messages.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Messages and only return the `messageId`
+     * const messagesWithMessageIdOnly = await prisma.messages.createManyAndReturn({
+     *   select: { messageId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessagesCreateManyAndReturnArgs>(args?: SelectSubset<T, MessagesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Messages.
+     * @param {MessagesDeleteArgs} args - Arguments to delete one Messages.
+     * @example
+     * // Delete one Messages
+     * const Messages = await prisma.messages.delete({
+     *   where: {
+     *     // ... filter to delete one Messages
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessagesDeleteArgs>(args: SelectSubset<T, MessagesDeleteArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Messages.
+     * @param {MessagesUpdateArgs} args - Arguments to update one Messages.
+     * @example
+     * // Update one Messages
+     * const messages = await prisma.messages.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessagesUpdateArgs>(args: SelectSubset<T, MessagesUpdateArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessagesDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.messages.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessagesDeleteManyArgs>(args?: SelectSubset<T, MessagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const messages = await prisma.messages.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessagesUpdateManyArgs>(args: SelectSubset<T, MessagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages and returns the data updated in the database.
+     * @param {MessagesUpdateManyAndReturnArgs} args - Arguments to update many Messages.
+     * @example
+     * // Update many Messages
+     * const messages = await prisma.messages.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Messages and only return the `messageId`
+     * const messagesWithMessageIdOnly = await prisma.messages.updateManyAndReturn({
+     *   select: { messageId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessagesUpdateManyAndReturnArgs>(args: SelectSubset<T, MessagesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Messages.
+     * @param {MessagesUpsertArgs} args - Arguments to update or create a Messages.
+     * @example
+     * // Update or create a Messages
+     * const messages = await prisma.messages.upsert({
+     *   create: {
+     *     // ... data to create a Messages
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Messages we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessagesUpsertArgs>(args: SelectSubset<T, MessagesUpsertArgs<ExtArgs>>): Prisma__MessagesClient<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.messages.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessagesCountArgs>(
+      args?: Subset<T, MessagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessagesAggregateArgs>(args: Subset<T, MessagesAggregateArgs>): Prisma.PrismaPromise<GetMessagesAggregateType<T>>
+
+    /**
+     * Group by Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessagesGroupByArgs['orderBy'] }
+        : { orderBy?: MessagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Messages model
+   */
+  readonly fields: MessagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Messages.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Messages model
+   */
+  interface MessagesFieldRefs {
+    readonly messageId: FieldRef<"Messages", 'String'>
+    readonly senderId: FieldRef<"Messages", 'String'>
+    readonly receiverId: FieldRef<"Messages", 'String'>
+    readonly createdAt: FieldRef<"Messages", 'DateTime'>
+    readonly messageType: FieldRef<"Messages", 'MessageType'>
+    readonly content: FieldRef<"Messages", 'String'>
+    readonly status: FieldRef<"Messages", 'MessageSentStatus'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Messages findUnique
+   */
+  export type MessagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+  /**
+   * Messages findUniqueOrThrow
+   */
+  export type MessagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+  /**
+   * Messages findFirst
+   */
+  export type MessagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
+   * Messages findFirstOrThrow
+   */
+  export type MessagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
+   * Messages findMany
+   */
+  export type MessagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
+   * Messages create
+   */
+  export type MessagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Messages.
+     */
+    data: XOR<MessagesCreateInput, MessagesUncheckedCreateInput>
+  }
+
+  /**
+   * Messages createMany
+   */
+  export type MessagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessagesCreateManyInput | MessagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Messages createManyAndReturn
+   */
+  export type MessagesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessagesCreateManyInput | MessagesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Messages update
+   */
+  export type MessagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Messages.
+     */
+    data: XOR<MessagesUpdateInput, MessagesUncheckedUpdateInput>
+    /**
+     * Choose, which Messages to update.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+  /**
+   * Messages updateMany
+   */
+  export type MessagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessagesWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Messages updateManyAndReturn
+   */
+  export type MessagesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessagesWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Messages upsert
+   */
+  export type MessagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Messages to update in case it exists.
+     */
+    where: MessagesWhereUniqueInput
+    /**
+     * In case the Messages found by the `where` argument doesn't exist, create a new Messages with this data.
+     */
+    create: XOR<MessagesCreateInput, MessagesUncheckedCreateInput>
+    /**
+     * In case the Messages was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessagesUpdateInput, MessagesUncheckedUpdateInput>
+  }
+
+  /**
+   * Messages delete
+   */
+  export type MessagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    /**
+     * Filter which Messages to delete.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+  /**
+   * Messages deleteMany
+   */
+  export type MessagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessagesWhereInput
+    /**
+     * Limit how many Messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Messages without action
+   */
+  export type MessagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model spatial_ref_sys
+   */
+
+  export type AggregateSpatial_ref_sys = {
+    _count: Spatial_ref_sysCountAggregateOutputType | null
+    _avg: Spatial_ref_sysAvgAggregateOutputType | null
+    _sum: Spatial_ref_sysSumAggregateOutputType | null
+    _min: Spatial_ref_sysMinAggregateOutputType | null
+    _max: Spatial_ref_sysMaxAggregateOutputType | null
+  }
+
+  export type Spatial_ref_sysAvgAggregateOutputType = {
+    srid: number | null
+    auth_srid: number | null
+  }
+
+  export type Spatial_ref_sysSumAggregateOutputType = {
+    srid: number | null
+    auth_srid: number | null
+  }
+
+  export type Spatial_ref_sysMinAggregateOutputType = {
+    srid: number | null
+    auth_name: string | null
+    auth_srid: number | null
+    srtext: string | null
+    proj4text: string | null
+  }
+
+  export type Spatial_ref_sysMaxAggregateOutputType = {
+    srid: number | null
+    auth_name: string | null
+    auth_srid: number | null
+    srtext: string | null
+    proj4text: string | null
+  }
+
+  export type Spatial_ref_sysCountAggregateOutputType = {
+    srid: number
+    auth_name: number
+    auth_srid: number
+    srtext: number
+    proj4text: number
+    _all: number
+  }
+
+
+  export type Spatial_ref_sysAvgAggregateInputType = {
+    srid?: true
+    auth_srid?: true
+  }
+
+  export type Spatial_ref_sysSumAggregateInputType = {
+    srid?: true
+    auth_srid?: true
+  }
+
+  export type Spatial_ref_sysMinAggregateInputType = {
+    srid?: true
+    auth_name?: true
+    auth_srid?: true
+    srtext?: true
+    proj4text?: true
+  }
+
+  export type Spatial_ref_sysMaxAggregateInputType = {
+    srid?: true
+    auth_name?: true
+    auth_srid?: true
+    srtext?: true
+    proj4text?: true
+  }
+
+  export type Spatial_ref_sysCountAggregateInputType = {
+    srid?: true
+    auth_name?: true
+    auth_srid?: true
+    srtext?: true
+    proj4text?: true
+    _all?: true
+  }
+
+  export type Spatial_ref_sysAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spatial_ref_sys to aggregate.
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spatial_ref_sys to fetch.
+     */
+    orderBy?: spatial_ref_sysOrderByWithRelationInput | spatial_ref_sysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: spatial_ref_sysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spatial_ref_sys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spatial_ref_sys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned spatial_ref_sys
+    **/
+    _count?: true | Spatial_ref_sysCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Spatial_ref_sysAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Spatial_ref_sysSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Spatial_ref_sysMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Spatial_ref_sysMaxAggregateInputType
+  }
+
+  export type GetSpatial_ref_sysAggregateType<T extends Spatial_ref_sysAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpatial_ref_sys]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpatial_ref_sys[P]>
+      : GetScalarType<T[P], AggregateSpatial_ref_sys[P]>
+  }
+
+
+
+
+  export type spatial_ref_sysGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spatial_ref_sysWhereInput
+    orderBy?: spatial_ref_sysOrderByWithAggregationInput | spatial_ref_sysOrderByWithAggregationInput[]
+    by: Spatial_ref_sysScalarFieldEnum[] | Spatial_ref_sysScalarFieldEnum
+    having?: spatial_ref_sysScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Spatial_ref_sysCountAggregateInputType | true
+    _avg?: Spatial_ref_sysAvgAggregateInputType
+    _sum?: Spatial_ref_sysSumAggregateInputType
+    _min?: Spatial_ref_sysMinAggregateInputType
+    _max?: Spatial_ref_sysMaxAggregateInputType
+  }
+
+  export type Spatial_ref_sysGroupByOutputType = {
+    srid: number
+    auth_name: string | null
+    auth_srid: number | null
+    srtext: string | null
+    proj4text: string | null
+    _count: Spatial_ref_sysCountAggregateOutputType | null
+    _avg: Spatial_ref_sysAvgAggregateOutputType | null
+    _sum: Spatial_ref_sysSumAggregateOutputType | null
+    _min: Spatial_ref_sysMinAggregateOutputType | null
+    _max: Spatial_ref_sysMaxAggregateOutputType | null
+  }
+
+  type GetSpatial_ref_sysGroupByPayload<T extends spatial_ref_sysGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Spatial_ref_sysGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Spatial_ref_sysGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Spatial_ref_sysGroupByOutputType[P]>
+            : GetScalarType<T[P], Spatial_ref_sysGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type spatial_ref_sysSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    srid?: boolean
+    auth_name?: boolean
+    auth_srid?: boolean
+    srtext?: boolean
+    proj4text?: boolean
+  }, ExtArgs["result"]["spatial_ref_sys"]>
+
+  export type spatial_ref_sysSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    srid?: boolean
+    auth_name?: boolean
+    auth_srid?: boolean
+    srtext?: boolean
+    proj4text?: boolean
+  }, ExtArgs["result"]["spatial_ref_sys"]>
+
+  export type spatial_ref_sysSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    srid?: boolean
+    auth_name?: boolean
+    auth_srid?: boolean
+    srtext?: boolean
+    proj4text?: boolean
+  }, ExtArgs["result"]["spatial_ref_sys"]>
+
+  export type spatial_ref_sysSelectScalar = {
+    srid?: boolean
+    auth_name?: boolean
+    auth_srid?: boolean
+    srtext?: boolean
+    proj4text?: boolean
+  }
+
+  export type spatial_ref_sysOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"srid" | "auth_name" | "auth_srid" | "srtext" | "proj4text", ExtArgs["result"]["spatial_ref_sys"]>
+
+  export type $spatial_ref_sysPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "spatial_ref_sys"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      srid: number
+      auth_name: string | null
+      auth_srid: number | null
+      srtext: string | null
+      proj4text: string | null
+    }, ExtArgs["result"]["spatial_ref_sys"]>
+    composites: {}
+  }
+
+  type spatial_ref_sysGetPayload<S extends boolean | null | undefined | spatial_ref_sysDefaultArgs> = $Result.GetResult<Prisma.$spatial_ref_sysPayload, S>
+
+  type spatial_ref_sysCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<spatial_ref_sysFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Spatial_ref_sysCountAggregateInputType | true
+    }
+
+  export interface spatial_ref_sysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['spatial_ref_sys'], meta: { name: 'spatial_ref_sys' } }
+    /**
+     * Find zero or one Spatial_ref_sys that matches the filter.
+     * @param {spatial_ref_sysFindUniqueArgs} args - Arguments to find a Spatial_ref_sys
+     * @example
+     * // Get one Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends spatial_ref_sysFindUniqueArgs>(args: SelectSubset<T, spatial_ref_sysFindUniqueArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Spatial_ref_sys that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {spatial_ref_sysFindUniqueOrThrowArgs} args - Arguments to find a Spatial_ref_sys
+     * @example
+     * // Get one Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends spatial_ref_sysFindUniqueOrThrowArgs>(args: SelectSubset<T, spatial_ref_sysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spatial_ref_sys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysFindFirstArgs} args - Arguments to find a Spatial_ref_sys
+     * @example
+     * // Get one Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends spatial_ref_sysFindFirstArgs>(args?: SelectSubset<T, spatial_ref_sysFindFirstArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spatial_ref_sys that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysFindFirstOrThrowArgs} args - Arguments to find a Spatial_ref_sys
+     * @example
+     * // Get one Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends spatial_ref_sysFindFirstOrThrowArgs>(args?: SelectSubset<T, spatial_ref_sysFindFirstOrThrowArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Spatial_ref_sys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findMany()
+     * 
+     * // Get first 10 Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.findMany({ take: 10 })
+     * 
+     * // Only select the `srid`
+     * const spatial_ref_sysWithSridOnly = await prisma.spatial_ref_sys.findMany({ select: { srid: true } })
+     * 
+     */
+    findMany<T extends spatial_ref_sysFindManyArgs>(args?: SelectSubset<T, spatial_ref_sysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Spatial_ref_sys.
+     * @param {spatial_ref_sysCreateArgs} args - Arguments to create a Spatial_ref_sys.
+     * @example
+     * // Create one Spatial_ref_sys
+     * const Spatial_ref_sys = await prisma.spatial_ref_sys.create({
+     *   data: {
+     *     // ... data to create a Spatial_ref_sys
+     *   }
+     * })
+     * 
+     */
+    create<T extends spatial_ref_sysCreateArgs>(args: SelectSubset<T, spatial_ref_sysCreateArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Spatial_ref_sys.
+     * @param {spatial_ref_sysCreateManyArgs} args - Arguments to create many Spatial_ref_sys.
+     * @example
+     * // Create many Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends spatial_ref_sysCreateManyArgs>(args?: SelectSubset<T, spatial_ref_sysCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Spatial_ref_sys and returns the data saved in the database.
+     * @param {spatial_ref_sysCreateManyAndReturnArgs} args - Arguments to create many Spatial_ref_sys.
+     * @example
+     * // Create many Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Spatial_ref_sys and only return the `srid`
+     * const spatial_ref_sysWithSridOnly = await prisma.spatial_ref_sys.createManyAndReturn({
+     *   select: { srid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends spatial_ref_sysCreateManyAndReturnArgs>(args?: SelectSubset<T, spatial_ref_sysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Spatial_ref_sys.
+     * @param {spatial_ref_sysDeleteArgs} args - Arguments to delete one Spatial_ref_sys.
+     * @example
+     * // Delete one Spatial_ref_sys
+     * const Spatial_ref_sys = await prisma.spatial_ref_sys.delete({
+     *   where: {
+     *     // ... filter to delete one Spatial_ref_sys
+     *   }
+     * })
+     * 
+     */
+    delete<T extends spatial_ref_sysDeleteArgs>(args: SelectSubset<T, spatial_ref_sysDeleteArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Spatial_ref_sys.
+     * @param {spatial_ref_sysUpdateArgs} args - Arguments to update one Spatial_ref_sys.
+     * @example
+     * // Update one Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends spatial_ref_sysUpdateArgs>(args: SelectSubset<T, spatial_ref_sysUpdateArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Spatial_ref_sys.
+     * @param {spatial_ref_sysDeleteManyArgs} args - Arguments to filter Spatial_ref_sys to delete.
+     * @example
+     * // Delete a few Spatial_ref_sys
+     * const { count } = await prisma.spatial_ref_sys.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends spatial_ref_sysDeleteManyArgs>(args?: SelectSubset<T, spatial_ref_sysDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spatial_ref_sys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends spatial_ref_sysUpdateManyArgs>(args: SelectSubset<T, spatial_ref_sysUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spatial_ref_sys and returns the data updated in the database.
+     * @param {spatial_ref_sysUpdateManyAndReturnArgs} args - Arguments to update many Spatial_ref_sys.
+     * @example
+     * // Update many Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Spatial_ref_sys and only return the `srid`
+     * const spatial_ref_sysWithSridOnly = await prisma.spatial_ref_sys.updateManyAndReturn({
+     *   select: { srid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends spatial_ref_sysUpdateManyAndReturnArgs>(args: SelectSubset<T, spatial_ref_sysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Spatial_ref_sys.
+     * @param {spatial_ref_sysUpsertArgs} args - Arguments to update or create a Spatial_ref_sys.
+     * @example
+     * // Update or create a Spatial_ref_sys
+     * const spatial_ref_sys = await prisma.spatial_ref_sys.upsert({
+     *   create: {
+     *     // ... data to create a Spatial_ref_sys
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Spatial_ref_sys we want to update
+     *   }
+     * })
+     */
+    upsert<T extends spatial_ref_sysUpsertArgs>(args: SelectSubset<T, spatial_ref_sysUpsertArgs<ExtArgs>>): Prisma__spatial_ref_sysClient<$Result.GetResult<Prisma.$spatial_ref_sysPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Spatial_ref_sys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysCountArgs} args - Arguments to filter Spatial_ref_sys to count.
+     * @example
+     * // Count the number of Spatial_ref_sys
+     * const count = await prisma.spatial_ref_sys.count({
+     *   where: {
+     *     // ... the filter for the Spatial_ref_sys we want to count
+     *   }
+     * })
+    **/
+    count<T extends spatial_ref_sysCountArgs>(
+      args?: Subset<T, spatial_ref_sysCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Spatial_ref_sysCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Spatial_ref_sys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Spatial_ref_sysAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Spatial_ref_sysAggregateArgs>(args: Subset<T, Spatial_ref_sysAggregateArgs>): Prisma.PrismaPromise<GetSpatial_ref_sysAggregateType<T>>
+
+    /**
+     * Group by Spatial_ref_sys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spatial_ref_sysGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends spatial_ref_sysGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: spatial_ref_sysGroupByArgs['orderBy'] }
+        : { orderBy?: spatial_ref_sysGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, spatial_ref_sysGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpatial_ref_sysGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the spatial_ref_sys model
+   */
+  readonly fields: spatial_ref_sysFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for spatial_ref_sys.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__spatial_ref_sysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the spatial_ref_sys model
+   */
+  interface spatial_ref_sysFieldRefs {
+    readonly srid: FieldRef<"spatial_ref_sys", 'Int'>
+    readonly auth_name: FieldRef<"spatial_ref_sys", 'String'>
+    readonly auth_srid: FieldRef<"spatial_ref_sys", 'Int'>
+    readonly srtext: FieldRef<"spatial_ref_sys", 'String'>
+    readonly proj4text: FieldRef<"spatial_ref_sys", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * spatial_ref_sys findUnique
+   */
+  export type spatial_ref_sysFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter, which spatial_ref_sys to fetch.
+     */
+    where: spatial_ref_sysWhereUniqueInput
+  }
+
+  /**
+   * spatial_ref_sys findUniqueOrThrow
+   */
+  export type spatial_ref_sysFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter, which spatial_ref_sys to fetch.
+     */
+    where: spatial_ref_sysWhereUniqueInput
+  }
+
+  /**
+   * spatial_ref_sys findFirst
+   */
+  export type spatial_ref_sysFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter, which spatial_ref_sys to fetch.
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spatial_ref_sys to fetch.
+     */
+    orderBy?: spatial_ref_sysOrderByWithRelationInput | spatial_ref_sysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spatial_ref_sys.
+     */
+    cursor?: spatial_ref_sysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spatial_ref_sys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spatial_ref_sys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spatial_ref_sys.
+     */
+    distinct?: Spatial_ref_sysScalarFieldEnum | Spatial_ref_sysScalarFieldEnum[]
+  }
+
+  /**
+   * spatial_ref_sys findFirstOrThrow
+   */
+  export type spatial_ref_sysFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter, which spatial_ref_sys to fetch.
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spatial_ref_sys to fetch.
+     */
+    orderBy?: spatial_ref_sysOrderByWithRelationInput | spatial_ref_sysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spatial_ref_sys.
+     */
+    cursor?: spatial_ref_sysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spatial_ref_sys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spatial_ref_sys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spatial_ref_sys.
+     */
+    distinct?: Spatial_ref_sysScalarFieldEnum | Spatial_ref_sysScalarFieldEnum[]
+  }
+
+  /**
+   * spatial_ref_sys findMany
+   */
+  export type spatial_ref_sysFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter, which spatial_ref_sys to fetch.
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spatial_ref_sys to fetch.
+     */
+    orderBy?: spatial_ref_sysOrderByWithRelationInput | spatial_ref_sysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing spatial_ref_sys.
+     */
+    cursor?: spatial_ref_sysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spatial_ref_sys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spatial_ref_sys.
+     */
+    skip?: number
+    distinct?: Spatial_ref_sysScalarFieldEnum | Spatial_ref_sysScalarFieldEnum[]
+  }
+
+  /**
+   * spatial_ref_sys create
+   */
+  export type spatial_ref_sysCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * The data needed to create a spatial_ref_sys.
+     */
+    data: XOR<spatial_ref_sysCreateInput, spatial_ref_sysUncheckedCreateInput>
+  }
+
+  /**
+   * spatial_ref_sys createMany
+   */
+  export type spatial_ref_sysCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many spatial_ref_sys.
+     */
+    data: spatial_ref_sysCreateManyInput | spatial_ref_sysCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * spatial_ref_sys createManyAndReturn
+   */
+  export type spatial_ref_sysCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * The data used to create many spatial_ref_sys.
+     */
+    data: spatial_ref_sysCreateManyInput | spatial_ref_sysCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * spatial_ref_sys update
+   */
+  export type spatial_ref_sysUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * The data needed to update a spatial_ref_sys.
+     */
+    data: XOR<spatial_ref_sysUpdateInput, spatial_ref_sysUncheckedUpdateInput>
+    /**
+     * Choose, which spatial_ref_sys to update.
+     */
+    where: spatial_ref_sysWhereUniqueInput
+  }
+
+  /**
+   * spatial_ref_sys updateMany
+   */
+  export type spatial_ref_sysUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update spatial_ref_sys.
+     */
+    data: XOR<spatial_ref_sysUpdateManyMutationInput, spatial_ref_sysUncheckedUpdateManyInput>
+    /**
+     * Filter which spatial_ref_sys to update
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * Limit how many spatial_ref_sys to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * spatial_ref_sys updateManyAndReturn
+   */
+  export type spatial_ref_sysUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * The data used to update spatial_ref_sys.
+     */
+    data: XOR<spatial_ref_sysUpdateManyMutationInput, spatial_ref_sysUncheckedUpdateManyInput>
+    /**
+     * Filter which spatial_ref_sys to update
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * Limit how many spatial_ref_sys to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * spatial_ref_sys upsert
+   */
+  export type spatial_ref_sysUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * The filter to search for the spatial_ref_sys to update in case it exists.
+     */
+    where: spatial_ref_sysWhereUniqueInput
+    /**
+     * In case the spatial_ref_sys found by the `where` argument doesn't exist, create a new spatial_ref_sys with this data.
+     */
+    create: XOR<spatial_ref_sysCreateInput, spatial_ref_sysUncheckedCreateInput>
+    /**
+     * In case the spatial_ref_sys was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<spatial_ref_sysUpdateInput, spatial_ref_sysUncheckedUpdateInput>
+  }
+
+  /**
+   * spatial_ref_sys delete
+   */
+  export type spatial_ref_sysDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+    /**
+     * Filter which spatial_ref_sys to delete.
+     */
+    where: spatial_ref_sysWhereUniqueInput
+  }
+
+  /**
+   * spatial_ref_sys deleteMany
+   */
+  export type spatial_ref_sysDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spatial_ref_sys to delete
+     */
+    where?: spatial_ref_sysWhereInput
+    /**
+     * Limit how many spatial_ref_sys to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * spatial_ref_sys without action
+   */
+  export type spatial_ref_sysDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spatial_ref_sys
+     */
+    select?: spatial_ref_sysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spatial_ref_sys
+     */
+    omit?: spatial_ref_sysOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9058,13 +11429,13 @@ export namespace Prisma {
     email: 'email',
     createdAt: 'createdAt',
     lastActive: 'lastActive',
-    farmingSystem: 'farmingSystem',
     district: 'district',
     sector: 'sector',
     village: 'village',
     cell: 'cell',
     latitude: 'latitude',
-    longitude: 'longitude'
+    longitude: 'longitude',
+    profile_url: 'profile_url'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -9146,6 +11517,30 @@ export namespace Prisma {
   };
 
   export type Perfomance_RecordsScalarFieldEnum = (typeof Perfomance_RecordsScalarFieldEnum)[keyof typeof Perfomance_RecordsScalarFieldEnum]
+
+
+  export const MessagesScalarFieldEnum: {
+    messageId: 'messageId',
+    senderId: 'senderId',
+    receiverId: 'receiverId',
+    createdAt: 'createdAt',
+    messageType: 'messageType',
+    content: 'content',
+    status: 'status'
+  };
+
+  export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
+  export const Spatial_ref_sysScalarFieldEnum: {
+    srid: 'srid',
+    auth_name: 'auth_name',
+    auth_srid: 'auth_srid',
+    srtext: 'srtext',
+    proj4text: 'proj4text'
+  };
+
+  export type Spatial_ref_sysScalarFieldEnum = (typeof Spatial_ref_sysScalarFieldEnum)[keyof typeof Spatial_ref_sysScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9336,6 +11731,34 @@ export namespace Prisma {
    */
   export type ListEnumAnimalHealthFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnimalHealth[]'>
     
+
+
+  /**
+   * Reference to a field of type 'MessageType'
+   */
+  export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageType[]'
+   */
+  export type ListEnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageSentStatus'
+   */
+  export type EnumMessageSentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageSentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageSentStatus[]'
+   */
+  export type ListEnumMessageSentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageSentStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9353,14 +11776,16 @@ export namespace Prisma {
     email?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastActive?: DateTimeFilter<"User"> | Date | string
-    farmingSystem?: StringFilter<"User"> | string
     district?: StringFilter<"User"> | string
     sector?: StringFilter<"User"> | string
     village?: StringFilter<"User"> | string
     cell?: StringFilter<"User"> | string
     latitude?: StringFilter<"User"> | string
     longitude?: StringFilter<"User"> | string
+    profile_url?: StringNullableFilter<"User"> | string | null
     animals?: AnimalListRelationFilter
+    receiverMessage?: MessagesListRelationFilter
+    senderMessages?: MessagesListRelationFilter
     breedingsInvolved?: BreedingListRelationFilter
   }
 
@@ -9373,14 +11798,16 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     lastActive?: SortOrder
-    farmingSystem?: SortOrder
     district?: SortOrder
     sector?: SortOrder
     village?: SortOrder
     cell?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    profile_url?: SortOrderInput | SortOrder
     animals?: AnimalOrderByRelationAggregateInput
+    receiverMessage?: MessagesOrderByRelationAggregateInput
+    senderMessages?: MessagesOrderByRelationAggregateInput
     breedingsInvolved?: BreedingOrderByRelationAggregateInput
   }
 
@@ -9396,14 +11823,16 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastActive?: DateTimeFilter<"User"> | Date | string
-    farmingSystem?: StringFilter<"User"> | string
     district?: StringFilter<"User"> | string
     sector?: StringFilter<"User"> | string
     village?: StringFilter<"User"> | string
     cell?: StringFilter<"User"> | string
     latitude?: StringFilter<"User"> | string
     longitude?: StringFilter<"User"> | string
+    profile_url?: StringNullableFilter<"User"> | string | null
     animals?: AnimalListRelationFilter
+    receiverMessage?: MessagesListRelationFilter
+    senderMessages?: MessagesListRelationFilter
     breedingsInvolved?: BreedingListRelationFilter
   }, "userId" | "phone_number" | "email">
 
@@ -9416,13 +11845,13 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     lastActive?: SortOrder
-    farmingSystem?: SortOrder
     district?: SortOrder
     sector?: SortOrder
     village?: SortOrder
     cell?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    profile_url?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -9440,13 +11869,13 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastActive?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    farmingSystem?: StringWithAggregatesFilter<"User"> | string
     district?: StringWithAggregatesFilter<"User"> | string
     sector?: StringWithAggregatesFilter<"User"> | string
     village?: StringWithAggregatesFilter<"User"> | string
     cell?: StringWithAggregatesFilter<"User"> | string
     latitude?: StringWithAggregatesFilter<"User"> | string
     longitude?: StringWithAggregatesFilter<"User"> | string
+    profile_url?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type AnimalWhereInput = {
@@ -9456,7 +11885,7 @@ export namespace Prisma {
     animalId?: StringFilter<"Animal"> | string
     name?: StringNullableFilter<"Animal"> | string | null
     sex?: EnumGenderFilter<"Animal"> | $Enums.Gender
-    birthDate?: DateTimeFilter<"Animal"> | Date | string
+    birthDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     type?: EnumAnimalTypeFilter<"Animal"> | $Enums.AnimalType
     registrationDate?: DateTimeFilter<"Animal"> | Date | string
     profilePhoto?: StringFilter<"Animal"> | string
@@ -9469,26 +11898,26 @@ export namespace Prisma {
     specie?: EnumAnimalSpeciesFilter<"Animal"> | $Enums.AnimalSpecies
     breed_confidence?: FloatFilter<"Animal"> | number
     breedingEventId?: StringFilter<"Animal"> | string
-    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    breedingEvent?: XOR<BreedingScalarRelationFilter, BreedingWhereInput>
     father?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     offspringsAsFather?: AnimalListRelationFilter
+    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     offspringAsMother?: AnimalListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
-    breedingAsMother?: BreedingListRelationFilter
     breedingAsFather?: BreedingListRelationFilter
-    breedingEvent?: XOR<BreedingScalarRelationFilter, BreedingWhereInput>
+    breedingAsMother?: BreedingListRelationFilter
     originalBreedingRecs?: Breeding_RecListRelationFilter
     recommendedBreedingRecs?: Breeding_RecListRelationFilter
+    performanceRecords?: Perfomance_RecordsListRelationFilter
     relatednessAsAnimal1?: RelatedNess_EstimatesListRelationFilter
     relatednessAsAnimal2?: RelatedNess_EstimatesListRelationFilter
-    performanceRecords?: Perfomance_RecordsListRelationFilter
   }
 
   export type AnimalOrderByWithRelationInput = {
     animalId?: SortOrder
     name?: SortOrderInput | SortOrder
     sex?: SortOrder
-    birthDate?: SortOrder
+    birthDate?: SortOrderInput | SortOrder
     type?: SortOrder
     registrationDate?: SortOrder
     profilePhoto?: SortOrder
@@ -9501,19 +11930,19 @@ export namespace Prisma {
     specie?: SortOrder
     breed_confidence?: SortOrder
     breedingEventId?: SortOrder
-    mother?: AnimalOrderByWithRelationInput
+    breedingEvent?: BreedingOrderByWithRelationInput
     father?: AnimalOrderByWithRelationInput
     offspringsAsFather?: AnimalOrderByRelationAggregateInput
+    mother?: AnimalOrderByWithRelationInput
     offspringAsMother?: AnimalOrderByRelationAggregateInput
     owner?: UserOrderByWithRelationInput
-    breedingAsMother?: BreedingOrderByRelationAggregateInput
     breedingAsFather?: BreedingOrderByRelationAggregateInput
-    breedingEvent?: BreedingOrderByWithRelationInput
+    breedingAsMother?: BreedingOrderByRelationAggregateInput
     originalBreedingRecs?: Breeding_RecOrderByRelationAggregateInput
     recommendedBreedingRecs?: Breeding_RecOrderByRelationAggregateInput
+    performanceRecords?: Perfomance_RecordsOrderByRelationAggregateInput
     relatednessAsAnimal1?: RelatedNess_EstimatesOrderByRelationAggregateInput
     relatednessAsAnimal2?: RelatedNess_EstimatesOrderByRelationAggregateInput
-    performanceRecords?: Perfomance_RecordsOrderByRelationAggregateInput
   }
 
   export type AnimalWhereUniqueInput = Prisma.AtLeast<{
@@ -9523,7 +11952,7 @@ export namespace Prisma {
     NOT?: AnimalWhereInput | AnimalWhereInput[]
     name?: StringNullableFilter<"Animal"> | string | null
     sex?: EnumGenderFilter<"Animal"> | $Enums.Gender
-    birthDate?: DateTimeFilter<"Animal"> | Date | string
+    birthDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     type?: EnumAnimalTypeFilter<"Animal"> | $Enums.AnimalType
     registrationDate?: DateTimeFilter<"Animal"> | Date | string
     profilePhoto?: StringFilter<"Animal"> | string
@@ -9536,26 +11965,26 @@ export namespace Prisma {
     specie?: EnumAnimalSpeciesFilter<"Animal"> | $Enums.AnimalSpecies
     breed_confidence?: FloatFilter<"Animal"> | number
     breedingEventId?: StringFilter<"Animal"> | string
-    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    breedingEvent?: XOR<BreedingScalarRelationFilter, BreedingWhereInput>
     father?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     offspringsAsFather?: AnimalListRelationFilter
+    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     offspringAsMother?: AnimalListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
-    breedingAsMother?: BreedingListRelationFilter
     breedingAsFather?: BreedingListRelationFilter
-    breedingEvent?: XOR<BreedingScalarRelationFilter, BreedingWhereInput>
+    breedingAsMother?: BreedingListRelationFilter
     originalBreedingRecs?: Breeding_RecListRelationFilter
     recommendedBreedingRecs?: Breeding_RecListRelationFilter
+    performanceRecords?: Perfomance_RecordsListRelationFilter
     relatednessAsAnimal1?: RelatedNess_EstimatesListRelationFilter
     relatednessAsAnimal2?: RelatedNess_EstimatesListRelationFilter
-    performanceRecords?: Perfomance_RecordsListRelationFilter
   }, "animalId">
 
   export type AnimalOrderByWithAggregationInput = {
     animalId?: SortOrder
     name?: SortOrderInput | SortOrder
     sex?: SortOrder
-    birthDate?: SortOrder
+    birthDate?: SortOrderInput | SortOrder
     type?: SortOrder
     registrationDate?: SortOrder
     profilePhoto?: SortOrder
@@ -9582,7 +12011,7 @@ export namespace Prisma {
     animalId?: StringWithAggregatesFilter<"Animal"> | string
     name?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     sex?: EnumGenderWithAggregatesFilter<"Animal"> | $Enums.Gender
-    birthDate?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
+    birthDate?: DateTimeNullableWithAggregatesFilter<"Animal"> | Date | string | null
     type?: EnumAnimalTypeWithAggregatesFilter<"Animal"> | $Enums.AnimalType
     registrationDate?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     profilePhoto?: StringWithAggregatesFilter<"Animal"> | string
@@ -9612,8 +12041,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Breeding"> | Date | string
     updatedAt?: DateTimeFilter<"Breeding"> | Date | string
     offspring?: AnimalListRelationFilter
-    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
-    father?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    father?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    mother?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
     farmers?: UserListRelationFilter
   }
 
@@ -9629,8 +12058,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     offspring?: AnimalOrderByRelationAggregateInput
-    mother?: AnimalOrderByWithRelationInput
     father?: AnimalOrderByWithRelationInput
+    mother?: AnimalOrderByWithRelationInput
     farmers?: UserOrderByRelationAggregateInput
   }
 
@@ -9649,8 +12078,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Breeding"> | Date | string
     updatedAt?: DateTimeFilter<"Breeding"> | Date | string
     offspring?: AnimalListRelationFilter
-    mother?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
-    father?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    father?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    mother?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
     farmers?: UserListRelationFilter
   }, "breedingId">
 
@@ -9844,7 +12273,7 @@ export namespace Prisma {
     NOT?: Perfomance_RecordsWhereInput | Perfomance_RecordsWhereInput[]
     id?: StringFilter<"Perfomance_Records"> | string
     animalId?: StringFilter<"Perfomance_Records"> | string
-    milk_yield?: FloatFilter<"Perfomance_Records"> | number
+    milk_yield?: FloatNullableFilter<"Perfomance_Records"> | number | null
     weight?: FloatFilter<"Perfomance_Records"> | number
     health_status?: EnumAnimalHealthFilter<"Perfomance_Records"> | $Enums.AnimalHealth
     recordedAt?: DateTimeFilter<"Perfomance_Records"> | Date | string
@@ -9854,7 +12283,7 @@ export namespace Prisma {
   export type Perfomance_RecordsOrderByWithRelationInput = {
     id?: SortOrder
     animalId?: SortOrder
-    milk_yield?: SortOrder
+    milk_yield?: SortOrderInput | SortOrder
     weight?: SortOrder
     health_status?: SortOrder
     recordedAt?: SortOrder
@@ -9867,7 +12296,7 @@ export namespace Prisma {
     OR?: Perfomance_RecordsWhereInput[]
     NOT?: Perfomance_RecordsWhereInput | Perfomance_RecordsWhereInput[]
     animalId?: StringFilter<"Perfomance_Records"> | string
-    milk_yield?: FloatFilter<"Perfomance_Records"> | number
+    milk_yield?: FloatNullableFilter<"Perfomance_Records"> | number | null
     weight?: FloatFilter<"Perfomance_Records"> | number
     health_status?: EnumAnimalHealthFilter<"Perfomance_Records"> | $Enums.AnimalHealth
     recordedAt?: DateTimeFilter<"Perfomance_Records"> | Date | string
@@ -9877,7 +12306,7 @@ export namespace Prisma {
   export type Perfomance_RecordsOrderByWithAggregationInput = {
     id?: SortOrder
     animalId?: SortOrder
-    milk_yield?: SortOrder
+    milk_yield?: SortOrderInput | SortOrder
     weight?: SortOrder
     health_status?: SortOrder
     recordedAt?: SortOrder
@@ -9894,10 +12323,132 @@ export namespace Prisma {
     NOT?: Perfomance_RecordsScalarWhereWithAggregatesInput | Perfomance_RecordsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Perfomance_Records"> | string
     animalId?: StringWithAggregatesFilter<"Perfomance_Records"> | string
-    milk_yield?: FloatWithAggregatesFilter<"Perfomance_Records"> | number
+    milk_yield?: FloatNullableWithAggregatesFilter<"Perfomance_Records"> | number | null
     weight?: FloatWithAggregatesFilter<"Perfomance_Records"> | number
     health_status?: EnumAnimalHealthWithAggregatesFilter<"Perfomance_Records"> | $Enums.AnimalHealth
     recordedAt?: DateTimeWithAggregatesFilter<"Perfomance_Records"> | Date | string
+  }
+
+  export type MessagesWhereInput = {
+    AND?: MessagesWhereInput | MessagesWhereInput[]
+    OR?: MessagesWhereInput[]
+    NOT?: MessagesWhereInput | MessagesWhereInput[]
+    messageId?: StringFilter<"Messages"> | string
+    senderId?: StringFilter<"Messages"> | string
+    receiverId?: StringFilter<"Messages"> | string
+    createdAt?: DateTimeFilter<"Messages"> | Date | string
+    messageType?: EnumMessageTypeFilter<"Messages"> | $Enums.MessageType
+    content?: StringFilter<"Messages"> | string
+    status?: EnumMessageSentStatusFilter<"Messages"> | $Enums.MessageSentStatus
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MessagesOrderByWithRelationInput = {
+    messageId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    createdAt?: SortOrder
+    messageType?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    receiver?: UserOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+  }
+
+  export type MessagesWhereUniqueInput = Prisma.AtLeast<{
+    messageId?: string
+    AND?: MessagesWhereInput | MessagesWhereInput[]
+    OR?: MessagesWhereInput[]
+    NOT?: MessagesWhereInput | MessagesWhereInput[]
+    senderId?: StringFilter<"Messages"> | string
+    receiverId?: StringFilter<"Messages"> | string
+    createdAt?: DateTimeFilter<"Messages"> | Date | string
+    messageType?: EnumMessageTypeFilter<"Messages"> | $Enums.MessageType
+    content?: StringFilter<"Messages"> | string
+    status?: EnumMessageSentStatusFilter<"Messages"> | $Enums.MessageSentStatus
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "messageId">
+
+  export type MessagesOrderByWithAggregationInput = {
+    messageId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    createdAt?: SortOrder
+    messageType?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    _count?: MessagesCountOrderByAggregateInput
+    _max?: MessagesMaxOrderByAggregateInput
+    _min?: MessagesMinOrderByAggregateInput
+  }
+
+  export type MessagesScalarWhereWithAggregatesInput = {
+    AND?: MessagesScalarWhereWithAggregatesInput | MessagesScalarWhereWithAggregatesInput[]
+    OR?: MessagesScalarWhereWithAggregatesInput[]
+    NOT?: MessagesScalarWhereWithAggregatesInput | MessagesScalarWhereWithAggregatesInput[]
+    messageId?: StringWithAggregatesFilter<"Messages"> | string
+    senderId?: StringWithAggregatesFilter<"Messages"> | string
+    receiverId?: StringWithAggregatesFilter<"Messages"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Messages"> | Date | string
+    messageType?: EnumMessageTypeWithAggregatesFilter<"Messages"> | $Enums.MessageType
+    content?: StringWithAggregatesFilter<"Messages"> | string
+    status?: EnumMessageSentStatusWithAggregatesFilter<"Messages"> | $Enums.MessageSentStatus
+  }
+
+  export type spatial_ref_sysWhereInput = {
+    AND?: spatial_ref_sysWhereInput | spatial_ref_sysWhereInput[]
+    OR?: spatial_ref_sysWhereInput[]
+    NOT?: spatial_ref_sysWhereInput | spatial_ref_sysWhereInput[]
+    srid?: IntFilter<"spatial_ref_sys"> | number
+    auth_name?: StringNullableFilter<"spatial_ref_sys"> | string | null
+    auth_srid?: IntNullableFilter<"spatial_ref_sys"> | number | null
+    srtext?: StringNullableFilter<"spatial_ref_sys"> | string | null
+    proj4text?: StringNullableFilter<"spatial_ref_sys"> | string | null
+  }
+
+  export type spatial_ref_sysOrderByWithRelationInput = {
+    srid?: SortOrder
+    auth_name?: SortOrderInput | SortOrder
+    auth_srid?: SortOrderInput | SortOrder
+    srtext?: SortOrderInput | SortOrder
+    proj4text?: SortOrderInput | SortOrder
+  }
+
+  export type spatial_ref_sysWhereUniqueInput = Prisma.AtLeast<{
+    srid?: number
+    AND?: spatial_ref_sysWhereInput | spatial_ref_sysWhereInput[]
+    OR?: spatial_ref_sysWhereInput[]
+    NOT?: spatial_ref_sysWhereInput | spatial_ref_sysWhereInput[]
+    auth_name?: StringNullableFilter<"spatial_ref_sys"> | string | null
+    auth_srid?: IntNullableFilter<"spatial_ref_sys"> | number | null
+    srtext?: StringNullableFilter<"spatial_ref_sys"> | string | null
+    proj4text?: StringNullableFilter<"spatial_ref_sys"> | string | null
+  }, "srid">
+
+  export type spatial_ref_sysOrderByWithAggregationInput = {
+    srid?: SortOrder
+    auth_name?: SortOrderInput | SortOrder
+    auth_srid?: SortOrderInput | SortOrder
+    srtext?: SortOrderInput | SortOrder
+    proj4text?: SortOrderInput | SortOrder
+    _count?: spatial_ref_sysCountOrderByAggregateInput
+    _avg?: spatial_ref_sysAvgOrderByAggregateInput
+    _max?: spatial_ref_sysMaxOrderByAggregateInput
+    _min?: spatial_ref_sysMinOrderByAggregateInput
+    _sum?: spatial_ref_sysSumOrderByAggregateInput
+  }
+
+  export type spatial_ref_sysScalarWhereWithAggregatesInput = {
+    AND?: spatial_ref_sysScalarWhereWithAggregatesInput | spatial_ref_sysScalarWhereWithAggregatesInput[]
+    OR?: spatial_ref_sysScalarWhereWithAggregatesInput[]
+    NOT?: spatial_ref_sysScalarWhereWithAggregatesInput | spatial_ref_sysScalarWhereWithAggregatesInput[]
+    srid?: IntWithAggregatesFilter<"spatial_ref_sys"> | number
+    auth_name?: StringNullableWithAggregatesFilter<"spatial_ref_sys"> | string | null
+    auth_srid?: IntNullableWithAggregatesFilter<"spatial_ref_sys"> | number | null
+    srtext?: StringNullableWithAggregatesFilter<"spatial_ref_sys"> | string | null
+    proj4text?: StringNullableWithAggregatesFilter<"spatial_ref_sys"> | string | null
   }
 
   export type UserCreateInput = {
@@ -9909,14 +12460,16 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
     animals?: AnimalCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesCreateNestedManyWithoutSenderInput
     breedingsInvolved?: BreedingCreateNestedManyWithoutFarmersInput
   }
 
@@ -9929,14 +12482,16 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
     animals?: AnimalUncheckedCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
     breedingsInvolved?: BreedingUncheckedCreateNestedManyWithoutFarmersInput
   }
 
@@ -9949,14 +12504,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
     animals?: AnimalUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
     breedingsInvolved?: BreedingUpdateManyWithoutFarmersNestedInput
   }
 
@@ -9969,14 +12526,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
     animals?: AnimalUncheckedUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
     breedingsInvolved?: BreedingUncheckedUpdateManyWithoutFarmersNestedInput
   }
 
@@ -9989,13 +12548,13 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -10007,13 +12566,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -10025,20 +12584,20 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AnimalCreateInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -10047,26 +12606,26 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -10081,20 +12640,20 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUpdateInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -10103,26 +12662,26 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -10137,20 +12696,20 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalCreateManyInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -10169,7 +12728,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -10184,7 +12743,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -10209,8 +12768,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     offspring?: AnimalCreateNestedManyWithoutBreedingEventInput
-    mother?: AnimalCreateNestedOneWithoutBreedingAsMotherInput
-    father?: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    father: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    mother: AnimalCreateNestedOneWithoutBreedingAsMotherInput
     farmers?: UserCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
@@ -10239,8 +12798,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     offspring?: AnimalUpdateManyWithoutBreedingEventNestedInput
-    mother?: AnimalUpdateOneWithoutBreedingAsMotherNestedInput
-    father?: AnimalUpdateOneWithoutBreedingAsFatherNestedInput
+    father?: AnimalUpdateOneRequiredWithoutBreedingAsFatherNestedInput
+    mother?: AnimalUpdateOneRequiredWithoutBreedingAsMotherNestedInput
     farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
   }
 
@@ -10448,7 +13007,7 @@ export namespace Prisma {
 
   export type Perfomance_RecordsCreateInput = {
     id?: string
-    milk_yield: number
+    milk_yield?: number | null
     weight: number
     health_status?: $Enums.AnimalHealth
     recordedAt?: Date | string
@@ -10458,7 +13017,7 @@ export namespace Prisma {
   export type Perfomance_RecordsUncheckedCreateInput = {
     id?: string
     animalId: string
-    milk_yield: number
+    milk_yield?: number | null
     weight: number
     health_status?: $Enums.AnimalHealth
     recordedAt?: Date | string
@@ -10466,7 +13025,7 @@ export namespace Prisma {
 
   export type Perfomance_RecordsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: FloatFieldUpdateOperationsInput | number
     health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10476,7 +13035,7 @@ export namespace Prisma {
   export type Perfomance_RecordsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: FloatFieldUpdateOperationsInput | number
     health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10485,7 +13044,7 @@ export namespace Prisma {
   export type Perfomance_RecordsCreateManyInput = {
     id?: string
     animalId: string
-    milk_yield: number
+    milk_yield?: number | null
     weight: number
     health_status?: $Enums.AnimalHealth
     recordedAt?: Date | string
@@ -10493,7 +13052,7 @@ export namespace Prisma {
 
   export type Perfomance_RecordsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: FloatFieldUpdateOperationsInput | number
     health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10502,10 +13061,134 @@ export namespace Prisma {
   export type Perfomance_RecordsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: FloatFieldUpdateOperationsInput | number
     health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagesCreateInput = {
+    messageId?: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+    receiver: UserCreateNestedOneWithoutReceiverMessageInput
+    sender: UserCreateNestedOneWithoutSenderMessagesInput
+  }
+
+  export type MessagesUncheckedCreateInput = {
+    messageId?: string
+    senderId: string
+    receiverId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
+  export type MessagesUpdateInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+    receiver?: UserUpdateOneRequiredWithoutReceiverMessageNestedInput
+    sender?: UserUpdateOneRequiredWithoutSenderMessagesNestedInput
+  }
+
+  export type MessagesUncheckedUpdateInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type MessagesCreateManyInput = {
+    messageId?: string
+    senderId: string
+    receiverId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
+  export type MessagesUpdateManyMutationInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type MessagesUncheckedUpdateManyInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type spatial_ref_sysCreateInput = {
+    srid: number
+    auth_name?: string | null
+    auth_srid?: number | null
+    srtext?: string | null
+    proj4text?: string | null
+  }
+
+  export type spatial_ref_sysUncheckedCreateInput = {
+    srid: number
+    auth_name?: string | null
+    auth_srid?: number | null
+    srtext?: string | null
+    proj4text?: string | null
+  }
+
+  export type spatial_ref_sysUpdateInput = {
+    srid?: IntFieldUpdateOperationsInput | number
+    auth_name?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_srid?: NullableIntFieldUpdateOperationsInput | number | null
+    srtext?: NullableStringFieldUpdateOperationsInput | string | null
+    proj4text?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type spatial_ref_sysUncheckedUpdateInput = {
+    srid?: IntFieldUpdateOperationsInput | number
+    auth_name?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_srid?: NullableIntFieldUpdateOperationsInput | number | null
+    srtext?: NullableStringFieldUpdateOperationsInput | string | null
+    proj4text?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type spatial_ref_sysCreateManyInput = {
+    srid: number
+    auth_name?: string | null
+    auth_srid?: number | null
+    srtext?: string | null
+    proj4text?: string | null
+  }
+
+  export type spatial_ref_sysUpdateManyMutationInput = {
+    srid?: IntFieldUpdateOperationsInput | number
+    auth_name?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_srid?: NullableIntFieldUpdateOperationsInput | number | null
+    srtext?: NullableStringFieldUpdateOperationsInput | string | null
+    proj4text?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type spatial_ref_sysUncheckedUpdateManyInput = {
+    srid?: IntFieldUpdateOperationsInput | number
+    auth_name?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_srid?: NullableIntFieldUpdateOperationsInput | number | null
+    srtext?: NullableStringFieldUpdateOperationsInput | string | null
+    proj4text?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10562,6 +13245,12 @@ export namespace Prisma {
     none?: AnimalWhereInput
   }
 
+  export type MessagesListRelationFilter = {
+    every?: MessagesWhereInput
+    some?: MessagesWhereInput
+    none?: MessagesWhereInput
+  }
+
   export type BreedingListRelationFilter = {
     every?: BreedingWhereInput
     some?: BreedingWhereInput
@@ -10574,6 +13263,10 @@ export namespace Prisma {
   }
 
   export type AnimalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessagesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10590,13 +13283,13 @@ export namespace Prisma {
     email?: SortOrder
     createdAt?: SortOrder
     lastActive?: SortOrder
-    farmingSystem?: SortOrder
     district?: SortOrder
     sector?: SortOrder
     village?: SortOrder
     cell?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    profile_url?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -10608,13 +13301,13 @@ export namespace Prisma {
     email?: SortOrder
     createdAt?: SortOrder
     lastActive?: SortOrder
-    farmingSystem?: SortOrder
     district?: SortOrder
     sector?: SortOrder
     village?: SortOrder
     cell?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    profile_url?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -10626,13 +13319,13 @@ export namespace Prisma {
     email?: SortOrder
     createdAt?: SortOrder
     lastActive?: SortOrder
-    farmingSystem?: SortOrder
     district?: SortOrder
     sector?: SortOrder
     village?: SortOrder
     cell?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    profile_url?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -10695,6 +13388,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type EnumAnimalTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalType | EnumAnimalTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalType[] | ListEnumAnimalTypeFieldRefInput<$PrismaModel>
@@ -10741,6 +13445,11 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type BreedingScalarRelationFilter = {
+    is?: BreedingWhereInput
+    isNot?: BreedingWhereInput
+  }
+
   export type AnimalNullableScalarRelationFilter = {
     is?: AnimalWhereInput | null
     isNot?: AnimalWhereInput | null
@@ -10751,21 +13460,10 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type BreedingScalarRelationFilter = {
-    is?: BreedingWhereInput
-    isNot?: BreedingWhereInput
-  }
-
   export type Breeding_RecListRelationFilter = {
     every?: Breeding_RecWhereInput
     some?: Breeding_RecWhereInput
     none?: Breeding_RecWhereInput
-  }
-
-  export type RelatedNess_EstimatesListRelationFilter = {
-    every?: RelatedNess_EstimatesWhereInput
-    some?: RelatedNess_EstimatesWhereInput
-    none?: RelatedNess_EstimatesWhereInput
   }
 
   export type Perfomance_RecordsListRelationFilter = {
@@ -10774,15 +13472,21 @@ export namespace Prisma {
     none?: Perfomance_RecordsWhereInput
   }
 
+  export type RelatedNess_EstimatesListRelationFilter = {
+    every?: RelatedNess_EstimatesWhereInput
+    some?: RelatedNess_EstimatesWhereInput
+    none?: RelatedNess_EstimatesWhereInput
+  }
+
   export type Breeding_RecOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type RelatedNess_EstimatesOrderByRelationAggregateInput = {
+  export type Perfomance_RecordsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type Perfomance_RecordsOrderByRelationAggregateInput = {
+  export type RelatedNess_EstimatesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10849,6 +13553,20 @@ export namespace Prisma {
     breed_confidence?: SortOrder
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type EnumAnimalTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalType | EnumAnimalTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalType[] | ListEnumAnimalTypeFieldRefInput<$PrismaModel>
@@ -10902,17 +13620,6 @@ export namespace Prisma {
     not?: NestedEnumBreedingMethodFilter<$PrismaModel> | $Enums.BreedingMethod
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -10922,6 +13629,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type AnimalScalarRelationFilter = {
+    is?: AnimalWhereInput
+    isNot?: AnimalWhereInput
   }
 
   export type UserListRelationFilter = {
@@ -10991,20 +13703,6 @@ export namespace Prisma {
     _max?: NestedEnumBreedingMethodFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -11024,11 +13722,6 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type AnimalScalarRelationFilter = {
-    is?: AnimalWhereInput
-    isNot?: AnimalWhereInput
   }
 
   export type Breeding_RecCountOrderByAggregateInput = {
@@ -11131,6 +13824,17 @@ export namespace Prisma {
     pedigree_coeff?: SortOrder
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumAnimalHealthFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalHealth | EnumAnimalHealthFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalHealth[] | ListEnumAnimalHealthFieldRefInput<$PrismaModel>
@@ -11175,6 +13879,22 @@ export namespace Prisma {
     weight?: SortOrder
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type EnumAnimalHealthWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalHealth | EnumAnimalHealthFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalHealth[] | ListEnumAnimalHealthFieldRefInput<$PrismaModel>
@@ -11185,11 +13905,150 @@ export namespace Prisma {
     _max?: NestedEnumAnimalHealthFilter<$PrismaModel>
   }
 
+  export type EnumMessageTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageType | EnumMessageTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTypeFilter<$PrismaModel> | $Enums.MessageType
+  }
+
+  export type EnumMessageSentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageSentStatus | EnumMessageSentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageSentStatusFilter<$PrismaModel> | $Enums.MessageSentStatus
+  }
+
+  export type MessagesCountOrderByAggregateInput = {
+    messageId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    createdAt?: SortOrder
+    messageType?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+  }
+
+  export type MessagesMaxOrderByAggregateInput = {
+    messageId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    createdAt?: SortOrder
+    messageType?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+  }
+
+  export type MessagesMinOrderByAggregateInput = {
+    messageId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    createdAt?: SortOrder
+    messageType?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+  }
+
+  export type EnumMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageType | EnumMessageTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTypeWithAggregatesFilter<$PrismaModel> | $Enums.MessageType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageTypeFilter<$PrismaModel>
+    _max?: NestedEnumMessageTypeFilter<$PrismaModel>
+  }
+
+  export type EnumMessageSentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageSentStatus | EnumMessageSentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageSentStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageSentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageSentStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageSentStatusFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type spatial_ref_sysCountOrderByAggregateInput = {
+    srid?: SortOrder
+    auth_name?: SortOrder
+    auth_srid?: SortOrder
+    srtext?: SortOrder
+    proj4text?: SortOrder
+  }
+
+  export type spatial_ref_sysAvgOrderByAggregateInput = {
+    srid?: SortOrder
+    auth_srid?: SortOrder
+  }
+
+  export type spatial_ref_sysMaxOrderByAggregateInput = {
+    srid?: SortOrder
+    auth_name?: SortOrder
+    auth_srid?: SortOrder
+    srtext?: SortOrder
+    proj4text?: SortOrder
+  }
+
+  export type spatial_ref_sysMinOrderByAggregateInput = {
+    srid?: SortOrder
+    auth_name?: SortOrder
+    auth_srid?: SortOrder
+    srtext?: SortOrder
+    proj4text?: SortOrder
+  }
+
+  export type spatial_ref_sysSumOrderByAggregateInput = {
+    srid?: SortOrder
+    auth_srid?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type AnimalCreateNestedManyWithoutOwnerInput = {
     create?: XOR<AnimalCreateWithoutOwnerInput, AnimalUncheckedCreateWithoutOwnerInput> | AnimalCreateWithoutOwnerInput[] | AnimalUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: AnimalCreateOrConnectWithoutOwnerInput | AnimalCreateOrConnectWithoutOwnerInput[]
     createMany?: AnimalCreateManyOwnerInputEnvelope
     connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type MessagesCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput> | MessagesCreateWithoutReceiverInput[] | MessagesUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutReceiverInput | MessagesCreateOrConnectWithoutReceiverInput[]
+    createMany?: MessagesCreateManyReceiverInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type MessagesCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
+    createMany?: MessagesCreateManySenderInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
   }
 
   export type BreedingCreateNestedManyWithoutFarmersInput = {
@@ -11203,6 +14062,20 @@ export namespace Prisma {
     connectOrCreate?: AnimalCreateOrConnectWithoutOwnerInput | AnimalCreateOrConnectWithoutOwnerInput[]
     createMany?: AnimalCreateManyOwnerInputEnvelope
     connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type MessagesUncheckedCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput> | MessagesCreateWithoutReceiverInput[] | MessagesUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutReceiverInput | MessagesCreateOrConnectWithoutReceiverInput[]
+    createMany?: MessagesCreateManyReceiverInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type MessagesUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
+    createMany?: MessagesCreateManySenderInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
   }
 
   export type BreedingUncheckedCreateNestedManyWithoutFarmersInput = {
@@ -11241,6 +14114,34 @@ export namespace Prisma {
     deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
   }
 
+  export type MessagesUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput> | MessagesCreateWithoutReceiverInput[] | MessagesUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutReceiverInput | MessagesCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutReceiverInput | MessagesUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessagesCreateManyReceiverInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutReceiverInput | MessagesUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutReceiverInput | MessagesUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
+  export type MessagesUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutSenderInput | MessagesUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessagesCreateManySenderInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutSenderInput | MessagesUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutSenderInput | MessagesUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
   export type BreedingUpdateManyWithoutFarmersNestedInput = {
     create?: XOR<BreedingCreateWithoutFarmersInput, BreedingUncheckedCreateWithoutFarmersInput> | BreedingCreateWithoutFarmersInput[] | BreedingUncheckedCreateWithoutFarmersInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFarmersInput | BreedingCreateOrConnectWithoutFarmersInput[]
@@ -11268,6 +14169,34 @@ export namespace Prisma {
     deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
   }
 
+  export type MessagesUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput> | MessagesCreateWithoutReceiverInput[] | MessagesUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutReceiverInput | MessagesCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutReceiverInput | MessagesUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessagesCreateManyReceiverInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutReceiverInput | MessagesUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutReceiverInput | MessagesUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutSenderInput | MessagesUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessagesCreateManySenderInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutSenderInput | MessagesUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutSenderInput | MessagesUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
   export type BreedingUncheckedUpdateManyWithoutFarmersNestedInput = {
     create?: XOR<BreedingCreateWithoutFarmersInput, BreedingUncheckedCreateWithoutFarmersInput> | BreedingCreateWithoutFarmersInput[] | BreedingUncheckedCreateWithoutFarmersInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFarmersInput | BreedingCreateOrConnectWithoutFarmersInput[]
@@ -11285,10 +14214,10 @@ export namespace Prisma {
     set: InputJsonValue[]
   }
 
-  export type AnimalCreateNestedOneWithoutOffspringAsMotherInput = {
-    create?: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
-    connectOrCreate?: AnimalCreateOrConnectWithoutOffspringAsMotherInput
-    connect?: AnimalWhereUniqueInput
+  export type BreedingCreateNestedOneWithoutOffspringInput = {
+    create?: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
+    connectOrCreate?: BreedingCreateOrConnectWithoutOffspringInput
+    connect?: BreedingWhereUniqueInput
   }
 
   export type AnimalCreateNestedOneWithoutOffspringsAsFatherInput = {
@@ -11304,6 +14233,12 @@ export namespace Prisma {
     connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
   }
 
+  export type AnimalCreateNestedOneWithoutOffspringAsMotherInput = {
+    create?: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutOffspringAsMotherInput
+    connect?: AnimalWhereUniqueInput
+  }
+
   export type AnimalCreateNestedManyWithoutMotherInput = {
     create?: XOR<AnimalCreateWithoutMotherInput, AnimalUncheckedCreateWithoutMotherInput> | AnimalCreateWithoutMotherInput[] | AnimalUncheckedCreateWithoutMotherInput[]
     connectOrCreate?: AnimalCreateOrConnectWithoutMotherInput | AnimalCreateOrConnectWithoutMotherInput[]
@@ -11317,13 +14252,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BreedingCreateNestedManyWithoutMotherInput = {
-    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
-    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
-    createMany?: BreedingCreateManyMotherInputEnvelope
-    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-  }
-
   export type BreedingCreateNestedManyWithoutFatherInput = {
     create?: XOR<BreedingCreateWithoutFatherInput, BreedingUncheckedCreateWithoutFatherInput> | BreedingCreateWithoutFatherInput[] | BreedingUncheckedCreateWithoutFatherInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFatherInput | BreedingCreateOrConnectWithoutFatherInput[]
@@ -11331,10 +14259,11 @@ export namespace Prisma {
     connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
   }
 
-  export type BreedingCreateNestedOneWithoutOffspringInput = {
-    create?: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
-    connectOrCreate?: BreedingCreateOrConnectWithoutOffspringInput
-    connect?: BreedingWhereUniqueInput
+  export type BreedingCreateNestedManyWithoutMotherInput = {
+    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
+    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
+    createMany?: BreedingCreateManyMotherInputEnvelope
+    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
   }
 
   export type Breeding_RecCreateNestedManyWithoutOriginalAnimalInput = {
@@ -11351,6 +14280,13 @@ export namespace Prisma {
     connect?: Breeding_RecWhereUniqueInput | Breeding_RecWhereUniqueInput[]
   }
 
+  export type Perfomance_RecordsCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
+    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
+    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+  }
+
   export type RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput = {
     create?: XOR<RelatedNess_EstimatesCreateWithoutAnimal1RelationInput, RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput> | RelatedNess_EstimatesCreateWithoutAnimal1RelationInput[] | RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput[]
     connectOrCreate?: RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput | RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput[]
@@ -11363,13 +14299,6 @@ export namespace Prisma {
     connectOrCreate?: RelatedNess_EstimatesCreateOrConnectWithoutAnimal2RelationInput | RelatedNess_EstimatesCreateOrConnectWithoutAnimal2RelationInput[]
     createMany?: RelatedNess_EstimatesCreateManyAnimal2RelationInputEnvelope
     connect?: RelatedNess_EstimatesWhereUniqueInput | RelatedNess_EstimatesWhereUniqueInput[]
-  }
-
-  export type Perfomance_RecordsCreateNestedManyWithoutAnimalInput = {
-    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
-    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
-    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
-    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
   }
 
   export type AnimalUncheckedCreateNestedManyWithoutFatherInput = {
@@ -11386,17 +14315,17 @@ export namespace Prisma {
     connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
   }
 
-  export type BreedingUncheckedCreateNestedManyWithoutMotherInput = {
-    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
-    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
-    createMany?: BreedingCreateManyMotherInputEnvelope
-    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-  }
-
   export type BreedingUncheckedCreateNestedManyWithoutFatherInput = {
     create?: XOR<BreedingCreateWithoutFatherInput, BreedingUncheckedCreateWithoutFatherInput> | BreedingCreateWithoutFatherInput[] | BreedingUncheckedCreateWithoutFatherInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFatherInput | BreedingCreateOrConnectWithoutFatherInput[]
     createMany?: BreedingCreateManyFatherInputEnvelope
+    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+  }
+
+  export type BreedingUncheckedCreateNestedManyWithoutMotherInput = {
+    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
+    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
+    createMany?: BreedingCreateManyMotherInputEnvelope
     connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
   }
 
@@ -11414,6 +14343,13 @@ export namespace Prisma {
     connect?: Breeding_RecWhereUniqueInput | Breeding_RecWhereUniqueInput[]
   }
 
+  export type Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
+    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
+    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+  }
+
   export type RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput = {
     create?: XOR<RelatedNess_EstimatesCreateWithoutAnimal1RelationInput, RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput> | RelatedNess_EstimatesCreateWithoutAnimal1RelationInput[] | RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput[]
     connectOrCreate?: RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput | RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput[]
@@ -11428,11 +14364,8 @@ export namespace Prisma {
     connect?: RelatedNess_EstimatesWhereUniqueInput | RelatedNess_EstimatesWhereUniqueInput[]
   }
 
-  export type Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput = {
-    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
-    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
-    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
-    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type EnumAnimalTypeFieldUpdateOperationsInput = {
@@ -11460,14 +14393,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type AnimalUpdateOneWithoutOffspringAsMotherNestedInput = {
-    create?: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
-    connectOrCreate?: AnimalCreateOrConnectWithoutOffspringAsMotherInput
-    upsert?: AnimalUpsertWithoutOffspringAsMotherInput
-    disconnect?: AnimalWhereInput | boolean
-    delete?: AnimalWhereInput | boolean
-    connect?: AnimalWhereUniqueInput
-    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutOffspringAsMotherInput, AnimalUpdateWithoutOffspringAsMotherInput>, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
+  export type BreedingUpdateOneRequiredWithoutOffspringNestedInput = {
+    create?: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
+    connectOrCreate?: BreedingCreateOrConnectWithoutOffspringInput
+    upsert?: BreedingUpsertWithoutOffspringInput
+    connect?: BreedingWhereUniqueInput
+    update?: XOR<XOR<BreedingUpdateToOneWithWhereWithoutOffspringInput, BreedingUpdateWithoutOffspringInput>, BreedingUncheckedUpdateWithoutOffspringInput>
   }
 
   export type AnimalUpdateOneWithoutOffspringsAsFatherNestedInput = {
@@ -11494,6 +14425,16 @@ export namespace Prisma {
     deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
   }
 
+  export type AnimalUpdateOneWithoutOffspringAsMotherNestedInput = {
+    create?: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutOffspringAsMotherInput
+    upsert?: AnimalUpsertWithoutOffspringAsMotherInput
+    disconnect?: AnimalWhereInput | boolean
+    delete?: AnimalWhereInput | boolean
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutOffspringAsMotherInput, AnimalUpdateWithoutOffspringAsMotherInput>, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
+  }
+
   export type AnimalUpdateManyWithoutMotherNestedInput = {
     create?: XOR<AnimalCreateWithoutMotherInput, AnimalUncheckedCreateWithoutMotherInput> | AnimalCreateWithoutMotherInput[] | AnimalUncheckedCreateWithoutMotherInput[]
     connectOrCreate?: AnimalCreateOrConnectWithoutMotherInput | AnimalCreateOrConnectWithoutMotherInput[]
@@ -11516,20 +14457,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAnimalsInput, UserUpdateWithoutAnimalsInput>, UserUncheckedUpdateWithoutAnimalsInput>
   }
 
-  export type BreedingUpdateManyWithoutMotherNestedInput = {
-    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
-    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
-    upsert?: BreedingUpsertWithWhereUniqueWithoutMotherInput | BreedingUpsertWithWhereUniqueWithoutMotherInput[]
-    createMany?: BreedingCreateManyMotherInputEnvelope
-    set?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    disconnect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    delete?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    update?: BreedingUpdateWithWhereUniqueWithoutMotherInput | BreedingUpdateWithWhereUniqueWithoutMotherInput[]
-    updateMany?: BreedingUpdateManyWithWhereWithoutMotherInput | BreedingUpdateManyWithWhereWithoutMotherInput[]
-    deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
-  }
-
   export type BreedingUpdateManyWithoutFatherNestedInput = {
     create?: XOR<BreedingCreateWithoutFatherInput, BreedingUncheckedCreateWithoutFatherInput> | BreedingCreateWithoutFatherInput[] | BreedingUncheckedCreateWithoutFatherInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFatherInput | BreedingCreateOrConnectWithoutFatherInput[]
@@ -11544,12 +14471,18 @@ export namespace Prisma {
     deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
   }
 
-  export type BreedingUpdateOneRequiredWithoutOffspringNestedInput = {
-    create?: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
-    connectOrCreate?: BreedingCreateOrConnectWithoutOffspringInput
-    upsert?: BreedingUpsertWithoutOffspringInput
-    connect?: BreedingWhereUniqueInput
-    update?: XOR<XOR<BreedingUpdateToOneWithWhereWithoutOffspringInput, BreedingUpdateWithoutOffspringInput>, BreedingUncheckedUpdateWithoutOffspringInput>
+  export type BreedingUpdateManyWithoutMotherNestedInput = {
+    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
+    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
+    upsert?: BreedingUpsertWithWhereUniqueWithoutMotherInput | BreedingUpsertWithWhereUniqueWithoutMotherInput[]
+    createMany?: BreedingCreateManyMotherInputEnvelope
+    set?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    disconnect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    delete?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    update?: BreedingUpdateWithWhereUniqueWithoutMotherInput | BreedingUpdateWithWhereUniqueWithoutMotherInput[]
+    updateMany?: BreedingUpdateManyWithWhereWithoutMotherInput | BreedingUpdateManyWithWhereWithoutMotherInput[]
+    deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
   }
 
   export type Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput = {
@@ -11580,6 +14513,20 @@ export namespace Prisma {
     deleteMany?: Breeding_RecScalarWhereInput | Breeding_RecScalarWhereInput[]
   }
 
+  export type Perfomance_RecordsUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
+    upsert?: Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
+    set?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    disconnect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    delete?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    update?: Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput | Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
+  }
+
   export type RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput = {
     create?: XOR<RelatedNess_EstimatesCreateWithoutAnimal1RelationInput, RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput> | RelatedNess_EstimatesCreateWithoutAnimal1RelationInput[] | RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput[]
     connectOrCreate?: RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput | RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput[]
@@ -11606,20 +14553,6 @@ export namespace Prisma {
     update?: RelatedNess_EstimatesUpdateWithWhereUniqueWithoutAnimal2RelationInput | RelatedNess_EstimatesUpdateWithWhereUniqueWithoutAnimal2RelationInput[]
     updateMany?: RelatedNess_EstimatesUpdateManyWithWhereWithoutAnimal2RelationInput | RelatedNess_EstimatesUpdateManyWithWhereWithoutAnimal2RelationInput[]
     deleteMany?: RelatedNess_EstimatesScalarWhereInput | RelatedNess_EstimatesScalarWhereInput[]
-  }
-
-  export type Perfomance_RecordsUpdateManyWithoutAnimalNestedInput = {
-    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
-    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
-    upsert?: Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput[]
-    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
-    set?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    disconnect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    delete?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    update?: Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput[]
-    updateMany?: Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput | Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput[]
-    deleteMany?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
   }
 
   export type AnimalUncheckedUpdateManyWithoutFatherNestedInput = {
@@ -11650,20 +14583,6 @@ export namespace Prisma {
     deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
   }
 
-  export type BreedingUncheckedUpdateManyWithoutMotherNestedInput = {
-    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
-    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
-    upsert?: BreedingUpsertWithWhereUniqueWithoutMotherInput | BreedingUpsertWithWhereUniqueWithoutMotherInput[]
-    createMany?: BreedingCreateManyMotherInputEnvelope
-    set?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    disconnect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    delete?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
-    update?: BreedingUpdateWithWhereUniqueWithoutMotherInput | BreedingUpdateWithWhereUniqueWithoutMotherInput[]
-    updateMany?: BreedingUpdateManyWithWhereWithoutMotherInput | BreedingUpdateManyWithWhereWithoutMotherInput[]
-    deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
-  }
-
   export type BreedingUncheckedUpdateManyWithoutFatherNestedInput = {
     create?: XOR<BreedingCreateWithoutFatherInput, BreedingUncheckedCreateWithoutFatherInput> | BreedingCreateWithoutFatherInput[] | BreedingUncheckedCreateWithoutFatherInput[]
     connectOrCreate?: BreedingCreateOrConnectWithoutFatherInput | BreedingCreateOrConnectWithoutFatherInput[]
@@ -11675,6 +14594,20 @@ export namespace Prisma {
     connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
     update?: BreedingUpdateWithWhereUniqueWithoutFatherInput | BreedingUpdateWithWhereUniqueWithoutFatherInput[]
     updateMany?: BreedingUpdateManyWithWhereWithoutFatherInput | BreedingUpdateManyWithWhereWithoutFatherInput[]
+    deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
+  }
+
+  export type BreedingUncheckedUpdateManyWithoutMotherNestedInput = {
+    create?: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput> | BreedingCreateWithoutMotherInput[] | BreedingUncheckedCreateWithoutMotherInput[]
+    connectOrCreate?: BreedingCreateOrConnectWithoutMotherInput | BreedingCreateOrConnectWithoutMotherInput[]
+    upsert?: BreedingUpsertWithWhereUniqueWithoutMotherInput | BreedingUpsertWithWhereUniqueWithoutMotherInput[]
+    createMany?: BreedingCreateManyMotherInputEnvelope
+    set?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    disconnect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    delete?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    connect?: BreedingWhereUniqueInput | BreedingWhereUniqueInput[]
+    update?: BreedingUpdateWithWhereUniqueWithoutMotherInput | BreedingUpdateWithWhereUniqueWithoutMotherInput[]
+    updateMany?: BreedingUpdateManyWithWhereWithoutMotherInput | BreedingUpdateManyWithWhereWithoutMotherInput[]
     deleteMany?: BreedingScalarWhereInput | BreedingScalarWhereInput[]
   }
 
@@ -11706,6 +14639,20 @@ export namespace Prisma {
     deleteMany?: Breeding_RecScalarWhereInput | Breeding_RecScalarWhereInput[]
   }
 
+  export type Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
+    upsert?: Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
+    set?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    disconnect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    delete?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
+    update?: Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput | Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
+  }
+
   export type RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput = {
     create?: XOR<RelatedNess_EstimatesCreateWithoutAnimal1RelationInput, RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput> | RelatedNess_EstimatesCreateWithoutAnimal1RelationInput[] | RelatedNess_EstimatesUncheckedCreateWithoutAnimal1RelationInput[]
     connectOrCreate?: RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput | RelatedNess_EstimatesCreateOrConnectWithoutAnimal1RelationInput[]
@@ -11734,20 +14681,6 @@ export namespace Prisma {
     deleteMany?: RelatedNess_EstimatesScalarWhereInput | RelatedNess_EstimatesScalarWhereInput[]
   }
 
-  export type Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput = {
-    create?: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput> | Perfomance_RecordsCreateWithoutAnimalInput[] | Perfomance_RecordsUncheckedCreateWithoutAnimalInput[]
-    connectOrCreate?: Perfomance_RecordsCreateOrConnectWithoutAnimalInput | Perfomance_RecordsCreateOrConnectWithoutAnimalInput[]
-    upsert?: Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput[]
-    createMany?: Perfomance_RecordsCreateManyAnimalInputEnvelope
-    set?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    disconnect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    delete?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    connect?: Perfomance_RecordsWhereUniqueInput | Perfomance_RecordsWhereUniqueInput[]
-    update?: Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput | Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput[]
-    updateMany?: Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput | Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput[]
-    deleteMany?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
-  }
-
   export type AnimalCreateNestedManyWithoutBreedingEventInput = {
     create?: XOR<AnimalCreateWithoutBreedingEventInput, AnimalUncheckedCreateWithoutBreedingEventInput> | AnimalCreateWithoutBreedingEventInput[] | AnimalUncheckedCreateWithoutBreedingEventInput[]
     connectOrCreate?: AnimalCreateOrConnectWithoutBreedingEventInput | AnimalCreateOrConnectWithoutBreedingEventInput[]
@@ -11755,15 +14688,15 @@ export namespace Prisma {
     connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
   }
 
-  export type AnimalCreateNestedOneWithoutBreedingAsMotherInput = {
-    create?: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
-    connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsMotherInput
-    connect?: AnimalWhereUniqueInput
-  }
-
   export type AnimalCreateNestedOneWithoutBreedingAsFatherInput = {
     create?: XOR<AnimalCreateWithoutBreedingAsFatherInput, AnimalUncheckedCreateWithoutBreedingAsFatherInput>
     connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsFatherInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutBreedingAsMotherInput = {
+    create?: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsMotherInput
     connect?: AnimalWhereUniqueInput
   }
 
@@ -11790,10 +14723,6 @@ export namespace Prisma {
     set?: $Enums.BreedingMethod
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -11816,24 +14745,20 @@ export namespace Prisma {
     deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
   }
 
-  export type AnimalUpdateOneWithoutBreedingAsMotherNestedInput = {
-    create?: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
-    connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsMotherInput
-    upsert?: AnimalUpsertWithoutBreedingAsMotherInput
-    disconnect?: AnimalWhereInput | boolean
-    delete?: AnimalWhereInput | boolean
-    connect?: AnimalWhereUniqueInput
-    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutBreedingAsMotherInput, AnimalUpdateWithoutBreedingAsMotherInput>, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
-  }
-
-  export type AnimalUpdateOneWithoutBreedingAsFatherNestedInput = {
+  export type AnimalUpdateOneRequiredWithoutBreedingAsFatherNestedInput = {
     create?: XOR<AnimalCreateWithoutBreedingAsFatherInput, AnimalUncheckedCreateWithoutBreedingAsFatherInput>
     connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsFatherInput
     upsert?: AnimalUpsertWithoutBreedingAsFatherInput
-    disconnect?: AnimalWhereInput | boolean
-    delete?: AnimalWhereInput | boolean
     connect?: AnimalWhereUniqueInput
     update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutBreedingAsFatherInput, AnimalUpdateWithoutBreedingAsFatherInput>, AnimalUncheckedUpdateWithoutBreedingAsFatherInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutBreedingAsMotherNestedInput = {
+    create?: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBreedingAsMotherInput
+    upsert?: AnimalUpsertWithoutBreedingAsMotherInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutBreedingAsMotherInput, AnimalUpdateWithoutBreedingAsMotherInput>, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
   }
 
   export type UserUpdateManyWithoutBreedingsInvolvedNestedInput = {
@@ -11942,6 +14867,14 @@ export namespace Prisma {
     connect?: AnimalWhereUniqueInput
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumAnimalHealthFieldUpdateOperationsInput = {
     set?: $Enums.AnimalHealth
   }
@@ -11952,6 +14885,50 @@ export namespace Prisma {
     upsert?: AnimalUpsertWithoutPerformanceRecordsInput
     connect?: AnimalWhereUniqueInput
     update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutPerformanceRecordsInput, AnimalUpdateWithoutPerformanceRecordsInput>, AnimalUncheckedUpdateWithoutPerformanceRecordsInput>
+  }
+
+  export type UserCreateNestedOneWithoutReceiverMessageInput = {
+    create?: XOR<UserCreateWithoutReceiverMessageInput, UserUncheckedCreateWithoutReceiverMessageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceiverMessageInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSenderMessagesInput = {
+    create?: XOR<UserCreateWithoutSenderMessagesInput, UserUncheckedCreateWithoutSenderMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSenderMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumMessageTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MessageType
+  }
+
+  export type EnumMessageSentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MessageSentStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutReceiverMessageNestedInput = {
+    create?: XOR<UserCreateWithoutReceiverMessageInput, UserUncheckedCreateWithoutReceiverMessageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceiverMessageInput
+    upsert?: UserUpsertWithoutReceiverMessageInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceiverMessageInput, UserUpdateWithoutReceiverMessageInput>, UserUncheckedUpdateWithoutReceiverMessageInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSenderMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutSenderMessagesInput, UserUncheckedCreateWithoutSenderMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSenderMessagesInput
+    upsert?: UserUpsertWithoutSenderMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSenderMessagesInput, UserUpdateWithoutSenderMessagesInput>, UserUncheckedUpdateWithoutSenderMessagesInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12080,6 +15057,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumAnimalTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalType | EnumAnimalTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalType[] | ListEnumAnimalTypeFieldRefInput<$PrismaModel>
@@ -12110,6 +15098,20 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumAnimalTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12165,17 +15167,6 @@ export namespace Prisma {
     not?: NestedEnumBreedingMethodFilter<$PrismaModel> | $Enums.BreedingMethod
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedEnumBreedingMethodWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.BreedingMethod | EnumBreedingMethodFieldRefInput<$PrismaModel>
     in?: $Enums.BreedingMethod[] | ListEnumBreedingMethodFieldRefInput<$PrismaModel>
@@ -12184,20 +15175,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBreedingMethodFilter<$PrismaModel>
     _max?: NestedEnumBreedingMethodFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12247,6 +15224,22 @@ export namespace Prisma {
     not?: NestedEnumAnimalHealthFilter<$PrismaModel> | $Enums.AnimalHealth
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumAnimalHealthWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AnimalHealth | EnumAnimalHealthFieldRefInput<$PrismaModel>
     in?: $Enums.AnimalHealth[] | ListEnumAnimalHealthFieldRefInput<$PrismaModel>
@@ -12257,11 +15250,61 @@ export namespace Prisma {
     _max?: NestedEnumAnimalHealthFilter<$PrismaModel>
   }
 
+  export type NestedEnumMessageTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageType | EnumMessageTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTypeFilter<$PrismaModel> | $Enums.MessageType
+  }
+
+  export type NestedEnumMessageSentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageSentStatus | EnumMessageSentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageSentStatusFilter<$PrismaModel> | $Enums.MessageSentStatus
+  }
+
+  export type NestedEnumMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageType | EnumMessageTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageType[] | ListEnumMessageTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTypeWithAggregatesFilter<$PrismaModel> | $Enums.MessageType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageTypeFilter<$PrismaModel>
+    _max?: NestedEnumMessageTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMessageSentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageSentStatus | EnumMessageSentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageSentStatus[] | ListEnumMessageSentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageSentStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageSentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageSentStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageSentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type AnimalCreateWithoutOwnerInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12270,25 +15313,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutOwnerInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12302,13 +15345,13 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutOwnerInput = {
@@ -12318,6 +15361,62 @@ export namespace Prisma {
 
   export type AnimalCreateManyOwnerInputEnvelope = {
     data: AnimalCreateManyOwnerInput | AnimalCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessagesCreateWithoutReceiverInput = {
+    messageId?: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+    sender: UserCreateNestedOneWithoutSenderMessagesInput
+  }
+
+  export type MessagesUncheckedCreateWithoutReceiverInput = {
+    messageId?: string
+    senderId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
+  export type MessagesCreateOrConnectWithoutReceiverInput = {
+    where: MessagesWhereUniqueInput
+    create: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessagesCreateManyReceiverInputEnvelope = {
+    data: MessagesCreateManyReceiverInput | MessagesCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessagesCreateWithoutSenderInput = {
+    messageId?: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+    receiver: UserCreateNestedOneWithoutReceiverMessageInput
+  }
+
+  export type MessagesUncheckedCreateWithoutSenderInput = {
+    messageId?: string
+    receiverId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
+  export type MessagesCreateOrConnectWithoutSenderInput = {
+    where: MessagesWhereUniqueInput
+    create: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessagesCreateManySenderInputEnvelope = {
+    data: MessagesCreateManySenderInput | MessagesCreateManySenderInput[]
     skipDuplicates?: boolean
   }
 
@@ -12331,8 +15430,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     offspring?: AnimalCreateNestedManyWithoutBreedingEventInput
-    mother?: AnimalCreateNestedOneWithoutBreedingAsMotherInput
-    father?: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    father: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    mother: AnimalCreateNestedOneWithoutBreedingAsMotherInput
   }
 
   export type BreedingUncheckedCreateWithoutFarmersInput = {
@@ -12377,7 +15476,7 @@ export namespace Prisma {
     animalId?: StringFilter<"Animal"> | string
     name?: StringNullableFilter<"Animal"> | string | null
     sex?: EnumGenderFilter<"Animal"> | $Enums.Gender
-    birthDate?: DateTimeFilter<"Animal"> | Date | string
+    birthDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     type?: EnumAnimalTypeFilter<"Animal"> | $Enums.AnimalType
     registrationDate?: DateTimeFilter<"Animal"> | Date | string
     profilePhoto?: StringFilter<"Animal"> | string
@@ -12390,6 +15489,51 @@ export namespace Prisma {
     specie?: EnumAnimalSpeciesFilter<"Animal"> | $Enums.AnimalSpecies
     breed_confidence?: FloatFilter<"Animal"> | number
     breedingEventId?: StringFilter<"Animal"> | string
+  }
+
+  export type MessagesUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: MessagesWhereUniqueInput
+    update: XOR<MessagesUpdateWithoutReceiverInput, MessagesUncheckedUpdateWithoutReceiverInput>
+    create: XOR<MessagesCreateWithoutReceiverInput, MessagesUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessagesUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: MessagesWhereUniqueInput
+    data: XOR<MessagesUpdateWithoutReceiverInput, MessagesUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type MessagesUpdateManyWithWhereWithoutReceiverInput = {
+    where: MessagesScalarWhereInput
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyWithoutReceiverInput>
+  }
+
+  export type MessagesScalarWhereInput = {
+    AND?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+    OR?: MessagesScalarWhereInput[]
+    NOT?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+    messageId?: StringFilter<"Messages"> | string
+    senderId?: StringFilter<"Messages"> | string
+    receiverId?: StringFilter<"Messages"> | string
+    createdAt?: DateTimeFilter<"Messages"> | Date | string
+    messageType?: EnumMessageTypeFilter<"Messages"> | $Enums.MessageType
+    content?: StringFilter<"Messages"> | string
+    status?: EnumMessageSentStatusFilter<"Messages"> | $Enums.MessageSentStatus
+  }
+
+  export type MessagesUpsertWithWhereUniqueWithoutSenderInput = {
+    where: MessagesWhereUniqueInput
+    update: XOR<MessagesUpdateWithoutSenderInput, MessagesUncheckedUpdateWithoutSenderInput>
+    create: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessagesUpdateWithWhereUniqueWithoutSenderInput = {
+    where: MessagesWhereUniqueInput
+    data: XOR<MessagesUpdateWithoutSenderInput, MessagesUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type MessagesUpdateManyWithWhereWithoutSenderInput = {
+    where: MessagesScalarWhereInput
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyWithoutSenderInput>
   }
 
   export type BreedingUpsertWithWhereUniqueWithoutFarmersInput = {
@@ -12424,70 +15568,44 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Breeding"> | Date | string
   }
 
-  export type AnimalCreateWithoutOffspringAsMotherInput = {
-    animalId?: string
-    name?: string | null
-    sex: $Enums.Gender
-    birthDate: Date | string
-    type: $Enums.AnimalType
-    registrationDate?: Date | string
-    profilePhoto?: string
-    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+  export type BreedingCreateWithoutOffspringInput = {
+    breedingId?: string
+    breedingDate: Date | string
+    method: $Enums.BreedingMethod
+    expectedCalvingDate?: Date | string | null
+    calving_date?: Date | string | null
+    userRating?: number | null
+    createdAt?: Date | string
     updatedAt?: Date | string
-    status?: $Enums.AnimalStatus
-    specie: $Enums.AnimalSpecies
-    breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
-    father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
-    offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
-    owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
-    breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
-    originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
-    recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
+    father: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    mother: AnimalCreateNestedOneWithoutBreedingAsMotherInput
+    farmers?: UserCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
-  export type AnimalUncheckedCreateWithoutOffspringAsMotherInput = {
-    animalId?: string
-    name?: string | null
-    sex: $Enums.Gender
-    birthDate: Date | string
-    type: $Enums.AnimalType
-    registrationDate?: Date | string
-    profilePhoto?: string
-    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+  export type BreedingUncheckedCreateWithoutOffspringInput = {
+    breedingId?: string
+    motherId: string
+    fatherId: string
+    breedingDate: Date | string
+    method: $Enums.BreedingMethod
+    expectedCalvingDate?: Date | string | null
+    calving_date?: Date | string | null
+    userRating?: number | null
+    createdAt?: Date | string
     updatedAt?: Date | string
-    status?: $Enums.AnimalStatus
-    motherId?: string | null
-    fatherId?: string | null
-    ownerId: string
-    specie: $Enums.AnimalSpecies
-    breed_confidence: number
-    breedingEventId: string
-    offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
-    originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
-    recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
+    farmers?: UserUncheckedCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
-  export type AnimalCreateOrConnectWithoutOffspringAsMotherInput = {
-    where: AnimalWhereUniqueInput
-    create: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
+  export type BreedingCreateOrConnectWithoutOffspringInput = {
+    where: BreedingWhereUniqueInput
+    create: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
   }
 
   export type AnimalCreateWithoutOffspringsAsFatherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12496,25 +15614,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutOffspringsAsFatherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12528,13 +15646,13 @@ export namespace Prisma {
     breed_confidence: number
     breedingEventId: string
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutOffspringsAsFatherInput = {
@@ -12546,7 +15664,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12555,25 +15673,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutFatherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12587,13 +15705,13 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutFatherInput = {
@@ -12606,11 +15724,11 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AnimalCreateWithoutMotherInput = {
+  export type AnimalCreateWithoutOffspringAsMotherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12619,25 +15737,84 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
+    offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    owner: UserCreateNestedOneWithoutAnimalsInput
+    breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
+    originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
+    recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
+  }
+
+  export type AnimalUncheckedCreateWithoutOffspringAsMotherInput = {
+    animalId?: string
+    name?: string | null
+    sex: $Enums.Gender
+    birthDate?: Date | string | null
+    type: $Enums.AnimalType
+    registrationDate?: Date | string
+    profilePhoto?: string
+    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: Date | string
+    status?: $Enums.AnimalStatus
+    motherId?: string | null
+    fatherId?: string | null
+    ownerId: string
+    specie: $Enums.AnimalSpecies
+    breed_confidence: number
+    breedingEventId: string
+    offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
+    originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
+    recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
+  }
+
+  export type AnimalCreateOrConnectWithoutOffspringAsMotherInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
+  }
+
+  export type AnimalCreateWithoutMotherInput = {
+    animalId?: string
+    name?: string | null
+    sex: $Enums.Gender
+    birthDate?: Date | string | null
+    type: $Enums.AnimalType
+    registrationDate?: Date | string
+    profilePhoto?: string
+    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: Date | string
+    status?: $Enums.AnimalStatus
+    specie: $Enums.AnimalSpecies
+    breed_confidence: number
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutMotherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -12651,13 +15828,13 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutMotherInput = {
@@ -12679,13 +15856,15 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
+    receiverMessage?: MessagesCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesCreateNestedManyWithoutSenderInput
     breedingsInvolved?: BreedingCreateNestedManyWithoutFarmersInput
   }
 
@@ -12698,57 +15877,21 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
+    receiverMessage?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
     breedingsInvolved?: BreedingUncheckedCreateNestedManyWithoutFarmersInput
   }
 
   export type UserCreateOrConnectWithoutAnimalsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAnimalsInput, UserUncheckedCreateWithoutAnimalsInput>
-  }
-
-  export type BreedingCreateWithoutMotherInput = {
-    breedingId?: string
-    breedingDate: Date | string
-    method: $Enums.BreedingMethod
-    expectedCalvingDate?: Date | string | null
-    calving_date?: Date | string | null
-    userRating?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    offspring?: AnimalCreateNestedManyWithoutBreedingEventInput
-    father?: AnimalCreateNestedOneWithoutBreedingAsFatherInput
-    farmers?: UserCreateNestedManyWithoutBreedingsInvolvedInput
-  }
-
-  export type BreedingUncheckedCreateWithoutMotherInput = {
-    breedingId?: string
-    fatherId: string
-    breedingDate: Date | string
-    method: $Enums.BreedingMethod
-    expectedCalvingDate?: Date | string | null
-    calving_date?: Date | string | null
-    userRating?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    offspring?: AnimalUncheckedCreateNestedManyWithoutBreedingEventInput
-    farmers?: UserUncheckedCreateNestedManyWithoutBreedingsInvolvedInput
-  }
-
-  export type BreedingCreateOrConnectWithoutMotherInput = {
-    where: BreedingWhereUniqueInput
-    create: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput>
-  }
-
-  export type BreedingCreateManyMotherInputEnvelope = {
-    data: BreedingCreateManyMotherInput | BreedingCreateManyMotherInput[]
-    skipDuplicates?: boolean
   }
 
   export type BreedingCreateWithoutFatherInput = {
@@ -12761,7 +15904,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     offspring?: AnimalCreateNestedManyWithoutBreedingEventInput
-    mother?: AnimalCreateNestedOneWithoutBreedingAsMotherInput
+    mother: AnimalCreateNestedOneWithoutBreedingAsMotherInput
     farmers?: UserCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
@@ -12789,7 +15932,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BreedingCreateWithoutOffspringInput = {
+  export type BreedingCreateWithoutMotherInput = {
     breedingId?: string
     breedingDate: Date | string
     method: $Enums.BreedingMethod
@@ -12798,14 +15941,13 @@ export namespace Prisma {
     userRating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    mother?: AnimalCreateNestedOneWithoutBreedingAsMotherInput
-    father?: AnimalCreateNestedOneWithoutBreedingAsFatherInput
+    offspring?: AnimalCreateNestedManyWithoutBreedingEventInput
+    father: AnimalCreateNestedOneWithoutBreedingAsFatherInput
     farmers?: UserCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
-  export type BreedingUncheckedCreateWithoutOffspringInput = {
+  export type BreedingUncheckedCreateWithoutMotherInput = {
     breedingId?: string
-    motherId: string
     fatherId: string
     breedingDate: Date | string
     method: $Enums.BreedingMethod
@@ -12814,12 +15956,18 @@ export namespace Prisma {
     userRating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    offspring?: AnimalUncheckedCreateNestedManyWithoutBreedingEventInput
     farmers?: UserUncheckedCreateNestedManyWithoutBreedingsInvolvedInput
   }
 
-  export type BreedingCreateOrConnectWithoutOffspringInput = {
+  export type BreedingCreateOrConnectWithoutMotherInput = {
     where: BreedingWhereUniqueInput
-    create: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
+    create: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput>
+  }
+
+  export type BreedingCreateManyMotherInputEnvelope = {
+    data: BreedingCreateManyMotherInput | BreedingCreateManyMotherInput[]
+    skipDuplicates?: boolean
   }
 
   export type Breeding_RecCreateWithoutOriginalAnimalInput = {
@@ -12890,6 +16038,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type Perfomance_RecordsCreateWithoutAnimalInput = {
+    id?: string
+    milk_yield?: number | null
+    weight: number
+    health_status?: $Enums.AnimalHealth
+    recordedAt?: Date | string
+  }
+
+  export type Perfomance_RecordsUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    milk_yield?: number | null
+    weight: number
+    health_status?: $Enums.AnimalHealth
+    recordedAt?: Date | string
+  }
+
+  export type Perfomance_RecordsCreateOrConnectWithoutAnimalInput = {
+    where: Perfomance_RecordsWhereUniqueInput
+    create: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type Perfomance_RecordsCreateManyAnimalInputEnvelope = {
+    data: Perfomance_RecordsCreateManyAnimalInput | Perfomance_RecordsCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RelatedNess_EstimatesCreateWithoutAnimal1RelationInput = {
     id?: string
     confidence: number
@@ -12942,95 +16116,43 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type Perfomance_RecordsCreateWithoutAnimalInput = {
-    id?: string
-    milk_yield: number
-    weight: number
-    health_status?: $Enums.AnimalHealth
-    recordedAt?: Date | string
+  export type BreedingUpsertWithoutOffspringInput = {
+    update: XOR<BreedingUpdateWithoutOffspringInput, BreedingUncheckedUpdateWithoutOffspringInput>
+    create: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
+    where?: BreedingWhereInput
   }
 
-  export type Perfomance_RecordsUncheckedCreateWithoutAnimalInput = {
-    id?: string
-    milk_yield: number
-    weight: number
-    health_status?: $Enums.AnimalHealth
-    recordedAt?: Date | string
+  export type BreedingUpdateToOneWithWhereWithoutOffspringInput = {
+    where?: BreedingWhereInput
+    data: XOR<BreedingUpdateWithoutOffspringInput, BreedingUncheckedUpdateWithoutOffspringInput>
   }
 
-  export type Perfomance_RecordsCreateOrConnectWithoutAnimalInput = {
-    where: Perfomance_RecordsWhereUniqueInput
-    create: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput>
-  }
-
-  export type Perfomance_RecordsCreateManyAnimalInputEnvelope = {
-    data: Perfomance_RecordsCreateManyAnimalInput | Perfomance_RecordsCreateManyAnimalInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AnimalUpsertWithoutOffspringAsMotherInput = {
-    update: XOR<AnimalUpdateWithoutOffspringAsMotherInput, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
-    create: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
-    where?: AnimalWhereInput
-  }
-
-  export type AnimalUpdateToOneWithWhereWithoutOffspringAsMotherInput = {
-    where?: AnimalWhereInput
-    data: XOR<AnimalUpdateWithoutOffspringAsMotherInput, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
-  }
-
-  export type AnimalUpdateWithoutOffspringAsMotherInput = {
-    animalId?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
-    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    profilePhoto?: StringFieldUpdateOperationsInput | string
-    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+  export type BreedingUpdateWithoutOffspringInput = {
+    breedingId?: StringFieldUpdateOperationsInput | string
+    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
+    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userRating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
-    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
-    breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
-    father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
-    offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
-    owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
-    breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
-    originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
-    recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
+    father?: AnimalUpdateOneRequiredWithoutBreedingAsFatherNestedInput
+    mother?: AnimalUpdateOneRequiredWithoutBreedingAsMotherNestedInput
+    farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
   }
 
-  export type AnimalUncheckedUpdateWithoutOffspringAsMotherInput = {
-    animalId?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
-    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    profilePhoto?: StringFieldUpdateOperationsInput | string
-    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+  export type BreedingUncheckedUpdateWithoutOffspringInput = {
+    breedingId?: StringFieldUpdateOperationsInput | string
+    motherId?: StringFieldUpdateOperationsInput | string
+    fatherId?: StringFieldUpdateOperationsInput | string
+    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
+    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userRating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
-    motherId?: NullableStringFieldUpdateOperationsInput | string | null
-    fatherId?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: StringFieldUpdateOperationsInput | string
-    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
-    breed_confidence?: FloatFieldUpdateOperationsInput | number
-    breedingEventId?: StringFieldUpdateOperationsInput | string
-    offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
-    originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
-    recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
+    farmers?: UserUncheckedUpdateManyWithoutBreedingsInvolvedNestedInput
   }
 
   export type AnimalUpsertWithoutOffspringsAsFatherInput = {
@@ -13048,7 +16170,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13057,25 +16179,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutOffspringsAsFatherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13089,13 +16211,13 @@ export namespace Prisma {
     breed_confidence?: FloatFieldUpdateOperationsInput | number
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUpsertWithWhereUniqueWithoutFatherInput = {
@@ -13112,6 +16234,71 @@ export namespace Prisma {
   export type AnimalUpdateManyWithWhereWithoutFatherInput = {
     where: AnimalScalarWhereInput
     data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyWithoutFatherInput>
+  }
+
+  export type AnimalUpsertWithoutOffspringAsMotherInput = {
+    update: XOR<AnimalUpdateWithoutOffspringAsMotherInput, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
+    create: XOR<AnimalCreateWithoutOffspringAsMotherInput, AnimalUncheckedCreateWithoutOffspringAsMotherInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutOffspringAsMotherInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutOffspringAsMotherInput, AnimalUncheckedUpdateWithoutOffspringAsMotherInput>
+  }
+
+  export type AnimalUpdateWithoutOffspringAsMotherInput = {
+    animalId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
+    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePhoto?: StringFieldUpdateOperationsInput | string
+    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
+    breed_confidence?: FloatFieldUpdateOperationsInput | number
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
+    offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
+    breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
+    originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
+    recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutOffspringAsMotherInput = {
+    animalId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
+    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePhoto?: StringFieldUpdateOperationsInput | string
+    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    motherId?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
+    breed_confidence?: FloatFieldUpdateOperationsInput | number
+    breedingEventId?: StringFieldUpdateOperationsInput | string
+    offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
+    originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
+    recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
   }
 
   export type AnimalUpsertWithWhereUniqueWithoutMotherInput = {
@@ -13150,13 +16337,15 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverMessage?: MessagesUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
     breedingsInvolved?: BreedingUpdateManyWithoutFarmersNestedInput
   }
 
@@ -13169,30 +16358,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverMessage?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
     breedingsInvolved?: BreedingUncheckedUpdateManyWithoutFarmersNestedInput
-  }
-
-  export type BreedingUpsertWithWhereUniqueWithoutMotherInput = {
-    where: BreedingWhereUniqueInput
-    update: XOR<BreedingUpdateWithoutMotherInput, BreedingUncheckedUpdateWithoutMotherInput>
-    create: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput>
-  }
-
-  export type BreedingUpdateWithWhereUniqueWithoutMotherInput = {
-    where: BreedingWhereUniqueInput
-    data: XOR<BreedingUpdateWithoutMotherInput, BreedingUncheckedUpdateWithoutMotherInput>
-  }
-
-  export type BreedingUpdateManyWithWhereWithoutMotherInput = {
-    where: BreedingScalarWhereInput
-    data: XOR<BreedingUpdateManyMutationInput, BreedingUncheckedUpdateManyWithoutMotherInput>
   }
 
   export type BreedingUpsertWithWhereUniqueWithoutFatherInput = {
@@ -13211,43 +16386,20 @@ export namespace Prisma {
     data: XOR<BreedingUpdateManyMutationInput, BreedingUncheckedUpdateManyWithoutFatherInput>
   }
 
-  export type BreedingUpsertWithoutOffspringInput = {
-    update: XOR<BreedingUpdateWithoutOffspringInput, BreedingUncheckedUpdateWithoutOffspringInput>
-    create: XOR<BreedingCreateWithoutOffspringInput, BreedingUncheckedCreateWithoutOffspringInput>
-    where?: BreedingWhereInput
+  export type BreedingUpsertWithWhereUniqueWithoutMotherInput = {
+    where: BreedingWhereUniqueInput
+    update: XOR<BreedingUpdateWithoutMotherInput, BreedingUncheckedUpdateWithoutMotherInput>
+    create: XOR<BreedingCreateWithoutMotherInput, BreedingUncheckedCreateWithoutMotherInput>
   }
 
-  export type BreedingUpdateToOneWithWhereWithoutOffspringInput = {
-    where?: BreedingWhereInput
-    data: XOR<BreedingUpdateWithoutOffspringInput, BreedingUncheckedUpdateWithoutOffspringInput>
+  export type BreedingUpdateWithWhereUniqueWithoutMotherInput = {
+    where: BreedingWhereUniqueInput
+    data: XOR<BreedingUpdateWithoutMotherInput, BreedingUncheckedUpdateWithoutMotherInput>
   }
 
-  export type BreedingUpdateWithoutOffspringInput = {
-    breedingId?: StringFieldUpdateOperationsInput | string
-    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
-    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userRating?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mother?: AnimalUpdateOneWithoutBreedingAsMotherNestedInput
-    father?: AnimalUpdateOneWithoutBreedingAsFatherNestedInput
-    farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
-  }
-
-  export type BreedingUncheckedUpdateWithoutOffspringInput = {
-    breedingId?: StringFieldUpdateOperationsInput | string
-    motherId?: StringFieldUpdateOperationsInput | string
-    fatherId?: StringFieldUpdateOperationsInput | string
-    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
-    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userRating?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmers?: UserUncheckedUpdateManyWithoutBreedingsInvolvedNestedInput
+  export type BreedingUpdateManyWithWhereWithoutMotherInput = {
+    where: BreedingScalarWhereInput
+    data: XOR<BreedingUpdateManyMutationInput, BreedingUncheckedUpdateManyWithoutMotherInput>
   }
 
   export type Breeding_RecUpsertWithWhereUniqueWithoutOriginalAnimalInput = {
@@ -13298,6 +16450,34 @@ export namespace Prisma {
     data: XOR<Breeding_RecUpdateManyMutationInput, Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalInput>
   }
 
+  export type Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: Perfomance_RecordsWhereUniqueInput
+    update: XOR<Perfomance_RecordsUpdateWithoutAnimalInput, Perfomance_RecordsUncheckedUpdateWithoutAnimalInput>
+    create: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: Perfomance_RecordsWhereUniqueInput
+    data: XOR<Perfomance_RecordsUpdateWithoutAnimalInput, Perfomance_RecordsUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput = {
+    where: Perfomance_RecordsScalarWhereInput
+    data: XOR<Perfomance_RecordsUpdateManyMutationInput, Perfomance_RecordsUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type Perfomance_RecordsScalarWhereInput = {
+    AND?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
+    OR?: Perfomance_RecordsScalarWhereInput[]
+    NOT?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
+    id?: StringFilter<"Perfomance_Records"> | string
+    animalId?: StringFilter<"Perfomance_Records"> | string
+    milk_yield?: FloatNullableFilter<"Perfomance_Records"> | number | null
+    weight?: FloatFilter<"Perfomance_Records"> | number
+    health_status?: EnumAnimalHealthFilter<"Perfomance_Records"> | $Enums.AnimalHealth
+    recordedAt?: DateTimeFilter<"Perfomance_Records"> | Date | string
+  }
+
   export type RelatedNess_EstimatesUpsertWithWhereUniqueWithoutAnimal1RelationInput = {
     where: RelatedNess_EstimatesWhereUniqueInput
     update: XOR<RelatedNess_EstimatesUpdateWithoutAnimal1RelationInput, RelatedNess_EstimatesUncheckedUpdateWithoutAnimal1RelationInput>
@@ -13342,39 +16522,11 @@ export namespace Prisma {
     data: XOR<RelatedNess_EstimatesUpdateManyMutationInput, RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationInput>
   }
 
-  export type Perfomance_RecordsUpsertWithWhereUniqueWithoutAnimalInput = {
-    where: Perfomance_RecordsWhereUniqueInput
-    update: XOR<Perfomance_RecordsUpdateWithoutAnimalInput, Perfomance_RecordsUncheckedUpdateWithoutAnimalInput>
-    create: XOR<Perfomance_RecordsCreateWithoutAnimalInput, Perfomance_RecordsUncheckedCreateWithoutAnimalInput>
-  }
-
-  export type Perfomance_RecordsUpdateWithWhereUniqueWithoutAnimalInput = {
-    where: Perfomance_RecordsWhereUniqueInput
-    data: XOR<Perfomance_RecordsUpdateWithoutAnimalInput, Perfomance_RecordsUncheckedUpdateWithoutAnimalInput>
-  }
-
-  export type Perfomance_RecordsUpdateManyWithWhereWithoutAnimalInput = {
-    where: Perfomance_RecordsScalarWhereInput
-    data: XOR<Perfomance_RecordsUpdateManyMutationInput, Perfomance_RecordsUncheckedUpdateManyWithoutAnimalInput>
-  }
-
-  export type Perfomance_RecordsScalarWhereInput = {
-    AND?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
-    OR?: Perfomance_RecordsScalarWhereInput[]
-    NOT?: Perfomance_RecordsScalarWhereInput | Perfomance_RecordsScalarWhereInput[]
-    id?: StringFilter<"Perfomance_Records"> | string
-    animalId?: StringFilter<"Perfomance_Records"> | string
-    milk_yield?: FloatFilter<"Perfomance_Records"> | number
-    weight?: FloatFilter<"Perfomance_Records"> | number
-    health_status?: EnumAnimalHealthFilter<"Perfomance_Records"> | $Enums.AnimalHealth
-    recordedAt?: DateTimeFilter<"Perfomance_Records"> | Date | string
-  }
-
   export type AnimalCreateWithoutBreedingEventInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13383,25 +16535,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutBreedingEventInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13415,13 +16567,13 @@ export namespace Prisma {
     breed_confidence: number
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutBreedingEventInput = {
@@ -13434,70 +16586,11 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AnimalCreateWithoutBreedingAsMotherInput = {
-    animalId?: string
-    name?: string | null
-    sex: $Enums.Gender
-    birthDate: Date | string
-    type: $Enums.AnimalType
-    registrationDate?: Date | string
-    profilePhoto?: string
-    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
-    updatedAt?: Date | string
-    status?: $Enums.AnimalStatus
-    specie: $Enums.AnimalSpecies
-    breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
-    father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
-    offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
-    offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
-    owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
-    originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
-    recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
-  }
-
-  export type AnimalUncheckedCreateWithoutBreedingAsMotherInput = {
-    animalId?: string
-    name?: string | null
-    sex: $Enums.Gender
-    birthDate: Date | string
-    type: $Enums.AnimalType
-    registrationDate?: Date | string
-    profilePhoto?: string
-    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
-    updatedAt?: Date | string
-    status?: $Enums.AnimalStatus
-    motherId?: string | null
-    fatherId?: string | null
-    ownerId: string
-    specie: $Enums.AnimalSpecies
-    breed_confidence: number
-    breedingEventId: string
-    offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
-    offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
-    originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
-    recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
-  }
-
-  export type AnimalCreateOrConnectWithoutBreedingAsMotherInput = {
-    where: AnimalWhereUniqueInput
-    create: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
-  }
-
   export type AnimalCreateWithoutBreedingAsFatherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13506,25 +16599,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
     breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutBreedingAsFatherInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13542,14 +16635,73 @@ export namespace Prisma {
     breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutBreedingAsFatherInput = {
     where: AnimalWhereUniqueInput
     create: XOR<AnimalCreateWithoutBreedingAsFatherInput, AnimalUncheckedCreateWithoutBreedingAsFatherInput>
+  }
+
+  export type AnimalCreateWithoutBreedingAsMotherInput = {
+    animalId?: string
+    name?: string | null
+    sex: $Enums.Gender
+    birthDate?: Date | string | null
+    type: $Enums.AnimalType
+    registrationDate?: Date | string
+    profilePhoto?: string
+    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: Date | string
+    status?: $Enums.AnimalStatus
+    specie: $Enums.AnimalSpecies
+    breed_confidence: number
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
+    offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
+    owner: UserCreateNestedOneWithoutAnimalsInput
+    breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
+    originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
+    recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
+  }
+
+  export type AnimalUncheckedCreateWithoutBreedingAsMotherInput = {
+    animalId?: string
+    name?: string | null
+    sex: $Enums.Gender
+    birthDate?: Date | string | null
+    type: $Enums.AnimalType
+    registrationDate?: Date | string
+    profilePhoto?: string
+    additionalPhotos?: AnimalCreateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: Date | string
+    status?: $Enums.AnimalStatus
+    motherId?: string | null
+    fatherId?: string | null
+    ownerId: string
+    specie: $Enums.AnimalSpecies
+    breed_confidence: number
+    breedingEventId: string
+    offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
+    offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
+    breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
+    recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
+  }
+
+  export type AnimalCreateOrConnectWithoutBreedingAsMotherInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
   }
 
   export type UserCreateWithoutBreedingsInvolvedInput = {
@@ -13561,14 +16713,16 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
     animals?: AnimalCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutBreedingsInvolvedInput = {
@@ -13580,14 +16734,16 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     lastActive: Date | string
-    farmingSystem: string
     district: string
     sector: string
     village: string
     cell: string
     latitude: string
     longitude: string
+    profile_url?: string | null
     animals?: AnimalUncheckedCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutBreedingsInvolvedInput = {
@@ -13611,71 +16767,6 @@ export namespace Prisma {
     data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyWithoutBreedingEventInput>
   }
 
-  export type AnimalUpsertWithoutBreedingAsMotherInput = {
-    update: XOR<AnimalUpdateWithoutBreedingAsMotherInput, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
-    create: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
-    where?: AnimalWhereInput
-  }
-
-  export type AnimalUpdateToOneWithWhereWithoutBreedingAsMotherInput = {
-    where?: AnimalWhereInput
-    data: XOR<AnimalUpdateWithoutBreedingAsMotherInput, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
-  }
-
-  export type AnimalUpdateWithoutBreedingAsMotherInput = {
-    animalId?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
-    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    profilePhoto?: StringFieldUpdateOperationsInput | string
-    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
-    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
-    breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
-    father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
-    offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
-    offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
-    owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
-    originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
-    recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
-  }
-
-  export type AnimalUncheckedUpdateWithoutBreedingAsMotherInput = {
-    animalId?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
-    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    profilePhoto?: StringFieldUpdateOperationsInput | string
-    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
-    motherId?: NullableStringFieldUpdateOperationsInput | string | null
-    fatherId?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: StringFieldUpdateOperationsInput | string
-    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
-    breed_confidence?: FloatFieldUpdateOperationsInput | number
-    breedingEventId?: StringFieldUpdateOperationsInput | string
-    offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
-    offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
-    originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
-    recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
-  }
-
   export type AnimalUpsertWithoutBreedingAsFatherInput = {
     update: XOR<AnimalUpdateWithoutBreedingAsFatherInput, AnimalUncheckedUpdateWithoutBreedingAsFatherInput>
     create: XOR<AnimalCreateWithoutBreedingAsFatherInput, AnimalUncheckedCreateWithoutBreedingAsFatherInput>
@@ -13691,7 +16782,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13700,25 +16791,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
     breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutBreedingAsFatherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13736,9 +16827,74 @@ export namespace Prisma {
     breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
+  }
+
+  export type AnimalUpsertWithoutBreedingAsMotherInput = {
+    update: XOR<AnimalUpdateWithoutBreedingAsMotherInput, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
+    create: XOR<AnimalCreateWithoutBreedingAsMotherInput, AnimalUncheckedCreateWithoutBreedingAsMotherInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutBreedingAsMotherInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutBreedingAsMotherInput, AnimalUncheckedUpdateWithoutBreedingAsMotherInput>
+  }
+
+  export type AnimalUpdateWithoutBreedingAsMotherInput = {
+    animalId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
+    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePhoto?: StringFieldUpdateOperationsInput | string
+    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
+    breed_confidence?: FloatFieldUpdateOperationsInput | number
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
+    offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
+    owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
+    breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
+    originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
+    recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutBreedingAsMotherInput = {
+    animalId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
+    registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePhoto?: StringFieldUpdateOperationsInput | string
+    additionalPhotos?: AnimalUpdateadditionalPhotosInput | InputJsonValue[]
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    motherId?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
+    breed_confidence?: FloatFieldUpdateOperationsInput | number
+    breedingEventId?: StringFieldUpdateOperationsInput | string
+    offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
+    offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
+    breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
+    recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
     performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutBreedingsInvolvedInput = {
@@ -13769,20 +16925,20 @@ export namespace Prisma {
     email?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastActive?: DateTimeFilter<"User"> | Date | string
-    farmingSystem?: StringFilter<"User"> | string
     district?: StringFilter<"User"> | string
     sector?: StringFilter<"User"> | string
     village?: StringFilter<"User"> | string
     cell?: StringFilter<"User"> | string
     latitude?: StringFilter<"User"> | string
     longitude?: StringFilter<"User"> | string
+    profile_url?: StringNullableFilter<"User"> | string | null
   }
 
   export type AnimalCreateWithoutOriginalBreedingRecsInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13791,25 +16947,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutOriginalBreedingRecsInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13824,12 +16980,12 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutOriginalBreedingRecsInput = {
@@ -13841,7 +16997,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13850,25 +17006,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
+    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutRecommendedBreedingRecsInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -13883,12 +17039,12 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
+    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
-    performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutRecommendedBreedingRecsInput = {
@@ -13911,7 +17067,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13920,25 +17076,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutOriginalBreedingRecsInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13953,12 +17109,12 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUpsertWithoutRecommendedBreedingRecsInput = {
@@ -13976,7 +17132,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -13985,25 +17141,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutRecommendedBreedingRecsInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14018,19 +17174,19 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalCreateWithoutRelatednessAsAnimal1Input = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14039,25 +17195,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
     performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal2RelationInput
   }
 
   export type AnimalUncheckedCreateWithoutRelatednessAsAnimal1Input = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14072,12 +17228,12 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
     performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal2RelationInput
   }
 
   export type AnimalCreateOrConnectWithoutRelatednessAsAnimal1Input = {
@@ -14089,7 +17245,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14098,25 +17254,25 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
     performanceRecords?: Perfomance_RecordsCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
   }
 
   export type AnimalUncheckedCreateWithoutRelatednessAsAnimal2Input = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14131,12 +17287,12 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
     performanceRecords?: Perfomance_RecordsUncheckedCreateNestedManyWithoutAnimalInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
   }
 
   export type AnimalCreateOrConnectWithoutRelatednessAsAnimal2Input = {
@@ -14159,7 +17315,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14168,25 +17324,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
     performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutRelatednessAsAnimal1Input = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14201,12 +17357,12 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
     performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
   }
 
   export type AnimalUpsertWithoutRelatednessAsAnimal2Input = {
@@ -14224,7 +17380,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14233,25 +17389,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutRelatednessAsAnimal2Input = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14266,19 +17422,19 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
-    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
+    relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
   }
 
   export type AnimalCreateWithoutPerformanceRecordsInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14287,14 +17443,14 @@ export namespace Prisma {
     status?: $Enums.AnimalStatus
     specie: $Enums.AnimalSpecies
     breed_confidence: number
-    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
+    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
     father?: AnimalCreateNestedOneWithoutOffspringsAsFatherInput
     offspringsAsFather?: AnimalCreateNestedManyWithoutFatherInput
+    mother?: AnimalCreateNestedOneWithoutOffspringAsMotherInput
     offspringAsMother?: AnimalCreateNestedManyWithoutMotherInput
     owner: UserCreateNestedOneWithoutAnimalsInput
-    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingCreateNestedManyWithoutFatherInput
-    breedingEvent: BreedingCreateNestedOneWithoutOffspringInput
+    breedingAsMother?: BreedingCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecCreateNestedManyWithoutRecommendedAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesCreateNestedManyWithoutAnimal1RelationInput
@@ -14305,7 +17461,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14320,8 +17476,8 @@ export namespace Prisma {
     breedingEventId: string
     offspringsAsFather?: AnimalUncheckedCreateNestedManyWithoutFatherInput
     offspringAsMother?: AnimalUncheckedCreateNestedManyWithoutMotherInput
-    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     breedingAsFather?: BreedingUncheckedCreateNestedManyWithoutFatherInput
+    breedingAsMother?: BreedingUncheckedCreateNestedManyWithoutMotherInput
     originalBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutOriginalAnimalInput
     recommendedBreedingRecs?: Breeding_RecUncheckedCreateNestedManyWithoutRecommendedAnimalInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedCreateNestedManyWithoutAnimal1RelationInput
@@ -14348,7 +17504,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14357,14 +17513,14 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
@@ -14375,7 +17531,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14390,19 +17546,219 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
   }
 
+  export type UserCreateWithoutReceiverMessageInput = {
+    userId?: string
+    name: string
+    sex: $Enums.Gender
+    password: string
+    phone_number: string
+    email?: string | null
+    createdAt?: Date | string
+    lastActive: Date | string
+    district: string
+    sector: string
+    village: string
+    cell: string
+    latitude: string
+    longitude: string
+    profile_url?: string | null
+    animals?: AnimalCreateNestedManyWithoutOwnerInput
+    senderMessages?: MessagesCreateNestedManyWithoutSenderInput
+    breedingsInvolved?: BreedingCreateNestedManyWithoutFarmersInput
+  }
+
+  export type UserUncheckedCreateWithoutReceiverMessageInput = {
+    userId?: string
+    name: string
+    sex: $Enums.Gender
+    password: string
+    phone_number: string
+    email?: string | null
+    createdAt?: Date | string
+    lastActive: Date | string
+    district: string
+    sector: string
+    village: string
+    cell: string
+    latitude: string
+    longitude: string
+    profile_url?: string | null
+    animals?: AnimalUncheckedCreateNestedManyWithoutOwnerInput
+    senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
+    breedingsInvolved?: BreedingUncheckedCreateNestedManyWithoutFarmersInput
+  }
+
+  export type UserCreateOrConnectWithoutReceiverMessageInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceiverMessageInput, UserUncheckedCreateWithoutReceiverMessageInput>
+  }
+
+  export type UserCreateWithoutSenderMessagesInput = {
+    userId?: string
+    name: string
+    sex: $Enums.Gender
+    password: string
+    phone_number: string
+    email?: string | null
+    createdAt?: Date | string
+    lastActive: Date | string
+    district: string
+    sector: string
+    village: string
+    cell: string
+    latitude: string
+    longitude: string
+    profile_url?: string | null
+    animals?: AnimalCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesCreateNestedManyWithoutReceiverInput
+    breedingsInvolved?: BreedingCreateNestedManyWithoutFarmersInput
+  }
+
+  export type UserUncheckedCreateWithoutSenderMessagesInput = {
+    userId?: string
+    name: string
+    sex: $Enums.Gender
+    password: string
+    phone_number: string
+    email?: string | null
+    createdAt?: Date | string
+    lastActive: Date | string
+    district: string
+    sector: string
+    village: string
+    cell: string
+    latitude: string
+    longitude: string
+    profile_url?: string | null
+    animals?: AnimalUncheckedCreateNestedManyWithoutOwnerInput
+    receiverMessage?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    breedingsInvolved?: BreedingUncheckedCreateNestedManyWithoutFarmersInput
+  }
+
+  export type UserCreateOrConnectWithoutSenderMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSenderMessagesInput, UserUncheckedCreateWithoutSenderMessagesInput>
+  }
+
+  export type UserUpsertWithoutReceiverMessageInput = {
+    update: XOR<UserUpdateWithoutReceiverMessageInput, UserUncheckedUpdateWithoutReceiverMessageInput>
+    create: XOR<UserCreateWithoutReceiverMessageInput, UserUncheckedCreateWithoutReceiverMessageInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceiverMessageInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceiverMessageInput, UserUncheckedUpdateWithoutReceiverMessageInput>
+  }
+
+  export type UserUpdateWithoutReceiverMessageInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
+    district?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
+    village?: StringFieldUpdateOperationsInput | string
+    cell?: StringFieldUpdateOperationsInput | string
+    latitude?: StringFieldUpdateOperationsInput | string
+    longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    animals?: AnimalUpdateManyWithoutOwnerNestedInput
+    senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
+    breedingsInvolved?: BreedingUpdateManyWithoutFarmersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceiverMessageInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
+    district?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
+    village?: StringFieldUpdateOperationsInput | string
+    cell?: StringFieldUpdateOperationsInput | string
+    latitude?: StringFieldUpdateOperationsInput | string
+    longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    animals?: AnimalUncheckedUpdateManyWithoutOwnerNestedInput
+    senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
+    breedingsInvolved?: BreedingUncheckedUpdateManyWithoutFarmersNestedInput
+  }
+
+  export type UserUpsertWithoutSenderMessagesInput = {
+    update: XOR<UserUpdateWithoutSenderMessagesInput, UserUncheckedUpdateWithoutSenderMessagesInput>
+    create: XOR<UserCreateWithoutSenderMessagesInput, UserUncheckedCreateWithoutSenderMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSenderMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSenderMessagesInput, UserUncheckedUpdateWithoutSenderMessagesInput>
+  }
+
+  export type UserUpdateWithoutSenderMessagesInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
+    district?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
+    village?: StringFieldUpdateOperationsInput | string
+    cell?: StringFieldUpdateOperationsInput | string
+    latitude?: StringFieldUpdateOperationsInput | string
+    longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    animals?: AnimalUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUpdateManyWithoutReceiverNestedInput
+    breedingsInvolved?: BreedingUpdateManyWithoutFarmersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSenderMessagesInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
+    district?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
+    village?: StringFieldUpdateOperationsInput | string
+    cell?: StringFieldUpdateOperationsInput | string
+    latitude?: StringFieldUpdateOperationsInput | string
+    longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
+    animals?: AnimalUncheckedUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    breedingsInvolved?: BreedingUncheckedUpdateManyWithoutFarmersNestedInput
+  }
+
   export type AnimalCreateManyOwnerInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14416,11 +17772,29 @@ export namespace Prisma {
     breedingEventId: string
   }
 
+  export type MessagesCreateManyReceiverInput = {
+    messageId?: string
+    senderId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
+  export type MessagesCreateManySenderInput = {
+    messageId?: string
+    receiverId: string
+    createdAt?: Date | string
+    messageType?: $Enums.MessageType
+    content: string
+    status?: $Enums.MessageSentStatus
+  }
+
   export type AnimalUpdateWithoutOwnerInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14429,25 +17803,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutOwnerInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14461,20 +17835,20 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateManyWithoutOwnerInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14488,6 +17862,60 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MessagesUpdateWithoutReceiverInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+    sender?: UserUpdateOneRequiredWithoutSenderMessagesNestedInput
+  }
+
+  export type MessagesUncheckedUpdateWithoutReceiverInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutReceiverInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type MessagesUpdateWithoutSenderInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+    receiver?: UserUpdateOneRequiredWithoutReceiverMessageNestedInput
+  }
+
+  export type MessagesUncheckedUpdateWithoutSenderInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutSenderInput = {
+    messageId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: StringFieldUpdateOperationsInput | string
+    status?: EnumMessageSentStatusFieldUpdateOperationsInput | $Enums.MessageSentStatus
+  }
+
   export type BreedingUpdateWithoutFarmersInput = {
     breedingId?: StringFieldUpdateOperationsInput | string
     breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14498,8 +17926,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     offspring?: AnimalUpdateManyWithoutBreedingEventNestedInput
-    mother?: AnimalUpdateOneWithoutBreedingAsMotherNestedInput
-    father?: AnimalUpdateOneWithoutBreedingAsFatherNestedInput
+    father?: AnimalUpdateOneRequiredWithoutBreedingAsFatherNestedInput
+    mother?: AnimalUpdateOneRequiredWithoutBreedingAsMotherNestedInput
   }
 
   export type BreedingUncheckedUpdateWithoutFarmersInput = {
@@ -14533,7 +17961,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14551,7 +17979,7 @@ export namespace Prisma {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -14565,9 +17993,9 @@ export namespace Prisma {
     breedingEventId: string
   }
 
-  export type BreedingCreateManyMotherInput = {
+  export type BreedingCreateManyFatherInput = {
     breedingId?: string
-    fatherId: string
+    motherId: string
     breedingDate: Date | string
     method: $Enums.BreedingMethod
     expectedCalvingDate?: Date | string | null
@@ -14577,9 +18005,9 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type BreedingCreateManyFatherInput = {
+  export type BreedingCreateManyMotherInput = {
     breedingId?: string
-    motherId: string
+    fatherId: string
     breedingDate: Date | string
     method: $Enums.BreedingMethod
     expectedCalvingDate?: Date | string | null
@@ -14613,6 +18041,14 @@ export namespace Prisma {
     breed_composition_match_score: number
   }
 
+  export type Perfomance_RecordsCreateManyAnimalInput = {
+    id?: string
+    milk_yield?: number | null
+    weight: number
+    health_status?: $Enums.AnimalHealth
+    recordedAt?: Date | string
+  }
+
   export type RelatedNess_EstimatesCreateManyAnimal1RelationInput = {
     id?: string
     animal2: string
@@ -14629,19 +18065,11 @@ export namespace Prisma {
     pedigree_coeff: number
   }
 
-  export type Perfomance_RecordsCreateManyAnimalInput = {
-    id?: string
-    milk_yield: number
-    weight: number
-    health_status?: $Enums.AnimalHealth
-    recordedAt?: Date | string
-  }
-
   export type AnimalUpdateWithoutFatherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14650,25 +18078,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutFatherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14682,20 +18110,20 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateManyWithoutFatherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14713,7 +18141,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14722,25 +18150,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
+    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
-    breedingEvent?: BreedingUpdateOneRequiredWithoutOffspringNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutMotherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14754,20 +18182,20 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateManyWithoutMotherInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -14781,46 +18209,6 @@ export namespace Prisma {
     breedingEventId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type BreedingUpdateWithoutMotherInput = {
-    breedingId?: StringFieldUpdateOperationsInput | string
-    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
-    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userRating?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    offspring?: AnimalUpdateManyWithoutBreedingEventNestedInput
-    father?: AnimalUpdateOneWithoutBreedingAsFatherNestedInput
-    farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
-  }
-
-  export type BreedingUncheckedUpdateWithoutMotherInput = {
-    breedingId?: StringFieldUpdateOperationsInput | string
-    fatherId?: StringFieldUpdateOperationsInput | string
-    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
-    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userRating?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    offspring?: AnimalUncheckedUpdateManyWithoutBreedingEventNestedInput
-    farmers?: UserUncheckedUpdateManyWithoutBreedingsInvolvedNestedInput
-  }
-
-  export type BreedingUncheckedUpdateManyWithoutMotherInput = {
-    breedingId?: StringFieldUpdateOperationsInput | string
-    fatherId?: StringFieldUpdateOperationsInput | string
-    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
-    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userRating?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type BreedingUpdateWithoutFatherInput = {
     breedingId?: StringFieldUpdateOperationsInput | string
     breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14831,7 +18219,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     offspring?: AnimalUpdateManyWithoutBreedingEventNestedInput
-    mother?: AnimalUpdateOneWithoutBreedingAsMotherNestedInput
+    mother?: AnimalUpdateOneRequiredWithoutBreedingAsMotherNestedInput
     farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
   }
 
@@ -14852,6 +18240,46 @@ export namespace Prisma {
   export type BreedingUncheckedUpdateManyWithoutFatherInput = {
     breedingId?: StringFieldUpdateOperationsInput | string
     motherId?: StringFieldUpdateOperationsInput | string
+    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
+    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userRating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BreedingUpdateWithoutMotherInput = {
+    breedingId?: StringFieldUpdateOperationsInput | string
+    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
+    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userRating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    offspring?: AnimalUpdateManyWithoutBreedingEventNestedInput
+    father?: AnimalUpdateOneRequiredWithoutBreedingAsFatherNestedInput
+    farmers?: UserUpdateManyWithoutBreedingsInvolvedNestedInput
+  }
+
+  export type BreedingUncheckedUpdateWithoutMotherInput = {
+    breedingId?: StringFieldUpdateOperationsInput | string
+    fatherId?: StringFieldUpdateOperationsInput | string
+    breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
+    expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calving_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userRating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    offspring?: AnimalUncheckedUpdateManyWithoutBreedingEventNestedInput
+    farmers?: UserUncheckedUpdateManyWithoutBreedingsInvolvedNestedInput
+  }
+
+  export type BreedingUncheckedUpdateManyWithoutMotherInput = {
+    breedingId?: StringFieldUpdateOperationsInput | string
+    fatherId?: StringFieldUpdateOperationsInput | string
     breedingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumBreedingMethodFieldUpdateOperationsInput | $Enums.BreedingMethod
     expectedCalvingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14933,6 +18361,30 @@ export namespace Prisma {
     breed_composition_match_score?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type Perfomance_RecordsUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type Perfomance_RecordsUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type Perfomance_RecordsUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    milk_yield?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RelatedNess_EstimatesUpdateWithoutAnimal1RelationInput = {
     id?: StringFieldUpdateOperationsInput | string
     confidence?: FloatFieldUpdateOperationsInput | number
@@ -14981,35 +18433,11 @@ export namespace Prisma {
     pedigree_coeff?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type Perfomance_RecordsUpdateWithoutAnimalInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
-    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type Perfomance_RecordsUncheckedUpdateWithoutAnimalInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
-    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type Perfomance_RecordsUncheckedUpdateManyWithoutAnimalInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    milk_yield?: FloatFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    health_status?: EnumAnimalHealthFieldUpdateOperationsInput | $Enums.AnimalHealth
-    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type AnimalCreateManyBreedingEventInput = {
     animalId?: string
     name?: string | null
     sex: $Enums.Gender
-    birthDate: Date | string
+    birthDate?: Date | string | null
     type: $Enums.AnimalType
     registrationDate?: Date | string
     profilePhoto?: string
@@ -15027,7 +18455,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -15036,25 +18464,25 @@ export namespace Prisma {
     status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     specie?: EnumAnimalSpeciesFieldUpdateOperationsInput | $Enums.AnimalSpecies
     breed_confidence?: FloatFieldUpdateOperationsInput | number
-    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     father?: AnimalUpdateOneWithoutOffspringsAsFatherNestedInput
     offspringsAsFather?: AnimalUpdateManyWithoutFatherNestedInput
+    mother?: AnimalUpdateOneWithoutOffspringAsMotherNestedInput
     offspringAsMother?: AnimalUpdateManyWithoutMotherNestedInput
     owner?: UserUpdateOneRequiredWithoutAnimalsNestedInput
-    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutBreedingEventInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -15068,20 +18496,20 @@ export namespace Prisma {
     breed_confidence?: FloatFieldUpdateOperationsInput | number
     offspringsAsFather?: AnimalUncheckedUpdateManyWithoutFatherNestedInput
     offspringAsMother?: AnimalUncheckedUpdateManyWithoutMotherNestedInput
-    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     breedingAsFather?: BreedingUncheckedUpdateManyWithoutFatherNestedInput
+    breedingAsMother?: BreedingUncheckedUpdateManyWithoutMotherNestedInput
     originalBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutOriginalAnimalNestedInput
     recommendedBreedingRecs?: Breeding_RecUncheckedUpdateManyWithoutRecommendedAnimalNestedInput
+    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
     relatednessAsAnimal1?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal1RelationNestedInput
     relatednessAsAnimal2?: RelatedNess_EstimatesUncheckedUpdateManyWithoutAnimal2RelationNestedInput
-    performanceRecords?: Perfomance_RecordsUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateManyWithoutBreedingEventInput = {
     animalId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     sex?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     type?: EnumAnimalTypeFieldUpdateOperationsInput | $Enums.AnimalType
     registrationDate?: DateTimeFieldUpdateOperationsInput | Date | string
     profilePhoto?: StringFieldUpdateOperationsInput | string
@@ -15104,14 +18532,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
     animals?: AnimalUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBreedingsInvolvedInput = {
@@ -15123,14 +18553,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
     animals?: AnimalUncheckedUpdateManyWithoutOwnerNestedInput
+    receiverMessage?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutBreedingsInvolvedInput = {
@@ -15142,13 +18574,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastActive?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmingSystem?: StringFieldUpdateOperationsInput | string
     district?: StringFieldUpdateOperationsInput | string
     sector?: StringFieldUpdateOperationsInput | string
     village?: StringFieldUpdateOperationsInput | string
     cell?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    profile_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

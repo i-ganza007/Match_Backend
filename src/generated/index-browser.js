@@ -129,13 +129,13 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   createdAt: 'createdAt',
   lastActive: 'lastActive',
-  farmingSystem: 'farmingSystem',
   district: 'district',
   sector: 'sector',
   village: 'village',
   cell: 'cell',
   latitude: 'latitude',
-  longitude: 'longitude'
+  longitude: 'longitude',
+  profile_url: 'profile_url'
 };
 
 exports.Prisma.AnimalScalarFieldEnum = {
@@ -201,6 +201,24 @@ exports.Prisma.Perfomance_RecordsScalarFieldEnum = {
   recordedAt: 'recordedAt'
 };
 
+exports.Prisma.MessagesScalarFieldEnum = {
+  messageId: 'messageId',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  createdAt: 'createdAt',
+  messageType: 'messageType',
+  content: 'content',
+  status: 'status'
+};
+
+exports.Prisma.Spatial_ref_sysScalarFieldEnum = {
+  srid: 'srid',
+  auth_name: 'auth_name',
+  auth_srid: 'auth_srid',
+  srtext: 'srtext',
+  proj4text: 'proj4text'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -261,13 +279,29 @@ exports.AnimalHealth = exports.$Enums.AnimalHealth = {
   RECOVERING: 'RECOVERING'
 };
 
+exports.MessageType = exports.$Enums.MessageType = {
+  TEXT: 'TEXT',
+  FILE: 'FILE',
+  IMAGE: 'IMAGE'
+};
+
+exports.MessageSentStatus = exports.$Enums.MessageSentStatus = {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED',
+  LOADING: 'LOADING'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Animal: 'Animal',
   Breeding: 'Breeding',
   Breeding_Rec: 'Breeding_Rec',
   RelatedNess_Estimates: 'RelatedNess_Estimates',
-  Perfomance_Records: 'Perfomance_Records'
+  Perfomance_Records: 'Perfomance_Records',
+  Messages: 'Messages',
+  spatial_ref_sys: 'spatial_ref_sys'
 };
 
 /**
