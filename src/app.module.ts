@@ -8,7 +8,7 @@ import { PrismaServiceModule } from './prisma-service/prisma-service.module';
 import { JwtserviceModule } from './jwtservice/jwtservice.module';
 import {ConfigModule} from '@nestjs/config'
 import {CustomMetricsMiddleware} from './middleware/grafana.middleware'
-import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { makeCounterProvider, PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -30,7 +30,14 @@ import { AuthModule } from './auth/auth.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    makeCounterProvider({
+      name: 'count',
+      help: 'metric_help',
+      labelNames: ['method', 'origin'] as string[],
+    }),
+
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
