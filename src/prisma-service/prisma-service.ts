@@ -11,10 +11,9 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
 
     constructor(private config: ConfigService) {
         // Get database URL from multiple sources  
-        const databaseUrl = this.config.get<string>('DATABASE_URL') || 
-                           process.env.DATABASE_URL || 
-                           'postgresql://testuser:testpassword@localhost:5432/matchDB';
-        
+        const databaseUrl = this.config.get<string>('DIRECT_URL') || 
+                           process.env.DIRECT_URL 
+    
 
         
         if (!databaseUrl || typeof databaseUrl !== 'string') {
