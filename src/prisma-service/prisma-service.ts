@@ -27,10 +27,11 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
         const adapter = new PrismaPg(this.pool);
         
         // Create PrismaClient with the adapter
+        // Cast to plain PrismaClient to preserve default delegate types (Prisma v7 generic inference)
         this.prisma = new PrismaClient({ 
             adapter,
             log: ['query', 'info', 'warn', 'error']
-        });
+        }) as unknown as PrismaClient;
     }
 
     async onModuleInit() {
@@ -68,5 +69,13 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
 
     get client() {
         return this.prisma;
+    }
+
+    $executeRaw(query: TemplateStringsArray, ...values: any[]) {
+        return this.prisma.$executeRaw(query, ...values);
+    }
+
+    $queryRaw<T = unknown>(query: TemplateStringsArray, ...values: any[]): Promise<T> {
+        return this.prisma.$queryRaw<T>(query, ...values);
     }
 }

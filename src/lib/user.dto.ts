@@ -1,4 +1,4 @@
-import {IsAlphanumeric, IsDate, IsEmail, IsLatitude, IsLongitude, IsPhoneNumber, IsString, isString} from 'class-validator'
+import {IsAlphanumeric, IsDate, IsEmail, IsLatitude, IsLongitude, IsNumber, IsPhoneNumber, IsString} from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class UserCreationDTO {
@@ -45,14 +45,6 @@ export class UserCreationDTO {
     lastActive
     
     @ApiProperty({
-        description: 'Type of farming system used',
-        example: 'Organic farming',
-        type: String
-    })
-    @IsString()
-    farmingSystem
-    
-    @ApiProperty({
         description: 'District where the user is located',
         example: 'Kigali',
         type: String
@@ -85,16 +77,16 @@ export class UserCreationDTO {
         example: -1.9441,
         type: Number
     })
-    @IsLatitude()
-    latitude
+    @IsNumber()
+    latitude: number
     
     @ApiProperty({
         description: 'Longitude coordinate of user location',
         example: 30.0619,
         type: Number
     })
-    @IsLongitude()
-    longitude
+    @IsNumber()
+    longitude: number
 }
 
 export class UserLoginDTO{
