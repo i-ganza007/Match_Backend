@@ -121,6 +121,7 @@ export class UsersController {
         return await this.userService.updateUser(id,body)
     }
 
+
     @Delete(":id")
     @ApiOperation({ 
         summary: 'Delete a user',
@@ -146,6 +147,8 @@ export class UsersController {
     async deleteUser(@Param("id")id:string){
         return await this.userService.deleteUser(id)
     }
+
+    
     @Delete("wipeout")
     async wipeOut(){
         return await this.userService.wipeout()

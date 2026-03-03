@@ -1,26 +1,146 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  extensions = [postgis]
+  provider   = "postgresql"
+  extensions = [postgis, pg_graphql, pg_stat_statements, pgcrypto, supabase_vault, uuid_ossp(map: "uuid-ossp")]
 }
 
-enum Gender{
-  MALE 
+model User {
+  userId            String                    @id @default(uuid())
+  name              String
+  sex               Gender
+  password          String
+  phone_number      String                    @unique
+  email             String?                   @unique
+  createdAt         DateTime                  @default(now())
+  lastActive        DateTime
+  district          String
+  sector            String
+  village           String
+  cell              String
+  location         Unsupported("geography(Point, 4326)")  
+  profile_url       String?                   @default("")
+  animals           Animal[]
+  receiverMessage   Messages[]                @relation("ReceiverMessages")
+  senderMessages    Messages[]                @relation("SenderMessages")
+  breedingsInvolved Breeding[]                @relation("BreedingToUser")
+}
+
+model Animal {
+  animalId                String                  @id @default(uuid())
+  name                    String?                 @default("")
+  sex                     Gender
+  birthDate               DateTime?
+  type                    AnimalType
+  registrationDate        DateTime                @default(now())
+  profilePhoto            String                  @default("")
+  additionalPhotos        Json[]
+  updatedAt               DateTime                @updatedAt
+  status                  AnimalStatus            @default(ALIVE)
+  motherId                String?
+  fatherId                String?
+  ownerId                 String
+  specie                  AnimalSpecies
+  breed_confidence        Float
+  breedingEventId         String
+  breedingEvent           Breeding                @relation("OriginBreedingEvent", fields: [breedingEventId], references: [breedingId])
+  father                  Animal?                 @relation("AnimalFather", fields: [fatherId], references: [animalId])
+  offspringsAsFather      Animal[]                @relation("AnimalFather")
+  mother                  Animal?                 @relation("AnimalMother", fields: [motherId], references: [animalId])
+  offspringAsMother       Animal[]                @relation("AnimalMother")
+  owner                   User                    @relation(fields: [ownerId], references: [userId])
+  breedingAsFather        Breeding[]              @relation("BreedingAsFather")
+  breedingAsMother        Breeding[]              @relation("BreedingAsMother")
+  originalBreedingRecs    Breeding_Rec[]          @relation("OriginalAnimal")
+  recommendedBreedingRecs Breeding_Rec[]          @relation("RecommendedAnimal")
+  performanceRecords      Perfomance_Records[]
+  relatednessAsAnimal1    RelatedNess_Estimates[] @relation("Animal1")
+  relatednessAsAnimal2    RelatedNess_Estimates[] @relation("Animal2")
+}
+
+model Breeding {
+  breedingId          String         @id @default(uuid())
+  motherId            String
+  fatherId            String
+  breedingDate        DateTime
+  method              BreedingMethod
+  expectedCalvingDate DateTime?
+  calving_date        DateTime?
+  userRating          Int?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  offspring           Animal[]       @relation("OriginBreedingEvent")
+  father              Animal         @relation("BreedingAsFather", fields: [fatherId], references: [animalId])
+  mother              Animal         @relation("BreedingAsMother", fields: [motherId], references: [animalId])
+  farmers             User[]         @relation("BreedingToUser")
+}
+
+model Breeding_Rec {
+  breedingRecId                 String   @id @default(uuid())
+  animalInitial                 String
+  recommendedAnimalId           String
+  overall_score                 Float
+  user_accepted                 Boolean
+  generatedAt                   DateTime @default(now())
+  userFeedback                  String?  @default("")
+  genetic_diversity_score       Float
+  inbreeding_risk_score         Float
+  breed_composition_match_score Float
+  originalAnimal                Animal   @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
+  recommendedAnimal             Animal   @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
+}
+
+model RelatedNess_Estimates {
+  id               String @id @default(uuid())
+  animal1          String
+  animal2          String
+  confidence       Float
+  relatedness_prob Float
+  pedigree_coeff   Float
+  animal1Relation  Animal @relation("Animal1", fields: [animal1], references: [animalId])
+  animal2Relation  Animal @relation("Animal2", fields: [animal2], references: [animalId])
+}
+
+model Perfomance_Records {
+  id            String       @id @default(uuid())
+  animalId      String
+  milk_yield    Float?
+  weight        Float
+  health_status AnimalHealth @default(HEALTHY)
+  recordedAt    DateTime     @default(now())
+  animal        Animal       @relation(fields: [animalId], references: [animalId])
+}
+
+model Messages {
+  messageId   String            @id @default(uuid())
+  senderId    String
+  receiverId  String
+  createdAt   DateTime          @default(now())
+  messageType MessageType       @default(TEXT)
+  content     String
+  status      MessageSentStatus @default(LOADING)
+  receiver    User              @relation("ReceiverMessages", fields: [receiverId], references: [userId])
+  sender      User              @relation("SenderMessages", fields: [senderId], references: [userId])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+enum Gender {
+  MALE
   FEMALE
 }
 
-
-enum AnimalSpecies{
+enum AnimalSpecies {
   HOLSTEIN_COW
   FREISIAN_COW
   ANKOLE_COW
@@ -30,7 +150,7 @@ enum AnimalSpecies{
   LARGE_WHITE_PIG
   DUROC_PIG
   MERINO_SHEEP
-  LOCAL_GOAT 
+  LOCAL_GOAT
 }
 
 enum MessageSentStatus {
@@ -41,7 +161,7 @@ enum MessageSentStatus {
   LOADING
 }
 
-enum MessageType{
+enum MessageType {
   TEXT
   FILE
   IMAGE
@@ -54,14 +174,14 @@ enum AnimalType {
   SHEEP
 }
 
-enum BreedingMethod{
+enum BreedingMethod {
   NATURAL
   ARTIFICIAL_INSEMINATION
   EMBRYO_TRANSFER
   OTHER
 }
 
-enum AnimalHealth{
+enum AnimalHealth {
   HEALTHY
   SICK
   RECOVERING
@@ -74,140 +194,3 @@ enum AnimalStatus {
   PREGNANT
   OTHER
 }
-
-model User{
-  userId String @id @default(uuid())
-  name String
-  sex  Gender   
-  password String
-  phone_number String @unique
-  profile_url  String? @default("")
-  email String? @unique
-  createdAt DateTime @default(now())
-  lastActive DateTime
-  district String
-  sector String
-  village String
-  cell    String
-  latitude String
-  longitude String
-  location Unsupported("geography(Point, 4326)")?
-  
-  // Relations
-  animals Animal[]
-  breedingsInvolved Breeding[]
-  senderMessages Messages[] @relation("SenderMessages")
-  receiverMessage Messages[] @relation("ReceiverMessages")
-}
-
-model Animal{
-  animalId String @id @default(uuid())
-  name     String? @default("")
-  sex      Gender
-  birthDate DateTime?
-  type      AnimalType
-  registrationDate DateTime @default(now())
-  profilePhoto String @default("")
-  additionalPhotos Json[]
-  updatedAt  DateTime @updatedAt()
-  status     AnimalStatus @default(ALIVE)
-  motherId   String?
-  fatherId   String?
-  ownerId    String
-  specie     AnimalSpecies
-  breed_confidence Float
-  mother   Animal?  @relation("AnimalMother", fields: [motherId], references: [animalId])
-  father   Animal?  @relation("AnimalFather", fields: [fatherId], references: [animalId])
-  offspringsAsFather  Animal[] @relation("AnimalFather")
-  offspringAsMother   Animal[] @relation("AnimalMother")
-  owner    User     @relation(fields: [ownerId], references: [userId])
-  
-  // Breeding relations
-  breedingAsMother Breeding[]  @relation("BreedingAsMother")
-  breedingAsFather Breeding[]  @relation("BreedingAsFather")
-  breedingEventId  String  
-  breedingEvent    Breeding    @relation("OriginBreedingEvent",fields: [breedingEventId],references: [breedingId])
-  // Breeding recommendations
-  originalBreedingRecs Breeding_Rec[] @relation("OriginalAnimal")
-  recommendedBreedingRecs Breeding_Rec[] @relation("RecommendedAnimal")  
-  relatednessAsAnimal1  RelatedNess_Estimates[] @relation("Animal1")
-  relatednessAsAnimal2  RelatedNess_Estimates[] @relation("Animal2")
-  
-  
-  // Performance records
-  performanceRecords   Perfomance_Records[]
-}
-
-model Breeding{
-  breedingId String @id @default(uuid())
-  motherId      String  
-  fatherId     String  
-  breedingDate  DateTime 
-  method        BreedingMethod
-  expectedCalvingDate DateTime?
-  calving_date DateTime?
-  userRating    Int?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt()  
-  
-  // Relations
-  offspring    Animal[]  @relation("OriginBreedingEvent")
-  mother  Animal? @relation("BreedingAsMother",fields: [motherId],references: [animalId])
-  father  Animal? @relation("BreedingAsFather",fields: [fatherId],references: [animalId])  
-  farmers      User[]  
-}
-
-model Breeding_Rec{
-  breedingRecId String @id @default(uuid())
-  animalInitial   String
-  recommendedAnimalId String 
-  overall_score Float
-  user_accepted Boolean
-  generatedAt  DateTime @default(now())
-  userFeedback String?  @default("")
-  genetic_diversity_score Float
-  inbreeding_risk_score Float
-  breed_composition_match_score Float
-  
-  // Relations
-  originalAnimal Animal @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
-  recommendedAnimal Animal @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
-
-}
-
-model RelatedNess_Estimates{
-  id  String @id @default(uuid())
-  animal1   String
-  animal2   String
-  confidence    Float
-  relatedness_prob  Float
-  pedigree_coeff   Float
-  
-  // Relations
-  animal1Relation Animal @relation("Animal1", fields: [animal1], references: [animalId])
-  animal2Relation Animal @relation("Animal2", fields: [animal2], references: [animalId])
-  
-}
-
-model Perfomance_Records{
-  id  String @id @default(uuid())
-  animalId   String
-  animal       Animal @relation(fields: [animalId],references: [animalId])
-  milk_yield Float?
-  weight     Float
-  health_status AnimalHealth @default(HEALTHY)
-  recordedAt DateTime @default(now())
-}
-
-model Messages{
-  messageId String @id @default(uuid())
-  senderId String
-  receiverId String
-  createdAt  DateTime  @default(now())
-  messageType    MessageType @default(TEXT)
-  content      String  @db.Text
-  status    MessageSentStatus  @default(LOADING)
-  sender   User  @relation("SenderMessages",fields: [senderId],references: [userId])
-  receiver User  @relation("ReceiverMessages",fields: [receiverId],references: [userId])
-}
-
