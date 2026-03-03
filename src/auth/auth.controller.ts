@@ -16,10 +16,11 @@ export class AuthController {
         const userId = req?.user!.userId
         const email = req?.user!.email!
         let result = await this.authService.logIn({userId,email})
-        console.log('Login result:', result)
+        // console.log('Login result:', result)
         res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
         return {
             message: "Successful SignIn",
+            token:result.access_token
         }
     }
 
