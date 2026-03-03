@@ -17,19 +17,20 @@ export class AuthController {
         const email = req?.user!.email!
         let result = await this.authService.logIn({userId,email})
         console.log('Login result:', result)
-        if(result){
-            // Set only the token string in the cookie, not the whole object
-            res.cookie('user_token', result.access_token)
-            return {
-                message: "Successful SignIn",
-            }
+        res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
+        return {
+            message: "Successful SignIn",
         }
     }
 
     @UseFilters(CustomHttpExceptionFilter)
     @Post('signup')
-    async signup(@Body() body:UserCreationDTO){
-        return await this.authService.signUp(body)
+    async signup(@Body() body:UserCreationDTO,@Res({passthrough:true})res:Response){
+        const result = await this.authService.signUp(body)
+        res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
+        return {
+            message: "Successful SignUp",
+        }
     }
 
     @UseGuards(AuthGuard('jwt'))

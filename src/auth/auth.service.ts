@@ -20,12 +20,9 @@ export class AuthService {
         if(present){
             throw new ConflictException("User already exists with that email or phone number")
         }
-        const unhashed = body?.password
-        console.log(unhashed)
-        const pass_hash = this.configService.get('PASSWORD_HASH')
-        const hashed_password = await argon2.hash(unhashed,{secret: pass_hash ? Buffer.from(pass_hash) : undefined})
-        console.log(hashed_password)
-        return this.userService.createUser({...body,password:hashed_password})
+        const hashed_password = await argon2.hash(body.password)
+        const createdUser = await this.userService.createUser({...body,password:hashed_password})
+        return await this.logIn({userId:createdUser?.userId,email:createdUser?.email})
     }
 
     async logIn(body: Partial<UserLoginDTO>){
@@ -41,23 +38,15 @@ export class AuthService {
         const present = await this.prismaService.users.findFirst({where:{
              email: body.email
         }})
-        if(present){
-            // Verify password
-            const pass_hash = this.configService.get('PASSWORD_HASH')
-            const isValidPassword = await argon2.verify(
-                present.password,
-                body.password,
-                { secret: pass_hash ? Buffer.from(pass_hash) : undefined }
-            );
-
-            if (!isValidPassword) {
-                throw new UnauthorizedException('Invalid credentials')
-            }
-            return present
-        }
-        else{
+        if(!present){
             throw new NotFoundException("User not found")
         }
+        
+        const isValidPassword = await argon2.verify(present.password, body.password);
+        if (!isValidPassword) {
+            throw new UnauthorizedException('Invalid credentials')
+        }
+        return present
     }
 
     async  loggedInUser(user:{userId:string,email:string}){
