@@ -1,5 +1,5 @@
--- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "postgis";
+-- CreateExtension (managed by Supabase – skipped for shadow DB compatibility)
+-- CREATE EXTENSION IF NOT EXISTS "postgis";
 
 -- AlterTable
 ALTER TABLE "User" ADD COLUMN     "location" geography(Point, 4326);

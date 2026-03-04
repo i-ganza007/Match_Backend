@@ -10,6 +10,7 @@ import {ConfigModule} from '@nestjs/config'
 import {CustomMetricsMiddleware} from './middleware/grafana.middleware'
 import { makeCounterProvider, PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { AuthModule } from './auth/auth.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
     PrismaServiceModule, 
     JwtserviceModule,
     AuthModule,
+    StorageModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env'  // Fixed: Look for .env in project root
