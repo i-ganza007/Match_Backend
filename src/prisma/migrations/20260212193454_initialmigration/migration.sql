@@ -1,20 +1,20 @@
--- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "postgis";
+-- CreateExtension (managed by Supabase – skipped for shadow DB compatibility)
+-- CREATE EXTENSION IF NOT EXISTS "postgis";
 
 -- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "pg_graphql";
+-- CREATE EXTENSION IF NOT EXISTS "pg_graphql";
 
 -- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
+-- CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
 
 -- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "supabase_vault";
+-- CREATE EXTENSION IF NOT EXISTS "supabase_vault";
 
 -- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE');

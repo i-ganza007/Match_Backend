@@ -22,7 +22,7 @@ model User {
   village           String
   cell              String
   location         Unsupported("geography(Point, 4326)")  
-  profile_url       String?                   @default("")
+  profile_url       String?                   @default("https://hzihqpbtzfseejihukvk.supabase.co/storage/v1/object/public/Animal_Images/avatar.jpg")
   animals           Animal[]
   receiverMessage   Messages[]                @relation("ReceiverMessages")
   senderMessages    Messages[]                @relation("SenderMessages")
@@ -36,17 +36,17 @@ model Animal {
   birthDate               DateTime?
   type                    AnimalType
   registrationDate        DateTime                @default(now())
-  profilePhoto            String                  @default("")
-  additionalPhotos        Json[]
+  profilePhoto            String                  @default("https://hzihqpbtzfseejihukvk.supabase.co/storage/v1/object/public/Animal_Images/avatar.jpg")
   updatedAt               DateTime                @updatedAt
   status                  AnimalStatus            @default(ALIVE)
   motherId                String?
   fatherId                String?
   ownerId                 String
+  recommendable           Boolean                   // Filled on condition of the age and birthdate
   specie                  AnimalSpecies
   breed_confidence        Float
-  breedingEventId         String
-  breedingEvent           Breeding                @relation("OriginBreedingEvent", fields: [breedingEventId], references: [breedingId])
+  breedingEventId         String?
+  breedingEvent           Breeding?               @relation("OriginBreedingEvent", fields: [breedingEventId], references: [breedingId])
   father                  Animal?                 @relation("AnimalFather", fields: [fatherId], references: [animalId])
   offspringsAsFather      Animal[]                @relation("AnimalFather")
   mother                  Animal?                 @relation("AnimalMother", fields: [motherId], references: [animalId])
@@ -108,9 +108,11 @@ model Perfomance_Records {
   id            String       @id @default(uuid())
   animalId      String
   milk_yield    Float?
+  litter_size   Int?
   weight        Float
   health_status AnimalHealth @default(HEALTHY)
   recordedAt    DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   animal        Animal       @relation(fields: [animalId], references: [animalId])
 }
 
