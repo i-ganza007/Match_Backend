@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, UseGuards, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { Animals } from './animals';
 import { Animals as AnimalDTO } from '../lib/animal.dto';
 import { JwtGuard } from 'src/jwtservice/authGuard/jwtGuard.guard';
@@ -21,7 +23,7 @@ export class AnimalsController {
     }
 
     @Post()
-    @UseInterceptors(FileInterceptor('photo'))
+    @UseInterceptors(FileInterceptor('photo', { storage: memoryStorage() }))
     async createAnimal(
         @Body() body: AnimalDTO,
         @CookieUser() user: { userId: string; email: string },
@@ -41,11 +43,14 @@ export class AnimalsController {
     }
 
     @Patch(':id/photo')
-    @UseInterceptors(FileInterceptor('photo'))
+    @UseInterceptors(FileInterceptor('photo', { storage: memoryStorage() }))
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({ schema: { type: 'object', properties: { photo: { type: 'string', format: 'binary' } }, required: ['photo'] } })
     async uploadPhoto(
         @Param('id') id: string,
         @UploadedFile() file: Express.Multer.File,
     ) {
+        if (!file) throw new BadRequestException('No photo file provided — send it as multipart/form-data with field name "photo"');
         return await this.animalService.uploadProfilePhoto(id, file);
     }
 }
