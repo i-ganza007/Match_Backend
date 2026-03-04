@@ -8,9 +8,27 @@ import { PrismaService } from 'src/prisma-service/prisma-service';
 export class UsersService {
     constructor(private configService:ConfigService,private prismaService:PrismaService){}
 
-    async getAllUsers(){
-        return await this.prismaService.users.findMany()
-    }
+async getAllUsers() {
+  return await this.prismaService.$queryRaw<any[]>`
+    SELECT
+      "userId",
+      "name",
+      "sex",
+      "phone_number",
+      "email",
+      "createdAt",
+      "lastActive",
+      "district",
+      "sector",
+      "village",
+      "cell",
+      "profile_url",
+      ST_Y("location"::geometry) AS latitude,
+      ST_X("location"::geometry) AS longitude
+    FROM "User"
+  `;
+}
+
     async getSingleUser(id:string){
         return await this.prismaService.users.findUnique({
             where:{
