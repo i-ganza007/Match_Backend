@@ -73,4 +73,28 @@ export class Animals {
             data: { profilePhoto: publicUrl },
         });
     }
+
+    async getAnimalsOfCertainUser(user: { userId: string; email: string }){
+        return this.prismaService.animals.findMany({
+            where:{
+                ownerId:user.userId
+            },
+            include:{
+                mother:{
+                    include:{
+                        mother:true,
+                        father:true
+                    }
+                },
+                father:{
+                    include:{
+                        mother:true,
+                        father:true
+                    }
+                }
+            }
+        })
+    }
+
+
 }

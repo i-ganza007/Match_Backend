@@ -53,4 +53,9 @@ export class AnimalsController {
         if (!file) throw new BadRequestException('No photo file provided — send it as multipart/form-data with field name "photo"');
         return await this.animalService.uploadProfilePhoto(id, file);
     }
+
+    @Get()
+    async getAllAnimalsOfUser(@CookieUser() user: { userId: string; email: string }){
+        return this.animalService.getAnimalsOfCertainUser(user)
+    }
 }
