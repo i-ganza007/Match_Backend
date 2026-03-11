@@ -149,10 +149,15 @@ enum AnimalSpecies {
   BROWN_SWISS_COW
   GIROLANDO_COW
   JERSEY_COW
+  SAHIWAL_COW       
   LARGE_WHITE_PIG
   DUROC_PIG
+  LANDRACE_PIG      
+  PIETRAIN_PIG       
+  INDIGENOUS_PIG     
   MERINO_SHEEP
-  LOCAL_GOAT
+  DORPER_SHEEP      
+  LOCAL_GOAT         
 }
 
 enum MessageSentStatus {
