@@ -9,16 +9,23 @@ import { PrismaService } from 'src/prisma-service/prisma-service';
 
 // Maps AnimalSpecies enum values → Python model label strings (from CLASS_TO_TYPE in model_utils.py)
 const SPECIES_LABEL: Record<AnimalSpecies, string> = {
-    [AnimalSpecies.HOLSTEIN_COW]:    'fresian_cow',
-    [AnimalSpecies.FREISIAN_COW]:    'fresian_cow',
-    [AnimalSpecies.ANKOLE_COW]:      'indigenous_ankole_cow',
-    [AnimalSpecies.BROWN_SWISS_COW]: 'brown_swiss_cow',
-    [AnimalSpecies.GIROLANDO_COW]:   'girolando_cow',
-    [AnimalSpecies.JERSEY_COW]:      'jersey_cow',
-    [AnimalSpecies.LARGE_WHITE_PIG]: 'large_white_pig',
-    [AnimalSpecies.DUROC_PIG]:       'duroc_pig',
-    [AnimalSpecies.MERINO_SHEEP]:    'merino_sheep',
-    [AnimalSpecies.LOCAL_GOAT]:      'indigenous_goat',
+  HOLSTEIN_COW: 'Holstein Cow',
+  FREISIAN_COW: 'Freisian Cow',
+  ANKOLE_COW: 'Ankole Cow',
+  BROWN_SWISS_COW: 'Brown Swiss Cow',
+  GIROLANDO_COW: 'Girolando Cow',
+  JERSEY_COW: 'Jersey Cow',
+  SAHIWAL_COW: 'Sahiwal Cow',
+  LARGE_WHITE_PIG: 'Large White Pig',
+  DUROC_PIG: 'Duroc Pig',
+  LANDRACE_PIG: 'Landrace Pig',
+  PIETRAIN_PIG: 'Pietrain Pig',
+  INDIGENOUS_PIG: 'Indigenous Pig',
+  MERINO_SHEEP: 'Merino Sheep',
+  DORPER_SHEEP: 'Dorper Sheep',
+  LOCAL_GOAT: 'Local Goat',
+  INDIGENOUS_ANKOLE_COW: 'Indigenous Ankole Cow',
+  INDIGENOUS_GOAT: 'Indigenous Goat',
 };
 
 interface MLScores {
