@@ -65,32 +65,37 @@ model Breeding {
   breedingId          String         @id @default(uuid())
   motherId            String
   fatherId            String
-  breedingDate        DateTime
-  method              BreedingMethod
+  breedingDate        DateTime       @default(now())
+  method              BreedingMethod @default(NATURAL)
   expectedCalvingDate DateTime?
   calving_date        DateTime?
   userRating          Int?
+  breedingRecId       String?        @unique
   createdAt           DateTime       @default(now())
   updatedAt           DateTime       @updatedAt
   offspring           Animal[]       @relation("OriginBreedingEvent")
   father              Animal         @relation("BreedingAsFather", fields: [fatherId], references: [animalId])
   mother              Animal         @relation("BreedingAsMother", fields: [motherId], references: [animalId])
   farmers             User[]         @relation("BreedingToUser")
+  breedingRec         Breeding_Rec?  @relation(fields: [breedingRecId], references: [breedingRecId])
 }
 
 model Breeding_Rec {
-  breedingRecId                 String   @id @default(uuid())
+  breedingRecId                 String    @id @default(uuid())
   animalInitial                 String
   recommendedAnimalId           String
   overall_score                 Float
   user_accepted                 Boolean
-  generatedAt                   DateTime @default(now())
-  userFeedback                  String?  @default("")
+  generatedAt                   DateTime  @default(now())
+  acceptedAt                    DateTime?
+  locked                        Boolean   @default(false)
+  userFeedback                  String?   @default("")
   genetic_diversity_score       Float
   inbreeding_risk_score         Float
   breed_composition_match_score Float
-  originalAnimal                Animal   @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
-  recommendedAnimal             Animal   @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
+  originalAnimal                Animal    @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
+  recommendedAnimal             Animal    @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
+  breeding                      Breeding?
 }
 
 model RelatedNess_Estimates {
