@@ -20,6 +20,7 @@ export class AuthController {
         res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
         return {
             message: "Successful SignIn",
+            token: result.access_token,
         }
     }
 
