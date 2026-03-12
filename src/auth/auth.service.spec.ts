@@ -68,8 +68,8 @@ describe('AuthService', () => {
         sector: 'Test',
         village: 'Test',
         cell: 'Test',
-        latitude: '0',
-        longitude: '0',
+        latitude: 0,
+        longitude: 0,
       };
 
       mockPrismaService.users.findFirst.mockResolvedValue(null);
