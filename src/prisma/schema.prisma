@@ -1,11 +1,9 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  extensions = [postgis, pg_graphql, pg_stat_statements, pgcrypto, supabase_vault, uuid_ossp(map: "uuid-ossp")]
+  provider = "postgresql"
 }
 
 model User {
@@ -133,13 +131,15 @@ model Messages {
   sender      User              @relation("SenderMessages", fields: [senderId], references: [userId])
 }
 
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// PostGIS system table — managed by Supabase, not by Prisma migrations.
 model spatial_ref_sys {
   srid      Int     @id
   auth_name String? @db.VarChar(256)
   auth_srid Int?
   srtext    String? @db.VarChar(2048)
   proj4text String? @db.VarChar(2048)
+
+  @@ignore
 }
 
 enum Gender {
