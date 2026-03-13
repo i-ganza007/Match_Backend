@@ -1,26 +1,17 @@
--- CreateExtension (managed by Supabase – skipped for shadow DB compatibility)
--- CREATE EXTENSION IF NOT EXISTS "postgis";
-
--- CreateExtension
--- CREATE EXTENSION IF NOT EXISTS "pg_graphql";
-
--- CreateExtension
--- CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
-
--- CreateExtension
--- CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-
--- CreateExtension
--- CREATE EXTENSION IF NOT EXISTS "supabase_vault";
-
--- CreateExtension
--- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
 
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE');
 
 -- CreateEnum
-CREATE TYPE "AnimalSpecies" AS ENUM ('HOLSTEIN_COW', 'FREISIAN_COW', 'ANKOLE_COW', 'BROWN_SWISS_COW', 'GIROLANDO_COW', 'JERSEY_COW', 'LARGE_WHITE_PIG', 'DUROC_PIG', 'MERINO_SHEEP', 'LOCAL_GOAT');
+CREATE TYPE "AnimalSpecies" AS ENUM ('HOLSTEIN_COW', 'FREISIAN_COW', 'ANKOLE_COW', 'BROWN_SWISS_COW', 'GIROLANDO_COW', 'JERSEY_COW', 'SAHIWAL_COW', 'LARGE_WHITE_PIG', 'DUROC_PIG', 'LANDRACE_PIG', 'PIETRAIN_PIG', 'INDIGENOUS_PIG', 'MERINO_SHEEP', 'DORPER_SHEEP', 'LOCAL_GOAT', 'INDIGENOUS_ANKOLE_COW', 'INDIGENOUS_GOAT');
+
+-- CreateEnum
+CREATE TYPE "MessageSentStatus" AS ENUM ('SENT', 'DELIVERED', 'READ', 'FAILED', 'LOADING');
+
+-- CreateEnum
+CREATE TYPE "MessageType" AS ENUM ('TEXT', 'FILE', 'IMAGE');
 
 -- CreateEnum
 CREATE TYPE "AnimalType" AS ENUM ('COW', 'GOAT', 'PIG', 'SHEEP');
@@ -44,13 +35,12 @@ CREATE TABLE "User" (
     "email" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "lastActive" TIMESTAMP(3) NOT NULL,
-    "farmingSystem" TEXT NOT NULL,
     "district" TEXT NOT NULL,
     "sector" TEXT NOT NULL,
     "village" TEXT NOT NULL,
     "cell" TEXT NOT NULL,
-    "latitude" TEXT NOT NULL,
-    "longitude" TEXT NOT NULL,
+    "location" geography(Point, 4326) NOT NULL,
+    "profile_url" TEXT DEFAULT 'https://hzihqpbtzfseejihukvk.supabase.co/storage/v1/object/public/Animal_Images/avatar.jpg',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
 );
@@ -60,19 +50,19 @@ CREATE TABLE "Animal" (
     "animalId" TEXT NOT NULL,
     "name" TEXT DEFAULT '',
     "sex" "Gender" NOT NULL,
-    "birthDate" TIMESTAMP(3) NOT NULL,
+    "birthDate" TIMESTAMP(3),
     "type" "AnimalType" NOT NULL,
     "registrationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "profilePhoto" TEXT NOT NULL DEFAULT '',
-    "additionalPhotos" JSONB[],
+    "profilePhoto" TEXT NOT NULL DEFAULT 'https://hzihqpbtzfseejihukvk.supabase.co/storage/v1/object/public/Animal_Images/avatar.jpg',
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "status" "AnimalStatus" NOT NULL DEFAULT 'ALIVE',
     "motherId" TEXT,
     "fatherId" TEXT,
     "ownerId" TEXT NOT NULL,
+    "recommendable" BOOLEAN NOT NULL,
     "specie" "AnimalSpecies" NOT NULL,
     "breed_confidence" DOUBLE PRECISION NOT NULL,
-    "breedingEventId" TEXT NOT NULL,
+    "breedingEventId" TEXT,
 
     CONSTRAINT "Animal_pkey" PRIMARY KEY ("animalId")
 );
@@ -82,11 +72,12 @@ CREATE TABLE "Breeding" (
     "breedingId" TEXT NOT NULL,
     "motherId" TEXT NOT NULL,
     "fatherId" TEXT NOT NULL,
-    "breedingDate" TIMESTAMP(3) NOT NULL,
-    "method" "BreedingMethod" NOT NULL,
+    "breedingDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "method" "BreedingMethod" NOT NULL DEFAULT 'NATURAL',
     "expectedCalvingDate" TIMESTAMP(3),
     "calving_date" TIMESTAMP(3),
     "userRating" INTEGER,
+    "breedingRecId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -101,6 +92,8 @@ CREATE TABLE "Breeding_Rec" (
     "overall_score" DOUBLE PRECISION NOT NULL,
     "user_accepted" BOOLEAN NOT NULL,
     "generatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "acceptedAt" TIMESTAMP(3),
+    "locked" BOOLEAN NOT NULL DEFAULT false,
     "userFeedback" TEXT DEFAULT '',
     "genetic_diversity_score" DOUBLE PRECISION NOT NULL,
     "inbreeding_risk_score" DOUBLE PRECISION NOT NULL,
@@ -125,12 +118,27 @@ CREATE TABLE "RelatedNess_Estimates" (
 CREATE TABLE "Perfomance_Records" (
     "id" TEXT NOT NULL,
     "animalId" TEXT NOT NULL,
-    "milk_yield" DOUBLE PRECISION NOT NULL,
+    "milk_yield" DOUBLE PRECISION,
+    "litter_size" INTEGER,
     "weight" DOUBLE PRECISION NOT NULL,
     "health_status" "AnimalHealth" NOT NULL DEFAULT 'HEALTHY',
     "recordedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Perfomance_Records_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Messages" (
+    "messageId" TEXT NOT NULL,
+    "senderId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "messageType" "MessageType" NOT NULL DEFAULT 'TEXT',
+    "content" TEXT NOT NULL,
+    "status" "MessageSentStatus" NOT NULL DEFAULT 'LOADING',
+
+    CONSTRAINT "Messages_pkey" PRIMARY KEY ("messageId")
 );
 
 -- CreateTable
@@ -148,25 +156,31 @@ CREATE UNIQUE INDEX "User_phone_number_key" ON "User"("phone_number");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Breeding_breedingRecId_key" ON "Breeding"("breedingRecId");
+
+-- CreateIndex
 CREATE INDEX "_BreedingToUser_B_index" ON "_BreedingToUser"("B");
 
 -- AddForeignKey
-ALTER TABLE "Animal" ADD CONSTRAINT "Animal_motherId_fkey" FOREIGN KEY ("motherId") REFERENCES "Animal"("animalId") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Animal" ADD CONSTRAINT "Animal_breedingEventId_fkey" FOREIGN KEY ("breedingEventId") REFERENCES "Breeding"("breedingId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Animal" ADD CONSTRAINT "Animal_fatherId_fkey" FOREIGN KEY ("fatherId") REFERENCES "Animal"("animalId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Animal" ADD CONSTRAINT "Animal_motherId_fkey" FOREIGN KEY ("motherId") REFERENCES "Animal"("animalId") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Animal" ADD CONSTRAINT "Animal_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Animal" ADD CONSTRAINT "Animal_breedingEventId_fkey" FOREIGN KEY ("breedingEventId") REFERENCES "Breeding"("breedingId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Breeding" ADD CONSTRAINT "Breeding_fatherId_fkey" FOREIGN KEY ("fatherId") REFERENCES "Animal"("animalId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Breeding" ADD CONSTRAINT "Breeding_motherId_fkey" FOREIGN KEY ("motherId") REFERENCES "Animal"("animalId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Breeding" ADD CONSTRAINT "Breeding_fatherId_fkey" FOREIGN KEY ("fatherId") REFERENCES "Animal"("animalId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Breeding" ADD CONSTRAINT "Breeding_breedingRecId_fkey" FOREIGN KEY ("breedingRecId") REFERENCES "Breeding_Rec"("breedingRecId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Breeding_Rec" ADD CONSTRAINT "Breeding_Rec_animalInitial_fkey" FOREIGN KEY ("animalInitial") REFERENCES "Animal"("animalId") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -182,6 +196,12 @@ ALTER TABLE "RelatedNess_Estimates" ADD CONSTRAINT "RelatedNess_Estimates_animal
 
 -- AddForeignKey
 ALTER TABLE "Perfomance_Records" ADD CONSTRAINT "Perfomance_Records_animalId_fkey" FOREIGN KEY ("animalId") REFERENCES "Animal"("animalId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Messages" ADD CONSTRAINT "Messages_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Messages" ADD CONSTRAINT "Messages_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_BreedingToUser" ADD CONSTRAINT "_BreedingToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Breeding"("breedingId") ON DELETE CASCADE ON UPDATE CASCADE;

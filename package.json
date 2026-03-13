@@ -6,6 +6,9 @@
   "private": true,
   "module": "dist/main.js",
   "license": "UNLICENSED",
+  "prisma": {
+    "seed": "ts-node -r tsconfig-paths/register src/prisma/seed.ts"
+  },
   "scripts": {
     "build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
