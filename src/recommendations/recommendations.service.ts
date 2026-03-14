@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, InternalServerErrorException, Logger } from '@nestjs/common';
 import { AnimalSpecies, AnimalStatus, Gender } from '@prisma/client';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
@@ -133,6 +133,10 @@ export class RecommendationsService {
         let scored: ScoredCandidate[] = [];
         try {
             scored = await this.runPythonBatch(queryImg, labelA, batchFile);
+        } catch (pythonError) {
+            const msg = pythonError instanceof Error ? pythonError.message : String(pythonError);
+            this.logger.error(`ML batch scoring failed for ${animalId}: ${msg}`);
+            throw new InternalServerErrorException('Genetic scoring failed — please try again in a moment');
         } finally {
             fs.unlink(queryImg, () => {});
             fs.unlink(batchFile, () => {});
