@@ -45,8 +45,15 @@ export class RecommendationsService {
     private readonly logger = new Logger(RecommendationsService.name);
     private readonly tmpDir = path.join(process.cwd(), 'tmp');
     private readonly mlScript = path.join(process.cwd(), 'ML_model', 'recommend_breeding.py');
+    private readonly scoringConcurrency: number;
 
     constructor(private prisma: PrismaService) {
+        const configuredConcurrency = Number(process.env.REC_SCORING_CONCURRENCY ?? 1);
+        this.scoringConcurrency =
+            Number.isFinite(configuredConcurrency) && configuredConcurrency > 0
+                ? Math.floor(configuredConcurrency)
+                : 1;
+
         if (!fs.existsSync(this.tmpDir)) fs.mkdirSync(this.tmpDir, { recursive: true });
         if (!fs.existsSync(this.mlScript)) {
             this.logger.error(`ML script not found at ${this.mlScript}`);
@@ -100,9 +107,14 @@ export class RecommendationsService {
         await this.downloadImage(animal.profilePhoto, queryImg);
 
         // Step 6: Run ML scorer across all candidates in parallel
-        const settled = await Promise.allSettled(
-            candidates.map(c => this.scoreCandidate(queryImg, labelA, c, relMap)),
-        );
+        const settled: PromiseSettledResult<ScoredCandidate | null>[] = [];
+        for (let i = 0; i < candidates.length; i += this.scoringConcurrency) {
+            const batch = candidates.slice(i, i + this.scoringConcurrency);
+            const batchSettled = await Promise.allSettled(
+                batch.map(c => this.scoreCandidate(queryImg, labelA, c, relMap)),
+            );
+            settled.push(...batchSettled);
+        }
         fs.unlink(queryImg, () => {});
 
         const scored: ScoredCandidate[] = settled
@@ -114,6 +126,7 @@ export class RecommendationsService {
         if (failed > 0) {
             this.logger.warn(`Scoring failures for ${animalId}: ${failed}/${settled.length}`);
         }
+        this.logger.log(`Scored ${scored.length}/${settled.length} candidates (concurrency=${this.scoringConcurrency})`);
 
         if (scored.length === 0) return [];
 
