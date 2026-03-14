@@ -8,24 +8,25 @@ import * as path from 'path';
 import { PrismaService } from 'src/prisma-service/prisma-service';
 
 // Maps AnimalSpecies enum values → Python model label strings (from CLASS_TO_TYPE in model_utils.py)
+// Must match keys in CLASS_TO_TYPE inside recommend_breeding.py exactly
 const SPECIES_LABEL: Record<AnimalSpecies, string> = {
-  HOLSTEIN_COW: 'Holstein Cow',
-  FREISIAN_COW: 'Freisian Cow',
-  ANKOLE_COW: 'Ankole Cow',
-  BROWN_SWISS_COW: 'Brown Swiss Cow',
-  GIROLANDO_COW: 'Girolando Cow',
-  JERSEY_COW: 'Jersey Cow',
-  SAHIWAL_COW: 'Sahiwal Cow',
-  LARGE_WHITE_PIG: 'Large White Pig',
-  DUROC_PIG: 'Duroc Pig',
-  LANDRACE_PIG: 'Landrace Pig',
-  PIETRAIN_PIG: 'Pietrain Pig',
-  INDIGENOUS_PIG: 'Indigenous Pig',
-  MERINO_SHEEP: 'Merino Sheep',
-  DORPER_SHEEP: 'Dorper Sheep',
-  LOCAL_GOAT: 'Local Goat',
-  INDIGENOUS_ANKOLE_COW: 'Indigenous Ankole Cow',
-  INDIGENOUS_GOAT: 'Indigenous Goat',
+  HOLSTEIN_COW:          'fresian_cow',
+  FREISIAN_COW:          'fresian_cow',
+  ANKOLE_COW:            'indigenous_ankole_cow',
+  BROWN_SWISS_COW:       'brown_swiss_cow',
+  GIROLANDO_COW:         'girolando_cow',
+  JERSEY_COW:            'jersey_cow',
+  SAHIWAL_COW:           'sahiwal_cow',
+  LARGE_WHITE_PIG:       'large_white_pig',
+  DUROC_PIG:             'duroc_pig',
+  LANDRACE_PIG:          'landrace_pig',
+  PIETRAIN_PIG:          'pietrain_pig',
+  INDIGENOUS_PIG:        'indigenous_pig',
+  MERINO_SHEEP:          'merino_sheep',
+  DORPER_SHEEP:          'dorper_sheep',
+  LOCAL_GOAT:            'indigenous_goat',
+  INDIGENOUS_ANKOLE_COW: 'indigenous_ankole_cow',
+  INDIGENOUS_GOAT:       'indigenous_goat',
 };
 
 interface MLScores {
@@ -244,7 +245,7 @@ export class RecommendationsService {
         relatedness: number,
     ): Promise<MLScores> {
         return new Promise((resolve, reject) => {
-            const py = spawn('python', [
+            const py = spawn(process.env.PYTHON_BIN ?? 'python3', [
                 this.mlScript,
                 '--animalA',    animalA,
                 '--animalB',    animalA,   // required by argparse but not used by the script
