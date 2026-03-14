@@ -45,15 +45,8 @@ export class RecommendationsService {
     private readonly logger = new Logger(RecommendationsService.name);
     private readonly tmpDir = path.join(process.cwd(), 'tmp');
     private readonly mlScript = path.join(process.cwd(), 'ML_model', 'recommend_breeding.py');
-    private readonly scoringConcurrency: number;
 
     constructor(private prisma: PrismaService) {
-        const configuredConcurrency = Number(process.env.REC_SCORING_CONCURRENCY ?? 1);
-        this.scoringConcurrency =
-            Number.isFinite(configuredConcurrency) && configuredConcurrency > 0
-                ? Math.floor(configuredConcurrency)
-                : 1;
-
         if (!fs.existsSync(this.tmpDir)) fs.mkdirSync(this.tmpDir, { recursive: true });
         if (!fs.existsSync(this.mlScript)) {
             this.logger.error(`ML script not found at ${this.mlScript}`);
@@ -106,27 +99,47 @@ export class RecommendationsService {
         const queryImg  = path.join(this.tmpDir, `q_${animalId}_${Date.now()}.jpg`);
         await this.downloadImage(animal.profilePhoto, queryImg);
 
-        // Step 6: Run ML scorer across all candidates in parallel
-        const settled: PromiseSettledResult<ScoredCandidate | null>[] = [];
-        for (let i = 0; i < candidates.length; i += this.scoringConcurrency) {
-            const batch = candidates.slice(i, i + this.scoringConcurrency);
-            const batchSettled = await Promise.allSettled(
-                batch.map(c => this.scoreCandidate(queryImg, labelA, c, relMap)),
-            );
-            settled.push(...batchSettled);
-        }
-        fs.unlink(queryImg, () => {});
+        // Step 6: Download all candidate images in parallel, then score in ONE Python process
+        const MAX_CANDIDATES = 50; // cap to prevent excessive memory use
+        const candidatePool = candidates.slice(0, MAX_CANDIDATES);
 
-        const scored: ScoredCandidate[] = settled
-            .filter((r): r is PromiseFulfilledResult<ScoredCandidate> =>
-                r.status === 'fulfilled' && r.value !== null)
+        const downloadResults = await Promise.allSettled(
+            candidatePool.map(async c => {
+                const imgPath = path.join(this.tmpDir, `c_${c.animalId}_${Date.now()}.jpg`);
+                await this.downloadImage(c.profilePhoto, imgPath);
+                return { animalId: c.animalId, specie: c.specie, imgPath };
+            }),
+        );
+
+        const downloaded = downloadResults
+            .filter((r): r is PromiseFulfilledResult<{ animalId: string; specie: AnimalSpecies; imgPath: string }> =>
+                r.status === 'fulfilled')
             .map(r => r.value);
 
-        const failed = settled.length - scored.length;
-        if (failed > 0) {
-            this.logger.warn(`Scoring failures for ${animalId}: ${failed}/${settled.length}`);
+        const downloadFailed = downloadResults.length - downloaded.length;
+        if (downloadFailed > 0) {
+            this.logger.warn(`Image download failures for ${animalId}: ${downloadFailed}/${downloadResults.length}`);
         }
-        this.logger.log(`Scored ${scored.length}/${settled.length} candidates (concurrency=${this.scoringConcurrency})`);
+
+        const batchFile = path.join(this.tmpDir, `batch_${animalId}_${Date.now()}.json`);
+        const batchManifest = downloaded.map(c => ({
+            animalId:    c.animalId,
+            imagePath:   c.imgPath,
+            labelB:      SPECIES_LABEL[c.specie] ?? 'fresian_cow',
+            relatedness: relMap.get(c.animalId) ?? 0.0,
+        }));
+        fs.writeFileSync(batchFile, JSON.stringify(batchManifest));
+
+        let scored: ScoredCandidate[] = [];
+        try {
+            scored = await this.runPythonBatch(queryImg, labelA, batchFile);
+        } finally {
+            fs.unlink(queryImg, () => {});
+            fs.unlink(batchFile, () => {});
+            for (const c of downloaded) fs.unlink(c.imgPath, () => {});
+        }
+
+        this.logger.log(`Scored ${scored.length}/${downloaded.length} candidates (single batch process)`);
 
         if (scored.length === 0) return [];
 
@@ -226,26 +239,33 @@ export class RecommendationsService {
 
     // ── Private helpers ──────────────────────────────────────────────────────
 
-    private async scoreCandidate(
+    private runPythonBatch(
         queryImg: string,
         labelA: string,
-        candidate: { animalId: string; profilePhoto: string; specie: AnimalSpecies },
-        relMap: Map<string, number>,
-    ): Promise<ScoredCandidate | null> {
-        const candImg = path.join(this.tmpDir, `c_${candidate.animalId}_${Date.now()}.jpg`);
-        try {
-            await this.downloadImage(candidate.profilePhoto, candImg);
-            const relatedness = relMap.get(candidate.animalId) ?? 0.0;
-            const labelB      = SPECIES_LABEL[candidate.specie] ?? 'fresian_cow';
-            const scores      = await this.runPython(queryImg, candImg, labelA, labelB, relatedness);
-            return { animalId: candidate.animalId, ...scores };
-        } catch (error) {
-            const reason = error instanceof Error ? error.message : String(error);
-            this.logger.warn(`Candidate ${candidate.animalId} scoring failed: ${reason}`);
-            return null;
-        } finally {
-            fs.unlink(candImg, () => {});
-        }
+        batchFile: string,
+    ): Promise<ScoredCandidate[]> {
+        return new Promise((resolve, reject) => {
+            const py = spawn(process.env.PYTHON_BIN ?? 'python3', [
+                this.mlScript,
+                '--animalA', queryImg,
+                '--labelA',  labelA,
+                '--batch',   batchFile,
+            ]);
+
+            let out = '';
+            let err = '';
+            py.stdout.on('data', (d: Buffer) => { out += d.toString(); });
+            py.stderr.on('data', (d: Buffer) => { err += d.toString(); });
+            py.on('close', code => {
+                if (err) this.logger.debug(`Python stderr: ${err.trim()}`);
+                if (code !== 0) {
+                    reject(new Error(`Python exited ${code}: ${err}`));
+                    return;
+                }
+                try { resolve(JSON.parse(out)); }
+                catch { reject(new Error(`Invalid JSON from Python: ${out}`)); }
+            });
+        });
     }
 
     private downloadImage(url: string, dest: string): Promise<void> {
@@ -262,36 +282,4 @@ export class RecommendationsService {
         });
     }
 
-    private runPython(
-        animalA: string,
-        candidate: string,
-        labelA: string,
-        labelB: string,
-        relatedness: number,
-    ): Promise<MLScores> {
-        return new Promise((resolve, reject) => {
-            const py = spawn(process.env.PYTHON_BIN ?? 'python3', [
-                this.mlScript,
-                '--animalA',    animalA,
-                '--animalB',    animalA,   // required by argparse but not used by the script
-                '--candidate',  candidate,
-                '--labelA',     labelA,
-                '--labelB',     labelB,
-                '--relatedness', String(relatedness),
-            ]);
-
-            let out = '';
-            let err = '';
-            py.stdout.on('data', (d: Buffer) => { out += d.toString(); });
-            py.stderr.on('data', (d: Buffer) => { err += d.toString(); });
-            py.on('close', code => {
-                if (code !== 0) {
-                    reject(new Error(`Python exited ${code}: ${err}`));
-                    return;
-                }
-                try { resolve(JSON.parse(out)); }
-                catch { reject(new Error(`Invalid JSON from Python: ${out}`)); }
-            });
-        });
-    }
 }
