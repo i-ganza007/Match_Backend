@@ -1,12 +1,22 @@
 import argparse
 import json
+import os
+import sys
 from pathlib import Path
+
+# Suppress TF startup noise and limit CPU threads BEFORE importing TF
+os.environ.setdefault('TF_CPP_MIN_LOG_LEVEL', '3')
+os.environ.setdefault('TF_ENABLE_ONEDNN_OPTS', '0')
 
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from PIL import Image
+
+# Keep CPU usage bounded — prevents runaway parallelism on constrained instances
+tf.config.threading.set_inter_op_parallelism_threads(1)
+tf.config.threading.set_intra_op_parallelism_threads(2)
 
 MODEL3_WEIGHTS_PATH = str(Path(__file__).parent / 'model3_best.weights.h5')
 
@@ -90,7 +100,7 @@ class BreedingRecommender(keras.Model):
             'breed_composition_match_score': breed_match,
         }
 
-# ── Backbone (no model1.h5 needed) ───────────────────────────────────────────
+# ── Backbone ──────────────────────────────────────────────────────────────────
 
 def build_backbone():
     base = keras.applications.MobileNetV2(
@@ -107,24 +117,17 @@ def build_backbone():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--animalA',     required=True)
-    parser.add_argument('--animalB',     required=True)
-    parser.add_argument('--candidate',   required=True)
-    parser.add_argument('--labelA',      default='fresian_cow')
-    parser.add_argument('--labelB',      default='fresian_cow')
-    parser.add_argument('--relatedness', type=float, default=0.0)
+    parser.add_argument('--animalA', required=True, help='Path to query animal image')
+    parser.add_argument('--labelA',  default='fresian_cow')
+    parser.add_argument('--batch',   required=True,
+                        help='Path to JSON file: [{animalId, imagePath, labelB, relatedness}, ...]')
     args = parser.parse_args()
 
-    imgA        = np.expand_dims(load_and_preprocess(args.animalA),   axis=0)
-    imgB        = np.expand_dims(load_and_preprocess(args.candidate), axis=0)
-    speciesA    = get_species_id(args.labelA)
-    speciesB    = get_species_id(args.labelB)
-    relatedness = [[args.relatedness]]
-
+    # Build and load model ONCE for all candidates
     backbone, backbone_dim = build_backbone()
     model3 = BreedingRecommender(backbone=backbone, backbone_dim=backbone_dim)
 
-    # Warm-up: builds all submodel layers before loading weights
+    # Warm-up pass to materialise all submodel layers before loading weights
     dummy    = tf.zeros((1, 224, 224, 3))
     dummy_sp = tf.zeros((1, 1), dtype=tf.int32)
     dummy_r  = tf.zeros((1, 1))
@@ -132,9 +135,26 @@ def main():
 
     model3.load_weights(MODEL3_WEIGHTS_PATH)
 
-    preds  = model3([imgA, speciesA, imgB, speciesB, relatedness], training=False)
-    scores = {k: float(v.numpy().squeeze()) for k, v in preds.items()}
-    print(json.dumps(scores))
+    # Load query image once
+    imgA     = np.expand_dims(load_and_preprocess(args.animalA), axis=0)
+    speciesA = get_species_id(args.labelA)
+
+    with open(args.batch) as f:
+        candidates = json.load(f)
+
+    results = []
+    for c in candidates:
+        try:
+            imgB        = np.expand_dims(load_and_preprocess(c['imagePath']), axis=0)
+            speciesB    = get_species_id(c['labelB'])
+            relatedness = [[float(c['relatedness'])]]
+            preds       = model3([imgA, speciesA, imgB, speciesB, relatedness], training=False)
+            scores      = {k: float(v.numpy().squeeze()) for k, v in preds.items()}
+            results.append({'animalId': c['animalId'], **scores})
+        except Exception as e:
+            print(f'Warning: skipping {c["animalId"]}: {e}', file=sys.stderr)
+
+    print(json.dumps(results))
 
 if __name__ == '__main__':
     main()
