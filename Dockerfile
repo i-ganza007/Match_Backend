@@ -39,8 +39,9 @@ COPY --from=builder /app/ML_model ./ML_model
 
 ENV PATH="/opt/venv/bin:$PATH"
 ENV PYTHON_BIN="/opt/venv/bin/python"
-ENV NODE_OPTIONS="--max-old-space-size=384"
-ENV REC_SCORING_CONCURRENCY="1"
+# Keep Node heap small — this is just an API server (DB queries + process spawn).
+# Python/TF subprocess needs the rest of the 512 MB container RAM.
+ENV NODE_OPTIONS="--max-old-space-size=128"
 
 EXPOSE 3000
 

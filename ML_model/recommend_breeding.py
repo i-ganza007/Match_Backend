@@ -1,4 +1,5 @@
 import argparse
+import gc
 import json
 import os
 import sys
@@ -14,9 +15,9 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from PIL import Image
 
-# Keep CPU usage bounded — prevents runaway parallelism on constrained instances
+# Minimum threads — each thread has its own stack allocation
 tf.config.threading.set_inter_op_parallelism_threads(1)
-tf.config.threading.set_intra_op_parallelism_threads(2)
+tf.config.threading.set_intra_op_parallelism_threads(1)
 
 MODEL3_WEIGHTS_PATH = str(Path(__file__).parent / 'model3_best.weights.h5')
 
@@ -132,6 +133,8 @@ def main():
     dummy_sp = tf.zeros((1, 1), dtype=tf.int32)
     dummy_r  = tf.zeros((1, 1))
     model3([dummy, dummy_sp, dummy, dummy_sp, dummy_r], training=False)
+    del dummy, dummy_sp, dummy_r  # free warmup tensors before loading weights
+    gc.collect()
 
     model3.load_weights(MODEL3_WEIGHTS_PATH)
 
@@ -151,6 +154,7 @@ def main():
             preds       = model3([imgA, speciesA, imgB, speciesB, relatedness], training=False)
             scores      = {k: float(v.numpy().squeeze()) for k, v in preds.items()}
             results.append({'animalId': c['animalId'], **scores})
+            del imgB, speciesB, relatedness, preds  # release tensors between candidates
         except Exception as e:
             print(f'Warning: skipping {c["animalId"]}: {e}', file=sys.stderr)
 
