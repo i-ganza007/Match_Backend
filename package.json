@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
-  "module": "dist/main.js",
+  "module": "dist/src/main.js",
   "license": "UNLICENSED",
   "prisma": {
     "seed": "ts-node -r tsconfig-paths/register src/prisma/seed.ts"
@@ -15,7 +15,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "tscheck": "tsc --noEmit",
