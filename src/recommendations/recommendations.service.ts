@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
 import { AnimalSpecies, AnimalStatus, Gender } from '@prisma/client';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
@@ -42,11 +42,15 @@ interface ScoredCandidate extends MLScores {
 
 @Injectable()
 export class RecommendationsService {
-    private readonly tmpDir   = path.join(__dirname, '../../tmp');
-    private readonly mlScript = path.join(__dirname, '../../ML_model/recommend_breeding.py');
+    private readonly logger = new Logger(RecommendationsService.name);
+    private readonly tmpDir = path.join(process.cwd(), 'tmp');
+    private readonly mlScript = path.join(process.cwd(), 'ML_model', 'recommend_breeding.py');
 
     constructor(private prisma: PrismaService) {
         if (!fs.existsSync(this.tmpDir)) fs.mkdirSync(this.tmpDir, { recursive: true });
+        if (!fs.existsSync(this.mlScript)) {
+            this.logger.error(`ML script not found at ${this.mlScript}`);
+        }
     }
 
     // ── GET /recommendations?animalId= ──────────────────────────────────────
@@ -77,6 +81,7 @@ export class RecommendationsService {
                 ownerId:       { not: animal.ownerId },
             },
         });
+        this.logger.log(`Recommendation candidate pool for ${animalId}: ${candidates.length}`);
         if (candidates.length === 0) return [];
 
         // Step 4: Fetch relatedness scores involving this animal
@@ -104,6 +109,11 @@ export class RecommendationsService {
             .filter((r): r is PromiseFulfilledResult<ScoredCandidate> =>
                 r.status === 'fulfilled' && r.value !== null)
             .map(r => r.value);
+
+        const failed = settled.length - scored.length;
+        if (failed > 0) {
+            this.logger.warn(`Scoring failures for ${animalId}: ${failed}/${settled.length}`);
+        }
 
         if (scored.length === 0) return [];
 
@@ -216,7 +226,9 @@ export class RecommendationsService {
             const labelB      = SPECIES_LABEL[candidate.specie] ?? 'fresian_cow';
             const scores      = await this.runPython(queryImg, candImg, labelA, labelB, relatedness);
             return { animalId: candidate.animalId, ...scores };
-        } catch {
+        } catch (error) {
+            const reason = error instanceof Error ? error.message : String(error);
+            this.logger.warn(`Candidate ${candidate.animalId} scoring failed: ${reason}`);
             return null;
         } finally {
             fs.unlink(candImg, () => {});
