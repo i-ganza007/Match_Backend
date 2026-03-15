@@ -95,9 +95,21 @@ export class RecommendationsService {
         }
 
         // Step 5: Download query animal photo once
-        const labelA    = SPECIES_LABEL[animal.specie] ?? 'fresian_cow';
-        const queryImg  = path.join(this.tmpDir, `q_${animalId}_${Date.now()}.jpg`);
-        await this.downloadImage(animal.profilePhoto, queryImg);
+        const labelA   = SPECIES_LABEL[animal.specie] ?? 'fresian_cow';
+        const queryImg = path.join(this.tmpDir, `q_${animalId}_${Date.now()}.jpg`);
+
+        if (!animal.profilePhoto) {
+            throw new BadRequestException('Animal has no profile photo — please upload one before requesting recommendations');
+        }
+        this.logger.log(`Downloading query image for ${animalId} from ${animal.profilePhoto}`);
+        try {
+            await this.downloadImage(animal.profilePhoto, queryImg);
+        } catch (dlErr) {
+            const msg = dlErr instanceof Error ? dlErr.message : String(dlErr);
+            this.logger.error(`Failed to download query animal image for ${animalId}: ${msg}`);
+            throw new InternalServerErrorException('Could not download the animal photo — please check the image URL');
+        }
+        this.logger.log(`Query image downloaded for ${animalId}`);
 
         // Step 6: Download all candidate images in parallel, then score in ONE Python process
         const MAX_CANDIDATES = 50; // cap to prevent excessive memory use
@@ -119,7 +131,11 @@ export class RecommendationsService {
         const downloadFailed = downloadResults.length - downloaded.length;
         if (downloadFailed > 0) {
             this.logger.warn(`Image download failures for ${animalId}: ${downloadFailed}/${downloadResults.length}`);
+            downloadResults
+                .filter(r => r.status === 'rejected')
+                .forEach((r: any) => this.logger.warn(`  candidate download error: ${r.reason}`));
         }
+        this.logger.log(`Downloaded ${downloaded.length}/${downloadResults.length} candidate images for ${animalId}`);
 
         const batchFile = path.join(this.tmpDir, `batch_${animalId}_${Date.now()}.json`);
         const batchManifest = downloaded.map(c => ({
@@ -261,7 +277,7 @@ export class RecommendationsService {
             py.stdout.on('data', (d: Buffer) => { out += d.toString(); });
             py.stderr.on('data', (d: Buffer) => { err += d.toString(); });
             py.on('close', code => {
-                if (err) this.logger.debug(`Python stderr: ${err.trim()}`);
+                if (err) this.logger.warn(`Python stderr: ${err.trim()}`);
                 if (code !== 0) {
                     reject(new Error(`Python exited ${code}: ${err}`));
                     return;
@@ -272,13 +288,30 @@ export class RecommendationsService {
         });
     }
 
-    private downloadImage(url: string, dest: string): Promise<void> {
+    private downloadImage(url: string, dest: string, redirects = 5): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (redirects === 0) {
+                reject(new Error(`Too many redirects for ${url}`));
+                return;
+            }
             const proto = url.startsWith('https') ? https : http;
-            const file  = fs.createWriteStream(dest);
             proto.get(url, res => {
+                // Follow redirects (301, 302, 307, 308)
+                if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+                    res.resume();
+                    this.downloadImage(res.headers.location, dest, redirects - 1)
+                        .then(resolve).catch(reject);
+                    return;
+                }
+                if (res.statusCode && res.statusCode !== 200) {
+                    res.resume();
+                    reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+                    return;
+                }
+                const file = fs.createWriteStream(dest);
                 res.pipe(file);
                 file.on('finish', () => { file.close(); resolve(); });
+                file.on('error', err => { fs.unlink(dest, () => {}); reject(err); });
             }).on('error', err => {
                 fs.unlink(dest, () => {});
                 reject(err);
