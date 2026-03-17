@@ -12,40 +12,40 @@ export class CustomMetricsMiddleware implements NestMiddleware {
 
   constructor()
   {
-    // Creating metrics directly
-    this.appCounter = new Counter({
-      name: 'app_count_metrics',
-      help: 'Application request counter',
-      labelNames: ['app_method', 'app_origin'],
-    });
-    
-    this.appGauge = new Gauge({
-      name: 'app_gauge_metrics', 
-      help: 'Application gauge metric',
-      labelNames: ['app_method', 'app_origin'],
-    });
-
-    this.customDurationGauge = new Gauge<string>({
-      name: 'app_duration_metrics',
-      help: 'app_concurrent_metrics_help',
-      labelNames: ['app_method', 'app_origin', 'le'],
-    });
-    
-    this.customErrorsCounter = new Counter<string>({
-      name: 'app_error_metrics',
-      help: 'app_usage_metrics_to_detect_errors',
-      labelNames: ['app_method', 'app_origin', 'app_status'],
-    });
-
-    // Register metrics with Prometheus
+    // Wrap metric construction in try-catch so hot-reload scenarios are handled
+    // gracefully: prom-client throws at `new Counter/Gauge()` time (not during
+    // registerMetric) when a metric name is already in the registry.
     try {
-      register.registerMetric(this.appCounter);
-      register.registerMetric(this.appGauge);
-      register.registerMetric(this.customDurationGauge);
-      register.registerMetric(this.customErrorsCounter);
+      this.appCounter = new Counter({
+        name: 'app_count_metrics',
+        help: 'Application request counter',
+        labelNames: ['app_method', 'app_origin'],
+      });
+
+      this.appGauge = new Gauge({
+        name: 'app_gauge_metrics',
+        help: 'Application gauge metric',
+        labelNames: ['app_method', 'app_origin'],
+      });
+
+      this.customDurationGauge = new Gauge<string>({
+        name: 'app_duration_metrics',
+        help: 'app_concurrent_metrics_help',
+        labelNames: ['app_method', 'app_origin', 'le'],
+      });
+
+      this.customErrorsCounter = new Counter<string>({
+        name: 'app_error_metrics',
+        help: 'app_usage_metrics_to_detect_errors',
+        labelNames: ['app_method', 'app_origin', 'app_status'],
+      });
     } catch (error) {
-      // Metrics might already be registered in hot-reload scenarios
+      // Metrics already registered (hot-reload); retrieve existing instances.
       console.log('Metrics already registered');
+      this.appCounter = register.getSingleMetric('app_count_metrics') as Counter<string>;
+      this.appGauge = register.getSingleMetric('app_gauge_metrics') as Gauge<string>;
+      this.customDurationGauge = register.getSingleMetric('app_duration_metrics') as Gauge<string>;
+      this.customErrorsCounter = register.getSingleMetric('app_error_metrics') as Counter<string>;
     }
   }
 
