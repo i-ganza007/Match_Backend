@@ -1,11 +1,44 @@
-import { BadRequestException, Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, ParseFloatPipe, ParseIntPipe, Patch, Query, Req, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
 import { JwtGuard } from 'src/jwtservice/authGuard/jwtGuard.guard';
 import { RecommendationsService } from './recommendations.service';
 
+@ApiTags('Recommendations')
 @UseGuards(JwtGuard)
 @Controller('recommendations')
 export class RecommendationsController {
     constructor(private recService: RecommendationsService) {}
+
+    /**
+     * GET /recommendations/quick-matches?latitude=<lat>&longitude=<lon>&radius=<5|10|15>
+     *
+     * Grabs all the authenticated user's eligible animals, finds nearby
+     * candidates from other farms within the radius, runs the ML scorer,
+     * and returns results grouped by the user's animal with each matched
+     * owner's location (lat/lng) ready to plot on a Leaflet map.
+     */
+    @Get('quick-matches')
+    @ApiOperation({
+        summary: 'Find quick nearby matches for all your animals',
+        description: 'Scores nearby animals against every eligible animal in your herd and returns owner coordinates for map display.',
+    })
+    @ApiQuery({ name: 'latitude',  type: Number, description: 'Your current latitude',  example: -1.9441 })
+    @ApiQuery({ name: 'longitude', type: Number, description: 'Your current longitude', example: 30.0619 })
+    @ApiQuery({ name: 'radius',    type: Number, description: 'Search radius in km',    enum: [5, 10, 15] })
+    @ApiResponse({
+        status: 200,
+        description: 'Array grouped by your animal, each with a list of nearby scored matches and owner map coordinates',
+    })
+    getQuickMatches(
+        @Req()                                     req:       Request,
+        @Query('latitude',  ParseFloatPipe)        latitude:  number,
+        @Query('longitude', ParseFloatPipe)        longitude: number,
+        @Query('radius',    ParseIntPipe)          radius:    number,
+    ) {
+        const userId = (req as any).user?.userId;
+        return this.recService.getQuickMatches(userId, latitude, longitude, radius);
+    }
 
     /**
      * GET /recommendations?animalId=<uuid>

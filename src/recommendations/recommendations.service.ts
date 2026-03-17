@@ -257,6 +257,217 @@ export class RecommendationsService {
         });
     }
 
+    // ── GET /recommendations/quick-matches ──────────────────────────────────
+
+    async getQuickMatches(
+        userId: string,
+        latitude: number,
+        longitude: number,
+        radiusKm: number,
+    ) {
+        const validRadii = [5, 10, 15];
+        if (!validRadii.includes(radiusKm)) {
+            throw new BadRequestException('Radius must be 5, 10, or 15 km');
+        }
+
+        // Fetch all the user's animals that are eligible (recommendable + have a photo)
+        const myAnimals = await this.prisma.animals.findMany({
+            where: {
+                ownerId:       userId,
+                recommendable: true,
+                status:        AnimalStatus.ALIVE,
+                profilePhoto:  { not: '' },
+            },
+        });
+
+        if (myAnimals.length === 0) return [];
+
+        const radiusMeters = radiusKm * 1000;
+        const pointWKT     = `POINT(${longitude} ${latitude})`;
+
+        type NearbyCandidate = {
+            animalId: string;
+            name: string;
+            type: string;
+            specie: AnimalSpecies;
+            sex: string;
+            profilePhoto: string;
+            ownerId: string;
+            owner_name: string;
+            owner_phone: string;
+            owner_profile_url: string;
+            district: string;
+            owner_latitude: number;
+            owner_longitude: number;
+            distance_km: number;
+        };
+
+        // Process each of the user's animals one at a time (one Python process each)
+        const output: Array<{
+            yourAnimal: { animalId: string; name: string; type: string; specie: string; sex: string; profilePhoto: string };
+            matches: Array<{
+                animal: Omit<NearbyCandidate, 'ownerId' | 'owner_name' | 'owner_phone' | 'owner_profile_url' | 'district' | 'owner_latitude' | 'owner_longitude' | 'distance_km'>;
+                owner: { userId: string; name: string; phone_number: string; profile_url: string; district: string; latitude: number; longitude: number; distance_km: number };
+                scores: ScoredCandidate;
+            }>;
+        }> = [];
+
+        for (const animal of myAnimals) {
+            const oppositeSex = animal.sex === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+
+            // Find nearby candidates from other farms via PostGIS
+            const nearbyCandidates = await this.prisma.$queryRaw<NearbyCandidate[]>`
+                SELECT
+                    a."animalId",
+                    a."name",
+                    a."type"::text          AS type,
+                    a."specie"::text        AS specie,
+                    a."sex"::text           AS sex,
+                    a."profilePhoto",
+                    a."ownerId",
+                    u."name"                AS owner_name,
+                    u."phone_number"        AS owner_phone,
+                    u."profile_url"         AS owner_profile_url,
+                    u."district",
+                    ST_Y(u."location"::geometry) AS owner_latitude,
+                    ST_X(u."location"::geometry) AS owner_longitude,
+                    ROUND(
+                        (ST_Distance(
+                            u."location"::geography,
+                            ST_GeomFromText(${pointWKT}, 4326)::geography
+                        ) / 1000)::numeric,
+                        2
+                    ) AS distance_km
+                FROM "Animal" a
+                JOIN "User" u ON u."userId" = a."ownerId"
+                WHERE
+                    a."type"::text        = ${animal.type}
+                    AND a."sex"::text     = ${oppositeSex}
+                    AND a."status"::text  = 'ALIVE'
+                    AND a."recommendable" = true
+                    AND a."ownerId"      != ${userId}
+                    AND u."location" IS NOT NULL
+                    AND ST_DWithin(
+                        u."location"::geography,
+                        ST_GeomFromText(${pointWKT}, 4326)::geography,
+                        ${radiusMeters}
+                    )
+                ORDER BY distance_km ASC
+                LIMIT 50
+            `;
+
+            this.logger.log(`Quick-match [${animal.animalId}] nearby candidates: ${nearbyCandidates.length}`);
+            if (nearbyCandidates.length === 0) continue;
+
+            // Relatedness for this animal
+            const relatednessRows = await this.prisma.relatedness_estimates.findMany({
+                where: { OR: [{ animal1: animal.animalId }, { animal2: animal.animalId }] },
+            });
+            const relMap = new Map<string, number>();
+            for (const r of relatednessRows) {
+                const peer = r.animal1 === animal.animalId ? r.animal2 : r.animal1;
+                relMap.set(peer, r.pedigree_coeff);
+            }
+
+            // Download query image
+            const labelA   = SPECIES_LABEL[animal.specie] ?? 'fresian_cow';
+            const queryImg = path.join(this.tmpDir, `q_${animal.animalId}_${Date.now()}.jpg`);
+            try {
+                await this.downloadImage(animal.profilePhoto, queryImg);
+            } catch (err) {
+                this.logger.warn(`Skipping animal ${animal.animalId} — could not download photo: ${err}`);
+                continue;
+            }
+
+            // Download candidate images in parallel
+            const downloadResults = await Promise.allSettled(
+                nearbyCandidates.map(async c => {
+                    const imgPath = path.join(this.tmpDir, `c_${c.animalId}_${Date.now()}.jpg`);
+                    await this.downloadImage(c.profilePhoto, imgPath);
+                    return { ...c, imgPath };
+                }),
+            );
+
+            const downloaded = downloadResults
+                .filter((r): r is PromiseFulfilledResult<NearbyCandidate & { imgPath: string }> => r.status === 'fulfilled')
+                .map(r => r.value);
+
+            if (downloaded.length === 0) {
+                fs.unlink(queryImg, () => {});
+                continue;
+            }
+
+            // Build and run ML batch
+            const batchFile = path.join(this.tmpDir, `qbatch_${animal.animalId}_${Date.now()}.json`);
+            fs.writeFileSync(batchFile, JSON.stringify(
+                downloaded.map(c => ({
+                    animalId:    c.animalId,
+                    imagePath:   c.imgPath,
+                    labelB:      SPECIES_LABEL[c.specie as AnimalSpecies] ?? 'fresian_cow',
+                    relatedness: relMap.get(c.animalId) ?? 0.0,
+                })),
+            ));
+
+            let scored: ScoredCandidate[] = [];
+            try {
+                scored = await this.runPythonBatch(queryImg, labelA, batchFile);
+            } catch (pythonError) {
+                this.logger.error(`Quick-match ML failed for ${animal.animalId}: ${pythonError}`);
+            } finally {
+                fs.unlink(queryImg, () => {});
+                fs.unlink(batchFile, () => {});
+                for (const c of downloaded) fs.unlink(c.imgPath, () => {});
+            }
+
+            if (scored.length === 0) continue;
+
+            const scoreMap = new Map(scored.map(s => [s.animalId, s]));
+
+            const matches = downloaded
+                .map(c => {
+                    const scores = scoreMap.get(c.animalId);
+                    if (!scores) return null;
+                    return {
+                        animal: {
+                            animalId:     c.animalId,
+                            name:         c.name,
+                            type:         c.type,
+                            specie:       c.specie,
+                            sex:          c.sex,
+                            profilePhoto: c.profilePhoto,
+                        },
+                        owner: {
+                            userId:       c.ownerId,
+                            name:         c.owner_name,
+                            phone_number: c.owner_phone,
+                            profile_url:  c.owner_profile_url,
+                            district:     c.district,
+                            latitude:     Number(c.owner_latitude),
+                            longitude:    Number(c.owner_longitude),
+                            distance_km:  Number(c.distance_km),
+                        },
+                        scores,
+                    };
+                })
+                .filter((r): r is NonNullable<typeof r> => r !== null)
+                .sort((a, b) => b.scores.overall_score - a.scores.overall_score);
+
+            output.push({
+                yourAnimal: {
+                    animalId:     animal.animalId,
+                    name:         animal.name ?? '',
+                    type:         animal.type,
+                    specie:       animal.specie,
+                    sex:          animal.sex,
+                    profilePhoto: animal.profilePhoto,
+                },
+                matches,
+            });
+        }
+
+        return output;
+    }
+
     // ── Private helpers ──────────────────────────────────────────────────────
 
     private runPythonBatch(

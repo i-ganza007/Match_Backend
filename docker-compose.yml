@@ -1,0 +1,42 @@
+services:
+  nestjs-match:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs-match
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  prometheus-service:
+    image: prom/prometheus
+    container_name: prometheus-service
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    restart: unless-stopped
+    depends_on:
+      - nestjs-match
+
+  grafana-service:
+    image: grafana/grafana-oss:latest
+    container_name: grafana-service
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus-service
+
+volumes:
+  grafana-data:
