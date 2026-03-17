@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put,Req ,UseGuards} from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, ParseFloatPipe, ParseIntPipe, Post, Put, Query, Req ,UseGuards} from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiQuery } from '@nestjs/swagger';
 import {UsersService} from './users.service'
-import type {Request,Response} from 'express'
+import type {Request} from 'express'
 import {UserCreationDTO} from '../lib/user.dto'
 import { AuthGuard } from '@nestjs/passport';
 @ApiTags('Users')
@@ -9,9 +9,33 @@ import { AuthGuard } from '@nestjs/passport';
 export class UsersController {
     constructor(private userService:UsersService){}
 
+    @Get('nearby')
+    @UseGuards(AuthGuard('jwt'))
+    @ApiOperation({
+        summary: 'Find nearby farmers',
+        description: 'Returns farmers within the specified radius from the provided coordinates, along with the animal types in their herds'
+    })
+    @ApiQuery({ name: 'latitude', type: Number, description: 'Your current latitude', example: -1.9441 })
+    @ApiQuery({ name: 'longitude', type: Number, description: 'Your current longitude', example: 30.0619 })
+    @ApiQuery({ name: 'radius', type: Number, description: 'Search radius in km (5, 10, or 15)', enum: [5, 10, 15] })
+    @ApiResponse({
+        status: 200,
+        description: 'List of nearby farmers sorted by distance, each with their herd animal types',
+    })
+    @ApiResponse({ status: 400, description: 'Invalid radius or missing coordinates' })
+    async getNearbyMatches(
+        @Req() req: Request,
+        @Query('latitude', ParseFloatPipe) latitude: number,
+        @Query('longitude', ParseFloatPipe) longitude: number,
+        @Query('radius', ParseIntPipe) radius: number,
+    ) {
+        const userId = (req as any).user?.userId;
+        return await this.userService.getNearbyMatches(userId, latitude, longitude, radius);
+    }
+
     @Get()
     @UseGuards(AuthGuard('jwt'))
-    @ApiOperation({ 
+    @ApiOperation({
         summary: 'Retrieve all users',
         description: 'Fetches a list of all registered users in the system'
     })

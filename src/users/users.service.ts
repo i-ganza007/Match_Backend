@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {UserCreationDTO} from '../lib/user.dto'
 import * as argon2 from 'argon2';
@@ -97,5 +97,57 @@ async getAllUsers() {
 
     async wipeout(){
         return await this.prismaService.users.deleteMany({})
+    }
+
+    async getNearbyMatches(currentUserId: string, latitude: number, longitude: number, radiusKm: number) {
+        const validRadii = [5, 10, 15];
+        if (!validRadii.includes(radiusKm)) {
+            throw new BadRequestException('Radius must be 5, 10, or 15 km');
+        }
+
+        const radiusMeters = radiusKm * 1000;
+        const pointWKT = `POINT(${longitude} ${latitude})`;
+
+        const results = await this.prismaService.$queryRaw<any[]>`
+            SELECT
+                u."userId",
+                u."name",
+                u."phone_number",
+                u."district",
+                u."sector",
+                u."village",
+                u."cell",
+                u."profile_url",
+                ST_Y(u."location"::geometry) AS latitude,
+                ST_X(u."location"::geometry) AS longitude,
+                ROUND(
+                    (ST_Distance(
+                        u."location"::geography,
+                        ST_GeomFromText(${pointWKT}, 4326)::geography
+                    ) / 1000)::numeric,
+                    2
+                ) AS distance_km,
+                COALESCE(
+                    ARRAY_AGG(DISTINCT a."type"::text)
+                    FILTER (WHERE a."animalId" IS NOT NULL AND a."status"::text NOT IN ('DECEASED', 'SOLD')),
+                    ARRAY[]::text[]
+                ) AS animal_types
+            FROM "User" u
+            LEFT JOIN "Animal" a ON a."ownerId" = u."userId"
+            WHERE u."userId" != ${currentUserId}
+                AND u."location" IS NOT NULL
+                AND ST_DWithin(
+                    u."location"::geography,
+                    ST_GeomFromText(${pointWKT}, 4326)::geography,
+                    ${radiusMeters}
+                )
+            GROUP BY u."userId", u."name", u."phone_number", u."district", u."sector", u."village", u."cell", u."profile_url", u."location"
+            ORDER BY distance_km ASC
+        `;
+
+        return results.map(r => ({
+            ...r,
+            distance_km: Number(r.distance_km),
+        }));
     }
 }
