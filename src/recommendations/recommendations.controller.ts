@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Param, ParseFloatPipe, ParseIntPipe, Patch, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { JwtGuard } from 'src/jwtservice/authGuard/jwtGuard.guard';
 import { RecommendationsService } from './recommendations.service';
 
@@ -35,7 +35,7 @@ export class RecommendationsController {
         @Query('latitude',  ParseFloatPipe)        latitude:  number,
         @Query('longitude', ParseFloatPipe)        longitude: number,
         @Query('radius',    ParseIntPipe)          radius:    number,
-    ) {
+    ): Promise<unknown[]> {
         const userId = (req as any).user?.userId;
         return this.recService.getQuickMatches(userId, latitude, longitude, radius);
     }
