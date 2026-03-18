@@ -285,7 +285,7 @@ export class RecommendationsService {
         longitude: number,
         radiusKm: number,
     ) {
-        const validRadii = [5, 10, 15];
+        const validRadii = [5, 10, 15,25,50,100];
         if (!validRadii.includes(radiusKm)) {
             throw new BadRequestException('Radius must be 5, 10, or 15 km');
         }
