@@ -53,6 +53,26 @@ export class RecommendationsService {
         }
     }
 
+    // Owner fields to include on every recommendation response (location is PostGIS — not safe to include via Prisma)
+    private readonly recInclude = {
+        recommendedAnimal: {
+            include: {
+                owner: {
+                    select: {
+                        userId:       true,
+                        name:         true,
+                        phone_number: true,
+                        profile_url:  true,
+                        district:     true,
+                        sector:       true,
+                        village:      true,
+                        cell:         true,
+                    },
+                },
+            },
+        },
+    } as const;
+
     // ── GET /recommendations?animalId= ──────────────────────────────────────
 
     async getRecommendations(animalId: string) {
@@ -65,7 +85,7 @@ export class RecommendationsService {
         const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         const cached = await this.prisma.breeding_rec.findMany({
             where: { animalInitial: animalId, generatedAt: { gte: sevenDaysAgo } },
-            include: { recommendedAnimal: true },
+            include: this.recInclude,
             orderBy: { overall_score: 'desc' },
         });
         if (cached.length >= 10) return cached;
@@ -183,7 +203,7 @@ export class RecommendationsService {
 
         return this.prisma.breeding_rec.findMany({
             where: { animalInitial: animalId, generatedAt: { gte: beforeCreate } },
-            include: { recommendedAnimal: true },
+            include: this.recInclude,
             orderBy: { overall_score: 'desc' },
         });
     }
