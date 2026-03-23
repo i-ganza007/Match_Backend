@@ -21,8 +21,18 @@
     "tscheck": "tsc --noEmit",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "test:metrics": "jest --coverage --verbose --runInBand && echo '\n✅ Test execution complete! Reports generated in /coverage'",
+    "test:html": "jest --coverage && echo 'Open coverage/html-report/test-report.html to view detailed metrics'",
+    "test:load": "npm run test:load:smoke",
+    "test:load:smoke": "node load-tests/run-k6.cjs smoke",
+    "test:load:stress": "node load-tests/run-k6.cjs stress",
+    "test:load:api": "node load-tests/run-k6.cjs full-api",
+    "test:load:local:smoke": "k6 run load-tests/smoke.js",
+    "test:load:local:stress": "k6 run load-tests/stress.js",
+    "test:load:local:api": "k6 run load-tests/full-api.js",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "seed:test-users": "ts-node -r tsconfig-paths/register src/prisma/seed_test_users.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -32,7 +42,9 @@
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-socket.io": "^11.1.17",
     "@nestjs/swagger": "^11.2.6",
+    "@nestjs/websockets": "^11.1.17",
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.4.0",
     "@supabase/supabase-js": "^2.98.0",
@@ -44,6 +56,7 @@
     "class-validator": "^0.14.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.4",
+    "ioredis": "^5.10.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pg": "^8.18.0",
@@ -70,6 +83,9 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "jest": "^30.0.0",
+    "jest-html-reporters": "^3.1.7",
+    "jest-junit": "^16.0.0",
+    "jest-mock-extended": "^4.0.0",
     "prettier": "^3.4.2",
     "prisma": "^7.4.0",
     "source-map-support": "^0.5.21",
@@ -89,13 +105,42 @@
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    },
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|j)s",
+      "!**/*.spec.ts",
+      "!**/node_modules/**"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "publicPath": "./coverage/html-report",
+          "filename": "test-report.html",
+          "pageTitle": "Match_B Test Report",
+          "expand": true,
+          "openReport": false
+        }
+      ],
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "./coverage/junit",
+          "outputName": "test-results.xml",
+          "classNameTemplate": "{classname} - {title}",
+          "titleTemplate": "{classname} - {title}",
+          "ancestorSeparator": " › ",
+          "usePathAsClassName": true
+        }
+      ]
+    ]
   }
 }
