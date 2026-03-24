@@ -17,7 +17,7 @@ export class AuthController {
         const email = req?.user!.email!
         let result = await this.authService.logIn({userId,email})
         // console.log('Login result:', result)
-        res.cookie('user_token', result.access_token, {  secure: process.env.NODE_ENV === 'production' })
+        res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
         return {
             message: "Successful SignIn",
             token: result.access_token,
@@ -28,7 +28,7 @@ export class AuthController {
     @Post('signup')
     async signup(@Body() body:UserCreationDTO,@Res({passthrough:true})res:Response){
         const result = await this.authService.signUp(body)
-        res.cookie('user_token', result.access_token, {  secure: process.env.NODE_ENV === 'production' })
+        res.cookie('user_token', result.access_token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
         return {
             message: "Successful SignUp",
             token:result.access_token

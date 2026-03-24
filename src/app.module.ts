@@ -12,8 +12,6 @@ import { makeCounterProvider, PrometheusModule } from '@willsoto/nestjs-promethe
 import { AuthModule } from './auth/auth.module';
 import { StorageModule } from './storage/storage.module';
 import { RecommendationsModule } from './recommendations/recommendations.module';
-import { MessagesModule } from './messages/messages.module';
-import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -34,8 +32,6 @@ import { RedisModule } from './redis/redis.module';
         enabled: true,
       },
     }),
-    MessagesModule,
-    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService,
