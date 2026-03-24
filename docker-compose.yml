@@ -4,8 +4,36 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nestjs-match
+    volumes:
+      - .:/app
     ports:
       - "3000:3000"
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis-service
+      - REDIS_PORT=6379
+      - JWT_SECRET=iantknowwhatimdoing
+      - PASSWORD_HASH=hashingsecretpassword
+      - SUPABASE_ID=https://hzihqpbtzfseejihukvk.storage.supabase.co/storage/v1/s3
+      - SUPABASE_URL=https://hzihqpbtzfseejihukvk.supabase.co
+      - DATABASE_URL=postgresql://postgres.hzihqpbtzfseejihukvk:ribuyu11%40CSA@aws-1-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+
+      - DIRECT_URL=postgresql://postgres.hzihqpbtzfseejihukvk:ribuyu11%40CSA@aws-1-eu-central-1.pooler.supabase.com:5432/postgres
+      - PORT=3000
+      - REDIS_DB=0
+      - SERVICE_ROLE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6aWhxcGJ0emZzZWVqaWh1a3ZrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjMxNTc2MCwiZXhwIjoyMDg3ODkxNzYwfQ.5pXpr6RdpIxFpj3fJhnKX-pCnnJF4v1tZTrAe-U3CQ8
+    restart: unless-stopped
+    depends_on:
+      - redis-service
+
+  redis-service:
+    image: redis:7-alpine
+    container_name: redis-service
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
     restart: unless-stopped
 
   prometheus-service:
@@ -40,3 +68,4 @@ services:
 
 volumes:
   grafana-data:
+  redis-data:
