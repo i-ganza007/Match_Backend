@@ -1,0 +1,974 @@
+
+> match_b@0.0.1 test:load:api
+> node load-tests/run-k6.cjs full-api
+
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /scripts/full-api.js
+        output: -
+
+     scenarios: (100.00%) 5 scenarios, 58 max VUs, 2m30s max duration (incl. graceful stop):
+              * animals_routes: 12 looping VUs for 2m0s (exec: animalsRoutes, gracefulStop: 30s)
+              * auth_routes: 8 looping VUs for 2m0s (exec: authRoutes, gracefulStop: 30s)
+              * public_routes: 20 looping VUs for 2m0s (exec: publicRoutes, gracefulStop: 30s)
+              * recommendations_routes: 6 looping VUs for 2m0s (exec: recommendationRoutes, gracefulStop: 30s)
+              * users_routes: 12 looping VUs for 2m0s (exec: usersRoutes, gracefulStop: 30s)
+
+
+Run                      [ 100% ] setup()
+animals_routes           [   0% ]
+auth_routes              [   0% ]
+public_routes            [   0% ]
+recommendations_routes   [   0% ]
+users_routes             [   0% ]
+
+Run                      [ 100% ] setup()
+animals_routes           [   0% ]
+auth_routes              [   0% ]
+public_routes            [   0% ]
+recommendations_routes   [   0% ]
+users_routes             [   0% ]
+
+running (0m02.9s), 58/58 VUs, 13 complete and 0 interrupted iterations
+animals_routes           [   0% ] 12 VUs  0m00.5s/2m0s
+auth_routes              [   0% ] 8 VUs   0m00.5s/2m0s
+public_routes            [   0% ] 20 VUs  0m00.5s/2m0s
+recommendations_routes   [   0% ] 6 VUs   0m00.5s/2m0s
+users_routes             [   0% ] 12 VUs  0m00.5s/2m0s
+
+running (0m03.9s), 58/58 VUs, 101 complete and 0 interrupted iterations
+animals_routes           [   1% ] 12 VUs  0m01.5s/2m0s
+auth_routes              [   1% ] 8 VUs   0m01.5s/2m0s
+public_routes            [   1% ] 20 VUs  0m01.5s/2m0s
+recommendations_routes   [   1% ] 6 VUs   0m01.5s/2m0s
+users_routes             [   1% ] 12 VUs  0m01.5s/2m0s
+
+running (0m04.9s), 58/58 VUs, 169 complete and 0 interrupted iterations
+animals_routes           [   2% ] 12 VUs  0m02.5s/2m0s
+auth_routes              [   2% ] 8 VUs   0m02.5s/2m0s
+public_routes            [   2% ] 20 VUs  0m02.5s/2m0s
+recommendations_routes   [   2% ] 6 VUs   0m02.5s/2m0s
+users_routes             [   2% ] 12 VUs  0m02.5s/2m0s
+
+running (0m05.9s), 58/58 VUs, 252 complete and 0 interrupted iterations
+animals_routes           [   3% ] 12 VUs  0m03.5s/2m0s
+auth_routes              [   3% ] 8 VUs   0m03.5s/2m0s
+public_routes            [   3% ] 20 VUs  0m03.5s/2m0s
+recommendations_routes   [   3% ] 6 VUs   0m03.5s/2m0s
+users_routes             [   3% ] 12 VUs  0m03.5s/2m0s
+
+running (0m06.9s), 58/58 VUs, 328 complete and 0 interrupted iterations
+animals_routes           [   4% ] 12 VUs  0m04.5s/2m0s
+auth_routes              [   4% ] 8 VUs   0m04.5s/2m0s
+public_routes            [   4% ] 20 VUs  0m04.5s/2m0s
+recommendations_routes   [   4% ] 6 VUs   0m04.5s/2m0s
+users_routes             [   4% ] 12 VUs  0m04.5s/2m0s
+
+running (0m07.9s), 58/58 VUs, 392 complete and 0 interrupted iterations
+animals_routes           [   5% ] 12 VUs  0m05.5s/2m0s
+auth_routes              [   5% ] 8 VUs   0m05.5s/2m0s
+public_routes            [   5% ] 20 VUs  0m05.5s/2m0s
+recommendations_routes   [   5% ] 6 VUs   0m05.5s/2m0s
+users_routes             [   5% ] 12 VUs  0m05.5s/2m0s
+
+running (0m08.9s), 58/58 VUs, 456 complete and 0 interrupted iterations
+animals_routes           [   5% ] 12 VUs  0m06.5s/2m0s
+auth_routes              [   5% ] 8 VUs   0m06.5s/2m0s
+public_routes            [   5% ] 20 VUs  0m06.5s/2m0s
+recommendations_routes   [   5% ] 6 VUs   0m06.5s/2m0s
+users_routes             [   5% ] 12 VUs  0m06.5s/2m0s
+
+running (0m09.9s), 58/58 VUs, 524 complete and 0 interrupted iterations
+animals_routes           [   6% ] 12 VUs  0m07.5s/2m0s
+auth_routes              [   6% ] 8 VUs   0m07.5s/2m0s
+public_routes            [   6% ] 20 VUs  0m07.5s/2m0s
+recommendations_routes   [   6% ] 6 VUs   0m07.5s/2m0s
+users_routes             [   6% ] 12 VUs  0m07.5s/2m0s
+
+running (0m10.9s), 58/58 VUs, 580 complete and 0 interrupted iterations
+animals_routes           [   7% ] 12 VUs  0m08.5s/2m0s
+auth_routes              [   7% ] 8 VUs   0m08.5s/2m0s
+public_routes            [   7% ] 20 VUs  0m08.5s/2m0s
+recommendations_routes   [   7% ] 6 VUs   0m08.5s/2m0s
+users_routes             [   7% ] 12 VUs  0m08.5s/2m0s
+
+running (0m11.9s), 58/58 VUs, 656 complete and 0 interrupted iterations
+animals_routes           [   8% ] 12 VUs  0m09.5s/2m0s
+auth_routes              [   8% ] 8 VUs   0m09.5s/2m0s
+public_routes            [   8% ] 20 VUs  0m09.5s/2m0s
+recommendations_routes   [   8% ] 6 VUs   0m09.5s/2m0s
+users_routes             [   8% ] 12 VUs  0m09.5s/2m0s
+
+running (0m12.9s), 58/58 VUs, 716 complete and 0 interrupted iterations
+animals_routes           [   9% ] 12 VUs  0m10.5s/2m0s
+auth_routes              [   9% ] 8 VUs   0m10.5s/2m0s
+public_routes            [   9% ] 20 VUs  0m10.5s/2m0s
+recommendations_routes   [   9% ] 6 VUs   0m10.5s/2m0s
+users_routes             [   9% ] 12 VUs  0m10.5s/2m0s
+
+running (0m16.7s), 58/58 VUs, 779 complete and 0 interrupted iterations
+animals_routes           [  10% ] 12 VUs  0m11.5s/2m0s
+auth_routes              [  10% ] 8 VUs   0m11.5s/2m0s
+public_routes            [  10% ] 20 VUs  0m11.5s/2m0s
+recommendations_routes   [  10% ] 6 VUs   0m11.5s/2m0s
+users_routes             [  10% ] 12 VUs  0m11.5s/2m0s
+
+running (0m17.7s), 58/58 VUs, 866 complete and 0 interrupted iterations
+animals_routes           [  10% ] 12 VUs  0m12.5s/2m0s
+auth_routes              [  10% ] 8 VUs   0m12.5s/2m0s
+public_routes            [  10% ] 20 VUs  0m12.5s/2m0s
+recommendations_routes   [  10% ] 6 VUs   0m12.5s/2m0s
+users_routes             [  10% ] 12 VUs  0m12.5s/2m0s
+
+running (0m18.7s), 58/58 VUs, 955 complete and 0 interrupted iterations
+animals_routes           [  11% ] 12 VUs  0m13.5s/2m0s
+auth_routes              [  11% ] 8 VUs   0m13.5s/2m0s
+public_routes            [  11% ] 20 VUs  0m13.5s/2m0s
+recommendations_routes   [  11% ] 6 VUs   0m13.5s/2m0s
+users_routes             [  11% ] 12 VUs  0m13.5s/2m0s
+
+running (0m19.7s), 58/58 VUs, 1014 complete and 0 interrupted iterations
+animals_routes           [  12% ] 12 VUs  0m14.5s/2m0s
+auth_routes              [  12% ] 8 VUs   0m14.5s/2m0s
+public_routes            [  12% ] 20 VUs  0m14.5s/2m0s
+recommendations_routes   [  12% ] 6 VUs   0m14.5s/2m0s
+users_routes             [  12% ] 12 VUs  0m14.5s/2m0s
+
+running (0m20.7s), 58/58 VUs, 1093 complete and 0 interrupted iterations
+animals_routes           [  13% ] 12 VUs  0m15.5s/2m0s
+auth_routes              [  13% ] 8 VUs   0m15.5s/2m0s
+public_routes            [  13% ] 20 VUs  0m15.5s/2m0s
+recommendations_routes   [  13% ] 6 VUs   0m15.5s/2m0s
+users_routes             [  13% ] 12 VUs  0m15.5s/2m0s
+
+running (0m21.7s), 58/58 VUs, 1122 complete and 0 interrupted iterations
+animals_routes           [  14% ] 12 VUs  0m16.5s/2m0s
+auth_routes              [  14% ] 8 VUs   0m16.5s/2m0s
+public_routes            [  14% ] 20 VUs  0m16.5s/2m0s
+recommendations_routes   [  14% ] 6 VUs   0m16.5s/2m0s
+users_routes             [  14% ] 12 VUs  0m16.5s/2m0s
+
+running (0m22.7s), 58/58 VUs, 1203 complete and 0 interrupted iterations
+animals_routes           [  15% ] 12 VUs  0m17.5s/2m0s
+auth_routes              [  15% ] 8 VUs   0m17.5s/2m0s
+public_routes            [  15% ] 20 VUs  0m17.5s/2m0s
+recommendations_routes   [  15% ] 6 VUs   0m17.5s/2m0s
+users_routes             [  15% ] 12 VUs  0m17.5s/2m0s
+
+running (0m23.7s), 58/58 VUs, 1277 complete and 0 interrupted iterations
+animals_routes           [  15% ] 12 VUs  0m18.5s/2m0s
+auth_routes              [  15% ] 8 VUs   0m18.5s/2m0s
+public_routes            [  15% ] 20 VUs  0m18.5s/2m0s
+recommendations_routes   [  15% ] 6 VUs   0m18.5s/2m0s
+users_routes             [  15% ] 12 VUs  0m18.5s/2m0s
+
+running (0m24.7s), 58/58 VUs, 1357 complete and 0 interrupted iterations
+animals_routes           [  16% ] 12 VUs  0m19.5s/2m0s
+auth_routes              [  16% ] 8 VUs   0m19.5s/2m0s
+public_routes            [  16% ] 20 VUs  0m19.5s/2m0s
+recommendations_routes   [  16% ] 6 VUs   0m19.5s/2m0s
+users_routes             [  16% ] 12 VUs  0m19.5s/2m0s
+
+running (0m25.7s), 58/58 VUs, 1408 complete and 0 interrupted iterations
+animals_routes           [  17% ] 12 VUs  0m20.5s/2m0s
+auth_routes              [  17% ] 8 VUs   0m20.5s/2m0s
+public_routes            [  17% ] 20 VUs  0m20.5s/2m0s
+recommendations_routes   [  17% ] 6 VUs   0m20.5s/2m0s
+users_routes             [  17% ] 12 VUs  0m20.5s/2m0s
+
+running (0m26.7s), 58/58 VUs, 1502 complete and 0 interrupted iterations
+animals_routes           [  18% ] 12 VUs  0m21.5s/2m0s
+auth_routes              [  18% ] 8 VUs   0m21.5s/2m0s
+public_routes            [  18% ] 20 VUs  0m21.5s/2m0s
+recommendations_routes   [  18% ] 6 VUs   0m21.5s/2m0s
+users_routes             [  18% ] 12 VUs  0m21.5s/2m0s
+
+running (0m27.7s), 58/58 VUs, 1582 complete and 0 interrupted iterations
+animals_routes           [  19% ] 12 VUs  0m22.5s/2m0s
+auth_routes              [  19% ] 8 VUs   0m22.5s/2m0s
+public_routes            [  19% ] 20 VUs  0m22.5s/2m0s
+recommendations_routes   [  19% ] 6 VUs   0m22.5s/2m0s
+users_routes             [  19% ] 12 VUs  0m22.5s/2m0s
+
+running (0m28.7s), 58/58 VUs, 1642 complete and 0 interrupted iterations
+animals_routes           [  20% ] 12 VUs  0m23.5s/2m0s
+auth_routes              [  20% ] 8 VUs   0m23.5s/2m0s
+public_routes            [  20% ] 20 VUs  0m23.5s/2m0s
+recommendations_routes   [  20% ] 6 VUs   0m23.5s/2m0s
+users_routes             [  20% ] 12 VUs  0m23.5s/2m0s
+
+running (0m29.7s), 58/58 VUs, 1670 complete and 0 interrupted iterations
+animals_routes           [  20% ] 12 VUs  0m24.5s/2m0s
+auth_routes              [  20% ] 8 VUs   0m24.5s/2m0s
+public_routes            [  20% ] 20 VUs  0m24.5s/2m0s
+recommendations_routes   [  20% ] 6 VUs   0m24.5s/2m0s
+users_routes             [  20% ] 12 VUs  0m24.5s/2m0s
+
+running (0m30.8s), 58/58 VUs, 1718 complete and 0 interrupted iterations
+animals_routes           [  21% ] 12 VUs  0m25.6s/2m0s
+auth_routes              [  21% ] 8 VUs   0m25.6s/2m0s
+public_routes            [  21% ] 20 VUs  0m25.6s/2m0s
+recommendations_routes   [  21% ] 6 VUs   0m25.6s/2m0s
+users_routes             [  21% ] 12 VUs  0m25.6s/2m0s
+
+running (0m31.7s), 58/58 VUs, 1738 complete and 0 interrupted iterations
+animals_routes           [  22% ] 12 VUs  0m26.5s/2m0s
+auth_routes              [  22% ] 8 VUs   0m26.5s/2m0s
+public_routes            [  22% ] 20 VUs  0m26.5s/2m0s
+recommendations_routes   [  22% ] 6 VUs   0m26.5s/2m0s
+users_routes             [  22% ] 12 VUs  0m26.5s/2m0s
+
+running (0m32.8s), 58/58 VUs, 1740 complete and 0 interrupted iterations
+animals_routes           [  23% ] 12 VUs  0m27.5s/2m0s
+auth_routes              [  23% ] 8 VUs   0m27.5s/2m0s
+public_routes            [  23% ] 20 VUs  0m27.5s/2m0s
+recommendations_routes   [  23% ] 6 VUs   0m27.5s/2m0s
+users_routes             [  23% ] 12 VUs  0m27.5s/2m0s
+
+running (0m33.7s), 58/58 VUs, 1745 complete and 0 interrupted iterations
+animals_routes           [  24% ] 12 VUs  0m28.5s/2m0s
+auth_routes              [  24% ] 8 VUs   0m28.5s/2m0s
+public_routes            [  24% ] 20 VUs  0m28.5s/2m0s
+recommendations_routes   [  24% ] 6 VUs   0m28.5s/2m0s
+users_routes             [  24% ] 12 VUs  0m28.5s/2m0s
+
+running (0m34.8s), 58/58 VUs, 1809 complete and 0 interrupted iterations
+animals_routes           [  25% ] 12 VUs  0m29.5s/2m0s
+auth_routes              [  25% ] 8 VUs   0m29.5s/2m0s
+public_routes            [  25% ] 20 VUs  0m29.5s/2m0s
+recommendations_routes   [  25% ] 6 VUs   0m29.5s/2m0s
+users_routes             [  25% ] 12 VUs  0m29.5s/2m0s
+
+running (0m35.7s), 58/58 VUs, 1896 complete and 0 interrupted iterations
+animals_routes           [  25% ] 12 VUs  0m30.5s/2m0s
+auth_routes              [  25% ] 8 VUs   0m30.5s/2m0s
+public_routes            [  25% ] 20 VUs  0m30.5s/2m0s
+recommendations_routes   [  25% ] 6 VUs   0m30.5s/2m0s
+users_routes             [  25% ] 12 VUs  0m30.5s/2m0s
+
+running (0m36.7s), 58/58 VUs, 1945 complete and 0 interrupted iterations
+animals_routes           [  26% ] 12 VUs  0m31.5s/2m0s
+auth_routes              [  26% ] 8 VUs   0m31.5s/2m0s
+public_routes            [  26% ] 20 VUs  0m31.5s/2m0s
+recommendations_routes   [  26% ] 6 VUs   0m31.5s/2m0s
+users_routes             [  26% ] 12 VUs  0m31.5s/2m0s
+
+running (0m37.7s), 58/58 VUs, 1958 complete and 0 interrupted iterations
+animals_routes           [  27% ] 12 VUs  0m32.5s/2m0s
+auth_routes              [  27% ] 8 VUs   0m32.5s/2m0s
+public_routes            [  27% ] 20 VUs  0m32.5s/2m0s
+recommendations_routes   [  27% ] 6 VUs   0m32.5s/2m0s
+users_routes             [  27% ] 12 VUs  0m32.5s/2m0s
+
+running (0m38.7s), 58/58 VUs, 1970 complete and 0 interrupted iterations
+animals_routes           [  28% ] 12 VUs  0m33.5s/2m0s
+auth_routes              [  28% ] 8 VUs   0m33.5s/2m0s
+public_routes            [  28% ] 20 VUs  0m33.5s/2m0s
+recommendations_routes   [  28% ] 6 VUs   0m33.5s/2m0s
+users_routes             [  28% ] 12 VUs  0m33.5s/2m0s
+
+running (0m39.7s), 58/58 VUs, 2003 complete and 0 interrupted iterations
+animals_routes           [  29% ] 12 VUs  0m34.5s/2m0s
+auth_routes              [  29% ] 8 VUs   0m34.5s/2m0s
+public_routes            [  29% ] 20 VUs  0m34.5s/2m0s
+recommendations_routes   [  29% ] 6 VUs   0m34.5s/2m0s
+users_routes             [  29% ] 12 VUs  0m34.5s/2m0s
+
+running (0m40.7s), 58/58 VUs, 2127 complete and 0 interrupted iterations
+animals_routes           [  30% ] 12 VUs  0m35.5s/2m0s
+auth_routes              [  30% ] 8 VUs   0m35.5s/2m0s
+public_routes            [  30% ] 20 VUs  0m35.5s/2m0s
+recommendations_routes   [  30% ] 6 VUs   0m35.5s/2m0s
+users_routes             [  30% ] 12 VUs  0m35.5s/2m0s
+
+running (0m41.7s), 58/58 VUs, 2160 complete and 0 interrupted iterations
+animals_routes           [  30% ] 12 VUs  0m36.5s/2m0s
+auth_routes              [  30% ] 8 VUs   0m36.5s/2m0s
+public_routes            [  30% ] 20 VUs  0m36.5s/2m0s
+recommendations_routes   [  30% ] 6 VUs   0m36.5s/2m0s
+users_routes             [  30% ] 12 VUs  0m36.5s/2m0s
+
+running (0m42.7s), 58/58 VUs, 2256 complete and 0 interrupted iterations
+animals_routes           [  31% ] 12 VUs  0m37.5s/2m0s
+auth_routes              [  31% ] 8 VUs   0m37.5s/2m0s
+public_routes            [  31% ] 20 VUs  0m37.5s/2m0s
+recommendations_routes   [  31% ] 6 VUs   0m37.5s/2m0s
+users_routes             [  31% ] 12 VUs  0m37.5s/2m0s
+
+running (0m43.7s), 58/58 VUs, 2366 complete and 0 interrupted iterations
+animals_routes           [  32% ] 12 VUs  0m38.5s/2m0s
+auth_routes              [  32% ] 8 VUs   0m38.5s/2m0s
+public_routes            [  32% ] 20 VUs  0m38.5s/2m0s
+recommendations_routes   [  32% ] 6 VUs   0m38.5s/2m0s
+users_routes             [  32% ] 12 VUs  0m38.5s/2m0s
+
+running (0m44.7s), 58/58 VUs, 2488 complete and 0 interrupted iterations
+animals_routes           [  33% ] 12 VUs  0m39.5s/2m0s
+auth_routes              [  33% ] 8 VUs   0m39.5s/2m0s
+public_routes            [  33% ] 20 VUs  0m39.5s/2m0s
+recommendations_routes   [  33% ] 6 VUs   0m39.5s/2m0s
+users_routes             [  33% ] 12 VUs  0m39.5s/2m0s
+
+running (0m45.7s), 58/58 VUs, 2625 complete and 0 interrupted iterations
+animals_routes           [  34% ] 12 VUs  0m40.5s/2m0s
+auth_routes              [  34% ] 8 VUs   0m40.5s/2m0s
+public_routes            [  34% ] 20 VUs  0m40.5s/2m0s
+recommendations_routes   [  34% ] 6 VUs   0m40.5s/2m0s
+users_routes             [  34% ] 12 VUs  0m40.5s/2m0s
+
+running (0m46.8s), 58/58 VUs, 2732 complete and 0 interrupted iterations
+animals_routes           [  35% ] 12 VUs  0m41.5s/2m0s
+auth_routes              [  35% ] 8 VUs   0m41.5s/2m0s
+public_routes            [  35% ] 20 VUs  0m41.5s/2m0s
+recommendations_routes   [  35% ] 6 VUs   0m41.5s/2m0s
+users_routes             [  35% ] 12 VUs  0m41.5s/2m0s
+
+running (0m50.6s), 58/58 VUs, 2789 complete and 0 interrupted iterations
+animals_routes           [  35% ] 12 VUs  0m42.5s/2m0s
+auth_routes              [  35% ] 8 VUs   0m42.5s/2m0s
+public_routes            [  35% ] 20 VUs  0m42.5s/2m0s
+recommendations_routes   [  35% ] 6 VUs   0m42.5s/2m0s
+users_routes             [  35% ] 12 VUs  0m42.5s/2m0s
+
+running (0m51.6s), 58/58 VUs, 2891 complete and 0 interrupted iterations
+animals_routes           [  36% ] 12 VUs  0m43.5s/2m0s
+auth_routes              [  36% ] 8 VUs   0m43.5s/2m0s
+public_routes            [  36% ] 20 VUs  0m43.5s/2m0s
+recommendations_routes   [  36% ] 6 VUs   0m43.5s/2m0s
+users_routes             [  36% ] 12 VUs  0m43.5s/2m0s
+
+running (0m52.6s), 58/58 VUs, 2960 complete and 0 interrupted iterations
+animals_routes           [  37% ] 12 VUs  0m44.5s/2m0s
+auth_routes              [  37% ] 8 VUs   0m44.5s/2m0s
+public_routes            [  37% ] 20 VUs  0m44.5s/2m0s
+recommendations_routes   [  37% ] 6 VUs   0m44.5s/2m0s
+users_routes             [  37% ] 12 VUs  0m44.5s/2m0s
+
+running (0m53.6s), 58/58 VUs, 3027 complete and 0 interrupted iterations
+animals_routes           [  38% ] 12 VUs  0m45.5s/2m0s
+auth_routes              [  38% ] 8 VUs   0m45.5s/2m0s
+public_routes            [  38% ] 20 VUs  0m45.5s/2m0s
+recommendations_routes   [  38% ] 6 VUs   0m45.5s/2m0s
+users_routes             [  38% ] 12 VUs  0m45.5s/2m0s
+
+running (0m54.6s), 58/58 VUs, 3075 complete and 0 interrupted iterations
+animals_routes           [  39% ] 12 VUs  0m46.5s/2m0s
+auth_routes              [  39% ] 8 VUs   0m46.5s/2m0s
+public_routes            [  39% ] 20 VUs  0m46.5s/2m0s
+recommendations_routes   [  39% ] 6 VUs   0m46.5s/2m0s
+users_routes             [  39% ] 12 VUs  0m46.5s/2m0s
+
+running (0m55.6s), 58/58 VUs, 3136 complete and 0 interrupted iterations
+animals_routes           [  40% ] 12 VUs  0m47.5s/2m0s
+auth_routes              [  40% ] 8 VUs   0m47.5s/2m0s
+public_routes            [  40% ] 20 VUs  0m47.5s/2m0s
+recommendations_routes   [  40% ] 6 VUs   0m47.5s/2m0s
+users_routes             [  40% ] 12 VUs  0m47.5s/2m0s
+
+running (0m56.6s), 58/58 VUs, 3202 complete and 0 interrupted iterations
+animals_routes           [  40% ] 12 VUs  0m48.5s/2m0s
+auth_routes              [  40% ] 8 VUs   0m48.5s/2m0s
+public_routes            [  40% ] 20 VUs  0m48.5s/2m0s
+recommendations_routes   [  40% ] 6 VUs   0m48.5s/2m0s
+users_routes             [  40% ] 12 VUs  0m48.5s/2m0s
+
+running (0m57.6s), 58/58 VUs, 3305 complete and 0 interrupted iterations
+animals_routes           [  41% ] 12 VUs  0m49.5s/2m0s
+auth_routes              [  41% ] 8 VUs   0m49.5s/2m0s
+public_routes            [  41% ] 20 VUs  0m49.5s/2m0s
+recommendations_routes   [  41% ] 6 VUs   0m49.5s/2m0s
+users_routes             [  41% ] 12 VUs  0m49.5s/2m0s
+
+running (0m58.6s), 58/58 VUs, 3414 complete and 0 interrupted iterations
+animals_routes           [  42% ] 12 VUs  0m50.5s/2m0s
+auth_routes              [  42% ] 8 VUs   0m50.5s/2m0s
+public_routes            [  42% ] 20 VUs  0m50.5s/2m0s
+recommendations_routes   [  42% ] 6 VUs   0m50.5s/2m0s
+users_routes             [  42% ] 12 VUs  0m50.5s/2m0s
+
+running (0m59.8s), 58/58 VUs, 3495 complete and 0 interrupted iterations
+animals_routes           [  43% ] 12 VUs  0m51.6s/2m0s
+auth_routes              [  43% ] 8 VUs   0m51.6s/2m0s
+public_routes            [  43% ] 20 VUs  0m51.6s/2m0s
+recommendations_routes   [  43% ] 6 VUs   0m51.6s/2m0s
+users_routes             [  43% ] 12 VUs  0m51.6s/2m0s
+
+running (1m00.6s), 58/58 VUs, 3513 complete and 0 interrupted iterations
+animals_routes           [  44% ] 12 VUs  0m52.5s/2m0s
+auth_routes              [  44% ] 8 VUs   0m52.5s/2m0s
+public_routes            [  44% ] 20 VUs  0m52.5s/2m0s
+recommendations_routes   [  44% ] 6 VUs   0m52.5s/2m0s
+users_routes             [  44% ] 12 VUs  0m52.5s/2m0s
+
+running (1m01.6s), 58/58 VUs, 3596 complete and 0 interrupted iterations
+animals_routes           [  45% ] 12 VUs  0m53.5s/2m0s
+auth_routes              [  45% ] 8 VUs   0m53.5s/2m0s
+public_routes            [  45% ] 20 VUs  0m53.5s/2m0s
+recommendations_routes   [  45% ] 6 VUs   0m53.5s/2m0s
+users_routes             [  45% ] 12 VUs  0m53.5s/2m0s
+
+running (1m02.6s), 58/58 VUs, 3687 complete and 0 interrupted iterations
+animals_routes           [  45% ] 12 VUs  0m54.5s/2m0s
+auth_routes              [  45% ] 8 VUs   0m54.5s/2m0s
+public_routes            [  45% ] 20 VUs  0m54.5s/2m0s
+recommendations_routes   [  45% ] 6 VUs   0m54.5s/2m0s
+users_routes             [  45% ] 12 VUs  0m54.5s/2m0s
+
+running (1m03.6s), 58/58 VUs, 3787 complete and 0 interrupted iterations
+animals_routes           [  46% ] 12 VUs  0m55.5s/2m0s
+auth_routes              [  46% ] 8 VUs   0m55.5s/2m0s
+public_routes            [  46% ] 20 VUs  0m55.5s/2m0s
+recommendations_routes   [  46% ] 6 VUs   0m55.5s/2m0s
+users_routes             [  46% ] 12 VUs  0m55.5s/2m0s
+
+running (1m04.6s), 58/58 VUs, 3860 complete and 0 interrupted iterations
+animals_routes           [  47% ] 12 VUs  0m56.5s/2m0s
+auth_routes              [  47% ] 8 VUs   0m56.5s/2m0s
+public_routes            [  47% ] 20 VUs  0m56.5s/2m0s
+recommendations_routes   [  47% ] 6 VUs   0m56.5s/2m0s
+users_routes             [  47% ] 12 VUs  0m56.5s/2m0s
+
+running (1m05.6s), 58/58 VUs, 3893 complete and 0 interrupted iterations
+animals_routes           [  48% ] 12 VUs  0m57.5s/2m0s
+auth_routes              [  48% ] 8 VUs   0m57.5s/2m0s
+public_routes            [  48% ] 20 VUs  0m57.5s/2m0s
+recommendations_routes   [  48% ] 6 VUs   0m57.5s/2m0s
+users_routes             [  48% ] 12 VUs  0m57.5s/2m0s
+
+running (1m06.6s), 58/58 VUs, 3893 complete and 0 interrupted iterations
+animals_routes           [  49% ] 12 VUs  0m58.5s/2m0s
+auth_routes              [  49% ] 8 VUs   0m58.5s/2m0s
+public_routes            [  49% ] 20 VUs  0m58.5s/2m0s
+recommendations_routes   [  49% ] 6 VUs   0m58.5s/2m0s
+users_routes             [  49% ] 12 VUs  0m58.5s/2m0s
+
+running (1m07.6s), 58/58 VUs, 3933 complete and 0 interrupted iterations
+animals_routes           [  50% ] 12 VUs  0m59.5s/2m0s
+auth_routes              [  50% ] 8 VUs   0m59.5s/2m0s
+public_routes            [  50% ] 20 VUs  0m59.5s/2m0s
+recommendations_routes   [  50% ] 6 VUs   0m59.5s/2m0s
+users_routes             [  50% ] 12 VUs  0m59.5s/2m0s
+
+running (1m08.6s), 58/58 VUs, 4071 complete and 0 interrupted iterations
+animals_routes           [  50% ] 12 VUs  1m00.5s/2m0s
+auth_routes              [  50% ] 8 VUs   1m00.5s/2m0s
+public_routes            [  50% ] 20 VUs  1m00.5s/2m0s
+recommendations_routes   [  50% ] 6 VUs   1m00.5s/2m0s
+users_routes             [  50% ] 12 VUs  1m00.5s/2m0s
+
+running (1m09.6s), 58/58 VUs, 4181 complete and 0 interrupted iterations
+animals_routes           [  51% ] 12 VUs  1m01.5s/2m0s
+auth_routes              [  51% ] 8 VUs   1m01.5s/2m0s
+public_routes            [  51% ] 20 VUs  1m01.5s/2m0s
+recommendations_routes   [  51% ] 6 VUs   1m01.5s/2m0s
+users_routes             [  51% ] 12 VUs  1m01.5s/2m0s
+
+running (1m10.6s), 58/58 VUs, 4309 complete and 0 interrupted iterations
+animals_routes           [  52% ] 12 VUs  1m02.5s/2m0s
+auth_routes              [  52% ] 8 VUs   1m02.5s/2m0s
+public_routes            [  52% ] 20 VUs  1m02.5s/2m0s
+recommendations_routes   [  52% ] 6 VUs   1m02.5s/2m0s
+users_routes             [  52% ] 12 VUs  1m02.5s/2m0s
+
+running (1m11.6s), 58/58 VUs, 4437 complete and 0 interrupted iterations
+animals_routes           [  53% ] 12 VUs  1m03.5s/2m0s
+auth_routes              [  53% ] 8 VUs   1m03.5s/2m0s
+public_routes            [  53% ] 20 VUs  1m03.5s/2m0s
+recommendations_routes   [  53% ] 6 VUs   1m03.5s/2m0s
+users_routes             [  53% ] 12 VUs  1m03.5s/2m0s
+
+running (1m12.6s), 58/58 VUs, 4587 complete and 0 interrupted iterations
+animals_routes           [  54% ] 12 VUs  1m04.5s/2m0s
+auth_routes              [  54% ] 8 VUs   1m04.5s/2m0s
+public_routes            [  54% ] 20 VUs  1m04.5s/2m0s
+recommendations_routes   [  54% ] 6 VUs   1m04.5s/2m0s
+users_routes             [  54% ] 12 VUs  1m04.5s/2m0s
+
+running (1m13.6s), 58/58 VUs, 4716 complete and 0 interrupted iterations
+animals_routes           [  55% ] 12 VUs  1m05.5s/2m0s
+auth_routes              [  55% ] 8 VUs   1m05.5s/2m0s
+public_routes            [  55% ] 20 VUs  1m05.5s/2m0s
+recommendations_routes   [  55% ] 6 VUs   1m05.5s/2m0s
+users_routes             [  55% ] 12 VUs  1m05.5s/2m0s
+
+running (1m14.6s), 58/58 VUs, 4856 complete and 0 interrupted iterations
+animals_routes           [  55% ] 12 VUs  1m06.5s/2m0s
+auth_routes              [  55% ] 8 VUs   1m06.5s/2m0s
+public_routes            [  55% ] 20 VUs  1m06.5s/2m0s
+recommendations_routes   [  55% ] 6 VUs   1m06.5s/2m0s
+users_routes             [  55% ] 12 VUs  1m06.5s/2m0s
+
+running (1m15.6s), 58/58 VUs, 4974 complete and 0 interrupted iterations
+animals_routes           [  56% ] 12 VUs  1m07.5s/2m0s
+auth_routes              [  56% ] 8 VUs   1m07.5s/2m0s
+public_routes            [  56% ] 20 VUs  1m07.5s/2m0s
+recommendations_routes   [  56% ] 6 VUs   1m07.5s/2m0s
+users_routes             [  56% ] 12 VUs  1m07.5s/2m0s
+
+running (1m16.6s), 58/58 VUs, 5105 complete and 0 interrupted iterations
+animals_routes           [  57% ] 12 VUs  1m08.5s/2m0s
+auth_routes              [  57% ] 8 VUs   1m08.5s/2m0s
+public_routes            [  57% ] 20 VUs  1m08.5s/2m0s
+recommendations_routes   [  57% ] 6 VUs   1m08.5s/2m0s
+users_routes             [  57% ] 12 VUs  1m08.5s/2m0s
+
+running (1m17.6s), 58/58 VUs, 5254 complete and 0 interrupted iterations
+animals_routes           [  58% ] 12 VUs  1m09.5s/2m0s
+auth_routes              [  58% ] 8 VUs   1m09.5s/2m0s
+public_routes            [  58% ] 20 VUs  1m09.5s/2m0s
+recommendations_routes   [  58% ] 6 VUs   1m09.5s/2m0s
+users_routes             [  58% ] 12 VUs  1m09.5s/2m0s
+
+running (1m18.6s), 58/58 VUs, 5377 complete and 0 interrupted iterations
+animals_routes           [  59% ] 12 VUs  1m10.5s/2m0s
+auth_routes              [  59% ] 8 VUs   1m10.5s/2m0s
+public_routes            [  59% ] 20 VUs  1m10.5s/2m0s
+recommendations_routes   [  59% ] 6 VUs   1m10.5s/2m0s
+users_routes             [  59% ] 12 VUs  1m10.5s/2m0s
+
+running (1m19.6s), 58/58 VUs, 5469 complete and 0 interrupted iterations
+animals_routes           [  60% ] 12 VUs  1m11.5s/2m0s
+auth_routes              [  60% ] 8 VUs   1m11.5s/2m0s
+public_routes            [  60% ] 20 VUs  1m11.5s/2m0s
+recommendations_routes   [  60% ] 6 VUs   1m11.5s/2m0s
+users_routes             [  60% ] 12 VUs  1m11.5s/2m0s
+
+running (1m20.6s), 58/58 VUs, 5629 complete and 0 interrupted iterations
+animals_routes           [  60% ] 12 VUs  1m12.5s/2m0s
+auth_routes              [  60% ] 8 VUs   1m12.5s/2m0s
+public_routes            [  60% ] 20 VUs  1m12.5s/2m0s
+recommendations_routes   [  60% ] 6 VUs   1m12.5s/2m0s
+users_routes             [  60% ] 12 VUs  1m12.5s/2m0s
+
+running (1m24.8s), 58/58 VUs, 5758 complete and 0 interrupted iterations
+animals_routes           [  61% ] 12 VUs  1m13.5s/2m0s
+auth_routes              [  61% ] 8 VUs   1m13.5s/2m0s
+public_routes            [  61% ] 20 VUs  1m13.5s/2m0s
+recommendations_routes   [  61% ] 6 VUs   1m13.5s/2m0s
+users_routes             [  61% ] 12 VUs  1m13.5s/2m0s
+
+running (1m25.8s), 58/58 VUs, 5887 complete and 0 interrupted iterations
+animals_routes           [  62% ] 12 VUs  1m14.5s/2m0s
+auth_routes              [  62% ] 8 VUs   1m14.5s/2m0s
+public_routes            [  62% ] 20 VUs  1m14.5s/2m0s
+recommendations_routes   [  62% ] 6 VUs   1m14.5s/2m0s
+users_routes             [  62% ] 12 VUs  1m14.5s/2m0s
+
+running (1m26.8s), 58/58 VUs, 6043 complete and 0 interrupted iterations
+animals_routes           [  63% ] 12 VUs  1m15.5s/2m0s
+auth_routes              [  63% ] 8 VUs   1m15.5s/2m0s
+public_routes            [  63% ] 20 VUs  1m15.5s/2m0s
+recommendations_routes   [  63% ] 6 VUs   1m15.5s/2m0s
+users_routes             [  63% ] 12 VUs  1m15.5s/2m0s
+
+running (1m27.8s), 58/58 VUs, 6175 complete and 0 interrupted iterations
+animals_routes           [  64% ] 12 VUs  1m16.5s/2m0s
+auth_routes              [  64% ] 8 VUs   1m16.5s/2m0s
+public_routes            [  64% ] 20 VUs  1m16.5s/2m0s
+recommendations_routes   [  64% ] 6 VUs   1m16.5s/2m0s
+users_routes             [  64% ] 12 VUs  1m16.5s/2m0s
+
+running (1m28.8s), 58/58 VUs, 6321 complete and 0 interrupted iterations
+animals_routes           [  65% ] 12 VUs  1m17.5s/2m0s
+auth_routes              [  65% ] 8 VUs   1m17.5s/2m0s
+public_routes            [  65% ] 20 VUs  1m17.5s/2m0s
+recommendations_routes   [  65% ] 6 VUs   1m17.5s/2m0s
+users_routes             [  65% ] 12 VUs  1m17.5s/2m0s
+
+running (1m29.8s), 58/58 VUs, 6474 complete and 0 interrupted iterations
+animals_routes           [  65% ] 12 VUs  1m18.5s/2m0s
+auth_routes              [  65% ] 8 VUs   1m18.5s/2m0s
+public_routes            [  65% ] 20 VUs  1m18.5s/2m0s
+recommendations_routes   [  65% ] 6 VUs   1m18.5s/2m0s
+users_routes             [  65% ] 12 VUs  1m18.5s/2m0s
+
+running (1m30.8s), 58/58 VUs, 6609 complete and 0 interrupted iterations
+animals_routes           [  66% ] 12 VUs  1m19.5s/2m0s
+auth_routes              [  66% ] 8 VUs   1m19.5s/2m0s
+public_routes            [  66% ] 20 VUs  1m19.5s/2m0s
+recommendations_routes   [  66% ] 6 VUs   1m19.5s/2m0s
+users_routes             [  66% ] 12 VUs  1m19.5s/2m0s
+
+running (1m31.8s), 58/58 VUs, 6759 complete and 0 interrupted iterations
+animals_routes           [  67% ] 12 VUs  1m20.5s/2m0s
+auth_routes              [  67% ] 8 VUs   1m20.5s/2m0s
+public_routes            [  67% ] 20 VUs  1m20.5s/2m0s
+recommendations_routes   [  67% ] 6 VUs   1m20.5s/2m0s
+users_routes             [  67% ] 12 VUs  1m20.5s/2m0s
+
+running (1m32.8s), 58/58 VUs, 6892 complete and 0 interrupted iterations
+animals_routes           [  68% ] 12 VUs  1m21.5s/2m0s
+auth_routes              [  68% ] 8 VUs   1m21.5s/2m0s
+public_routes            [  68% ] 20 VUs  1m21.5s/2m0s
+recommendations_routes   [  68% ] 6 VUs   1m21.5s/2m0s
+users_routes             [  68% ] 12 VUs  1m21.5s/2m0s
+
+running (1m33.8s), 58/58 VUs, 7026 complete and 0 interrupted iterations
+animals_routes           [  69% ] 12 VUs  1m22.5s/2m0s
+auth_routes              [  69% ] 8 VUs   1m22.5s/2m0s
+public_routes            [  69% ] 20 VUs  1m22.5s/2m0s
+recommendations_routes   [  69% ] 6 VUs   1m22.5s/2m0s
+users_routes             [  69% ] 12 VUs  1m22.5s/2m0s
+
+running (1m34.8s), 58/58 VUs, 7177 complete and 0 interrupted iterations
+animals_routes           [  70% ] 12 VUs  1m23.5s/2m0s
+auth_routes              [  70% ] 8 VUs   1m23.5s/2m0s
+public_routes            [  70% ] 20 VUs  1m23.5s/2m0s
+recommendations_routes   [  70% ] 6 VUs   1m23.5s/2m0s
+users_routes             [  70% ] 12 VUs  1m23.5s/2m0s
+
+running (1m35.8s), 58/58 VUs, 7316 complete and 0 interrupted iterations
+animals_routes           [  70% ] 12 VUs  1m24.5s/2m0s
+auth_routes              [  70% ] 8 VUs   1m24.5s/2m0s
+public_routes            [  70% ] 20 VUs  1m24.5s/2m0s
+recommendations_routes   [  70% ] 6 VUs   1m24.5s/2m0s
+users_routes             [  70% ] 12 VUs  1m24.5s/2m0s
+
+running (1m36.8s), 58/58 VUs, 7475 complete and 0 interrupted iterations
+animals_routes           [  71% ] 12 VUs  1m25.5s/2m0s
+auth_routes              [  71% ] 8 VUs   1m25.5s/2m0s
+public_routes            [  71% ] 20 VUs  1m25.5s/2m0s
+recommendations_routes   [  71% ] 6 VUs   1m25.5s/2m0s
+users_routes             [  71% ] 12 VUs  1m25.5s/2m0s
+
+running (1m37.8s), 58/58 VUs, 7591 complete and 0 interrupted iterations
+animals_routes           [  72% ] 12 VUs  1m26.5s/2m0s
+auth_routes              [  72% ] 8 VUs   1m26.5s/2m0s
+public_routes            [  72% ] 20 VUs  1m26.5s/2m0s
+recommendations_routes   [  72% ] 6 VUs   1m26.5s/2m0s
+users_routes             [  72% ] 12 VUs  1m26.5s/2m0s
+
+running (1m38.8s), 58/58 VUs, 7729 complete and 0 interrupted iterations
+animals_routes           [  73% ] 12 VUs  1m27.5s/2m0s
+auth_routes              [  73% ] 8 VUs   1m27.5s/2m0s
+public_routes            [  73% ] 20 VUs  1m27.5s/2m0s
+recommendations_routes   [  73% ] 6 VUs   1m27.5s/2m0s
+users_routes             [  73% ] 12 VUs  1m27.5s/2m0s
+
+running (1m39.8s), 58/58 VUs, 7867 complete and 0 interrupted iterations
+animals_routes           [  74% ] 12 VUs  1m28.5s/2m0s
+auth_routes              [  74% ] 8 VUs   1m28.5s/2m0s
+public_routes            [  74% ] 20 VUs  1m28.5s/2m0s
+recommendations_routes   [  74% ] 6 VUs   1m28.5s/2m0s
+users_routes             [  74% ] 12 VUs  1m28.5s/2m0s
+
+running (1m40.8s), 58/58 VUs, 8005 complete and 0 interrupted iterations
+animals_routes           [  75% ] 12 VUs  1m29.5s/2m0s
+auth_routes              [  75% ] 8 VUs   1m29.5s/2m0s
+public_routes            [  75% ] 20 VUs  1m29.5s/2m0s
+recommendations_routes   [  75% ] 6 VUs   1m29.5s/2m0s
+users_routes             [  75% ] 12 VUs  1m29.5s/2m0s
+
+running (1m41.8s), 58/58 VUs, 8096 complete and 0 interrupted iterations
+animals_routes           [  75% ] 12 VUs  1m30.5s/2m0s
+auth_routes              [  75% ] 8 VUs   1m30.5s/2m0s
+public_routes            [  75% ] 20 VUs  1m30.5s/2m0s
+recommendations_routes   [  75% ] 6 VUs   1m30.5s/2m0s
+users_routes             [  75% ] 12 VUs  1m30.5s/2m0s
+
+running (1m42.8s), 58/58 VUs, 8217 complete and 0 interrupted iterations
+animals_routes           [  76% ] 12 VUs  1m31.5s/2m0s
+auth_routes              [  76% ] 8 VUs   1m31.5s/2m0s
+public_routes            [  76% ] 20 VUs  1m31.5s/2m0s
+recommendations_routes   [  76% ] 6 VUs   1m31.5s/2m0s
+users_routes             [  76% ] 12 VUs  1m31.5s/2m0s
+
+running (1m43.8s), 58/58 VUs, 8365 complete and 0 interrupted iterations
+animals_routes           [  77% ] 12 VUs  1m32.5s/2m0s
+auth_routes              [  77% ] 8 VUs   1m32.5s/2m0s
+public_routes            [  77% ] 20 VUs  1m32.5s/2m0s
+recommendations_routes   [  77% ] 6 VUs   1m32.5s/2m0s
+users_routes             [  77% ] 12 VUs  1m32.5s/2m0s
+
+running (1m44.8s), 58/58 VUs, 8518 complete and 0 interrupted iterations
+animals_routes           [  78% ] 12 VUs  1m33.5s/2m0s
+auth_routes              [  78% ] 8 VUs   1m33.5s/2m0s
+public_routes            [  78% ] 20 VUs  1m33.5s/2m0s
+recommendations_routes   [  78% ] 6 VUs   1m33.5s/2m0s
+users_routes             [  78% ] 12 VUs  1m33.5s/2m0s
+
+running (1m45.8s), 58/58 VUs, 8641 complete and 0 interrupted iterations
+animals_routes           [  79% ] 12 VUs  1m34.5s/2m0s
+auth_routes              [  79% ] 8 VUs   1m34.5s/2m0s
+public_routes            [  79% ] 20 VUs  1m34.5s/2m0s
+recommendations_routes   [  79% ] 6 VUs   1m34.5s/2m0s
+users_routes             [  79% ] 12 VUs  1m34.5s/2m0s
+
+running (1m46.8s), 58/58 VUs, 8795 complete and 0 interrupted iterations
+animals_routes           [  80% ] 12 VUs  1m35.5s/2m0s
+auth_routes              [  80% ] 8 VUs   1m35.5s/2m0s
+public_routes            [  80% ] 20 VUs  1m35.5s/2m0s
+recommendations_routes   [  80% ] 6 VUs   1m35.5s/2m0s
+users_routes             [  80% ] 12 VUs  1m35.5s/2m0s
+
+running (1m47.8s), 58/58 VUs, 8937 complete and 0 interrupted iterations
+animals_routes           [  80% ] 12 VUs  1m36.5s/2m0s
+auth_routes              [  80% ] 8 VUs   1m36.5s/2m0s
+public_routes            [  80% ] 20 VUs  1m36.5s/2m0s
+recommendations_routes   [  80% ] 6 VUs   1m36.5s/2m0s
+users_routes             [  80% ] 12 VUs  1m36.5s/2m0s
+
+running (1m48.9s), 58/58 VUs, 9078 complete and 0 interrupted iterations
+animals_routes           [  81% ] 12 VUs  1m37.5s/2m0s
+auth_routes              [  81% ] 8 VUs   1m37.5s/2m0s
+public_routes            [  81% ] 20 VUs  1m37.5s/2m0s
+recommendations_routes   [  81% ] 6 VUs   1m37.5s/2m0s
+users_routes             [  81% ] 12 VUs  1m37.5s/2m0s
+
+running (1m49.8s), 58/58 VUs, 9191 complete and 0 interrupted iterations
+animals_routes           [  82% ] 12 VUs  1m38.5s/2m0s
+auth_routes              [  82% ] 8 VUs   1m38.5s/2m0s
+public_routes            [  82% ] 20 VUs  1m38.5s/2m0s
+recommendations_routes   [  82% ] 6 VUs   1m38.5s/2m0s
+users_routes             [  82% ] 12 VUs  1m38.5s/2m0s
+
+running (1m50.8s), 58/58 VUs, 9334 complete and 0 interrupted iterations
+animals_routes           [  83% ] 12 VUs  1m39.5s/2m0s
+auth_routes              [  83% ] 8 VUs   1m39.5s/2m0s
+public_routes            [  83% ] 20 VUs  1m39.5s/2m0s
+recommendations_routes   [  83% ] 6 VUs   1m39.5s/2m0s
+users_routes             [  83% ] 12 VUs  1m39.5s/2m0s
+
+running (1m51.8s), 58/58 VUs, 9484 complete and 0 interrupted iterations
+animals_routes           [  84% ] 12 VUs  1m40.5s/2m0s
+auth_routes              [  84% ] 8 VUs   1m40.5s/2m0s
+public_routes            [  84% ] 20 VUs  1m40.5s/2m0s
+recommendations_routes   [  84% ] 6 VUs   1m40.5s/2m0s
+users_routes             [  84% ] 12 VUs  1m40.5s/2m0s
+
+running (1m52.8s), 58/58 VUs, 9623 complete and 0 interrupted iterations
+animals_routes           [  85% ] 12 VUs  1m41.5s/2m0s
+auth_routes              [  85% ] 8 VUs   1m41.5s/2m0s
+public_routes            [  85% ] 20 VUs  1m41.5s/2m0s
+recommendations_routes   [  85% ] 6 VUs   1m41.5s/2m0s
+users_routes             [  85% ] 12 VUs  1m41.5s/2m0s
+
+running (1m53.8s), 58/58 VUs, 9760 complete and 0 interrupted iterations
+animals_routes           [  85% ] 12 VUs  1m42.5s/2m0s
+auth_routes              [  85% ] 8 VUs   1m42.5s/2m0s
+public_routes            [  85% ] 20 VUs  1m42.5s/2m0s
+recommendations_routes   [  85% ] 6 VUs   1m42.5s/2m0s
+users_routes             [  85% ] 12 VUs  1m42.5s/2m0s
+
+running (1m57.9s), 58/58 VUs, 9919 complete and 0 interrupted iterations
+animals_routes           [  86% ] 12 VUs  1m43.5s/2m0s
+auth_routes              [  86% ] 8 VUs   1m43.5s/2m0s
+public_routes            [  86% ] 20 VUs  1m43.5s/2m0s
+recommendations_routes   [  86% ] 6 VUs   1m43.5s/2m0s
+users_routes             [  86% ] 12 VUs  1m43.5s/2m0s
+
+running (1m58.9s), 58/58 VUs, 10052 complete and 0 interrupted iterations
+animals_routes           [  87% ] 12 VUs  1m44.5s/2m0s
+auth_routes              [  87% ] 8 VUs   1m44.5s/2m0s
+public_routes            [  87% ] 20 VUs  1m44.5s/2m0s
+recommendations_routes   [  87% ] 6 VUs   1m44.5s/2m0s
+users_routes             [  87% ] 12 VUs  1m44.5s/2m0s
+
+running (1m59.9s), 58/58 VUs, 10203 complete and 0 interrupted iterations
+animals_routes           [  88% ] 12 VUs  1m45.5s/2m0s
+auth_routes              [  88% ] 8 VUs   1m45.5s/2m0s
+public_routes            [  88% ] 20 VUs  1m45.5s/2m0s
+recommendations_routes   [  88% ] 6 VUs   1m45.5s/2m0s
+users_routes             [  88% ] 12 VUs  1m45.5s/2m0s
+
+running (2m00.9s), 58/58 VUs, 10348 complete and 0 interrupted iterations
+animals_routes           [  89% ] 12 VUs  1m46.5s/2m0s
+auth_routes              [  89% ] 8 VUs   1m46.5s/2m0s
+public_routes            [  89% ] 20 VUs  1m46.5s/2m0s
+recommendations_routes   [  89% ] 6 VUs   1m46.5s/2m0s
+users_routes             [  89% ] 12 VUs  1m46.5s/2m0s
+
+running (2m01.9s), 58/58 VUs, 10488 complete and 0 interrupted iterations
+animals_routes           [  90% ] 12 VUs  1m47.5s/2m0s
+auth_routes              [  90% ] 8 VUs   1m47.5s/2m0s
+public_routes            [  90% ] 20 VUs  1m47.5s/2m0s
+recommendations_routes   [  90% ] 6 VUs   1m47.5s/2m0s
+users_routes             [  90% ] 12 VUs  1m47.5s/2m0s
+
+running (2m02.9s), 58/58 VUs, 10635 complete and 0 interrupted iterations
+animals_routes           [  90% ] 12 VUs  1m48.5s/2m0s
+auth_routes              [  90% ] 8 VUs   1m48.5s/2m0s
+public_routes            [  90% ] 20 VUs  1m48.5s/2m0s
+recommendations_routes   [  90% ] 6 VUs   1m48.5s/2m0s
+users_routes             [  90% ] 12 VUs  1m48.5s/2m0s
+
+running (2m03.9s), 58/58 VUs, 10771 complete and 0 interrupted iterations
+animals_routes           [  91% ] 12 VUs  1m49.5s/2m0s
+auth_routes              [  91% ] 8 VUs   1m49.5s/2m0s
+public_routes            [  91% ] 20 VUs  1m49.5s/2m0s
+recommendations_routes   [  91% ] 6 VUs   1m49.5s/2m0s
+users_routes             [  91% ] 12 VUs  1m49.5s/2m0s
+
+running (2m04.9s), 58/58 VUs, 10915 complete and 0 interrupted iterations
+animals_routes           [  92% ] 12 VUs  1m50.5s/2m0s
+auth_routes              [  92% ] 8 VUs   1m50.5s/2m0s
+public_routes            [  92% ] 20 VUs  1m50.5s/2m0s
+recommendations_routes   [  92% ] 6 VUs   1m50.5s/2m0s
+users_routes             [  92% ] 12 VUs  1m50.5s/2m0s
+
+running (2m05.9s), 58/58 VUs, 11068 complete and 0 interrupted iterations
+animals_routes           [  93% ] 12 VUs  1m51.5s/2m0s
+auth_routes              [  93% ] 8 VUs   1m51.5s/2m0s
+public_routes            [  93% ] 20 VUs  1m51.5s/2m0s
+recommendations_routes   [  93% ] 6 VUs   1m51.5s/2m0s
+users_routes             [  93% ] 12 VUs  1m51.5s/2m0s
+
+running (2m06.9s), 58/58 VUs, 11205 complete and 0 interrupted iterations
+animals_routes           [  94% ] 12 VUs  1m52.5s/2m0s
+auth_routes              [  94% ] 8 VUs   1m52.5s/2m0s
+public_routes            [  94% ] 20 VUs  1m52.5s/2m0s
+recommendations_routes   [  94% ] 6 VUs   1m52.5s/2m0s
+users_routes             [  94% ] 12 VUs  1m52.5s/2m0s
+
+running (2m07.9s), 58/58 VUs, 11350 complete and 0 interrupted iterations
+animals_routes           [  95% ] 12 VUs  1m53.5s/2m0s
+auth_routes              [  95% ] 8 VUs   1m53.5s/2m0s
+public_routes            [  95% ] 20 VUs  1m53.5s/2m0s
+recommendations_routes   [  95% ] 6 VUs   1m53.5s/2m0s
+users_routes             [  95% ] 12 VUs  1m53.5s/2m0s
+
+running (2m08.9s), 58/58 VUs, 11488 complete and 0 interrupted iterations
+animals_routes           [  95% ] 12 VUs  1m54.5s/2m0s
+auth_routes              [  95% ] 8 VUs   1m54.5s/2m0s
+public_routes            [  95% ] 20 VUs  1m54.5s/2m0s
+recommendations_routes   [  95% ] 6 VUs   1m54.5s/2m0s
+users_routes             [  95% ] 12 VUs  1m54.5s/2m0s
+
+running (2m09.9s), 58/58 VUs, 11612 complete and 0 interrupted iterations
+animals_routes           [  96% ] 12 VUs  1m55.5s/2m0s
+auth_routes              [  96% ] 8 VUs   1m55.5s/2m0s
+public_routes            [  96% ] 20 VUs  1m55.5s/2m0s
+recommendations_routes   [  96% ] 6 VUs   1m55.5s/2m0s
+users_routes             [  96% ] 12 VUs  1m55.5s/2m0s
+
+running (2m10.9s), 58/58 VUs, 11760 complete and 0 interrupted iterations
+animals_routes           [  97% ] 12 VUs  1m56.5s/2m0s
+auth_routes              [  97% ] 8 VUs   1m56.5s/2m0s
+public_routes            [  97% ] 20 VUs  1m56.5s/2m0s
+recommendations_routes   [  97% ] 6 VUs   1m56.5s/2m0s
+users_routes             [  97% ] 12 VUs  1m56.5s/2m0s
+
+running (2m11.9s), 58/58 VUs, 11900 complete and 0 interrupted iterations
+animals_routes           [  98% ] 12 VUs  1m57.5s/2m0s
+auth_routes              [  98% ] 8 VUs   1m57.5s/2m0s
+public_routes            [  98% ] 20 VUs  1m57.5s/2m0s
+recommendations_routes   [  98% ] 6 VUs   1m57.5s/2m0s
+users_routes             [  98% ] 12 VUs  1m57.5s/2m0s
+
+running (2m12.9s), 58/58 VUs, 12049 complete and 0 interrupted iterations
+animals_routes           [  99% ] 12 VUs  1m58.5s/2m0s
+auth_routes              [  99% ] 8 VUs   1m58.5s/2m0s
+public_routes            [  99% ] 20 VUs  1m58.5s/2m0s
+recommendations_routes   [  99% ] 6 VUs   1m58.5s/2m0s
+users_routes             [  99% ] 12 VUs  1m58.5s/2m0s
+
+running (2m13.9s), 58/58 VUs, 12184 complete and 0 interrupted iterations
+animals_routes           [ 100% ] 12 VUs  1m59.5s/2m0s
+auth_routes              [ 100% ] 8 VUs   1m59.5s/2m0s
+public_routes            [ 100% ] 20 VUs  1m59.5s/2m0s
+recommendations_routes   [ 100% ] 6 VUs   1m59.5s/2m0s
+users_routes             [ 100% ] 12 VUs  1m59.5s/2m0s
+
+running (2m14.9s), 22/58 VUs, 12299 complete and 0 interrupted iterations
+animals_routes         ↓ [ 100% ] 12 VUs  2m0s
+auth_routes            ✓ [ 100% ] 8 VUs   2m0s
+public_routes          ✓ [ 100% ] 20 VUs  2m0s
+recommendations_routes ✓ [ 100% ] 6 VUs   2m0s
+users_routes           ↓ [ 100% ] 12 VUs  2m0s
+
+running (2m15.9s), 02/58 VUs, 12319 complete and 0 interrupted iterations
+animals_routes         ↓ [ 100% ] 12 VUs  2m0s
+auth_routes            ✓ [ 100% ] 8 VUs   2m0s
+public_routes          ✓ [ 100% ] 20 VUs  2m0s
+recommendations_routes ✓ [ 100% ] 6 VUs   2m0s
+users_routes           ✓ [ 100% ] 12 VUs  2m0s
+
+
+  █ THRESHOLDS 
+
+    errors
+    ✓ 'rate<0.1' rate=1.79%
+
+    http_req_duration
+    ✓ 'p(95)<1500' p(95)=754.47ms
+    ✗ 'p(99)<3000' p(99)=3.11s
+
+    http_req_failed
+    ✓ 'rate<0.1' rate=0.07%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 50138  367.329805/s
+    checks_succeeded...: 99.06% 49671 out of 50138
+    checks_failed......: 0.93%  467 out of 50138
+
+    ✓ GET / status is expected
+    ✗ GET / response time < 1500ms
+      ↳  99% — ✓ 8553 / ✗ 5
+    ✓ GET /auth/loggedIn status is expected
+    ✗ GET /auth/loggedIn response time < 1800ms
+      ↳  99% — ✓ 2266 / ✗ 21
+    ✓ GET /auth/logOut status is expected
+    ✓ GET /auth/logOut response time < 1800ms
+    ✓ GET /redis/ping status is expected
+    ✗ GET /redis/ping response time < 1500ms
+      ↳  99% — ✓ 8536 / ✗ 22
+    ✓ GET /users status is expected
+    ✗ GET /users response time < 2200ms
+      ↳  75% — ✓ 323 / ✗ 104
+    ✗ GET /animals status is expected
+      ↳  95% — ✓ 369 / ✗ 19
+    ✗ GET /animals response time < 2200ms
+      ↳  47% — ✓ 185 / ✗ 203
+    ✓ GET /users/nearby status is expected
+    ✗ GET /users/nearby response time < 2500ms
+      ↳  92% — ✓ 396 / ✗ 31
+    ✓ GET /animals/:id status is expected
+    ✗ GET /animals/:id response time < 2200ms
+      ↳  93% — ✓ 361 / ✗ 27
+    ✓ GET /users/:id status is expected
+    ✗ GET /users/:id response time < 2000ms
+      ↳  94% — ✓ 404 / ✗ 23
+    ✓ GET /recommendations/quick-matches status is expected
+    ✗ GET /recommendations/quick-matches response time < 3000ms
+      ↳  99% — ✓ 655 / ✗ 6
+    ✓ GET /recommendations?animalId status is expected
+    ✗ GET /recommendations?animalId response time < 4000ms
+      ↳  99% — ✓ 655 / ✗ 6
+
+    CUSTOM
+    errors.........................: 1.79%  451 out of 25069
+
+    HTTP
+    http_req_duration..............: avg=168.37ms min=262.66µs med=4.63ms   max=37.03s p(90)=310.98ms p(95)=754.47ms
+      { expected_response:true }...: avg=166.55ms min=262.66µs med=4.62ms   max=37.03s p(90)=309.51ms p(95)=736.76ms
+    http_req_failed................: 0.07%  19 out of 25073
+    http_reqs......................: 25073  183.694208/s
+
+    EXECUTION
+    iteration_duration.............: avg=567.01ms min=200.92ms med=246.33ms max=1m3s   p(90)=737.59ms p(95)=2.58s   
+    iterations.....................: 12321  90.26827/s
+    vus............................: 2      min=0            max=58
+    vus_max........................: 58     min=58           max=58
+
+    NETWORK
+    data_received..................: 19 MB  139 kB/s
+    data_sent......................: 3.5 MB 25 kB/s
+
+
+
+
+running (2m16.5s), 00/58 VUs, 12321 complete and 0 interrupted iterations
+animals_routes         ✓ [ 100% ] 12 VUs  2m0s
+auth_routes            ✓ [ 100% ] 8 VUs   2m0s
+public_routes          ✓ [ 100% ] 20 VUs  2m0s
+recommendations_routes ✓ [ 100% ] 6 VUs   2m0s
+users_routes           ✓ [ 100% ] 12 VUs  2m0s
