@@ -25,10 +25,6 @@ export class Animals {
         return ageMonths >= thresholds.min;
     }
 
-    async getAllAnimals(){
-        return await this.prismaService.animals.findMany()
-    }
-
     async getSingleAnimal(id:string){
         return await this.prismaService.animals.findUnique({where:{animalId:id}})
     }
@@ -74,26 +70,25 @@ export class Animals {
         });
     }
 
-    async getAnimalsOfCertainUser(user: { userId: string; email: string }){
-        return this.prismaService.animals.findMany({
-            where:{
-                ownerId:user.userId
-            },
-            include:{
-                mother:{
-                    include:{
-                        mother:true,
-                        father:true
-                    }
+    async getAnimalsOfCertainUser(
+        user: { userId: string; email: string },
+        limit = 20,
+        offset = 0,
+    ) {
+        const take = Math.min(limit, 100);
+        const [data, total] = await this.prismaService.client.$transaction([
+            this.prismaService.animals.findMany({
+                where: { ownerId: user.userId },
+                include: {
+                    mother: { include: { mother: true, father: true } },
+                    father: { include: { mother: true, father: true } },
                 },
-                father:{
-                    include:{
-                        mother:true,
-                        father:true
-                    }
-                }
-            }
-        })
+                take,
+                skip: offset,
+            }),
+            this.prismaService.animals.count({ where: { ownerId: user.userId } }),
+        ]);
+        return { data, total, limit: take, offset };
     }
 
 

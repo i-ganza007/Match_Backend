@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseFloatPipe, ParseIntPipe, Post, Put, Query, Req ,UseGuards} from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseFloatPipe, ParseIntPipe, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiQuery } from '@nestjs/swagger';
 import {UsersService} from './users.service'
 import type {Request} from 'express'
@@ -48,9 +48,11 @@ export class UsersController {
         status: 500, 
         description: 'Internal server error' 
     })
-    async getAllUsers(@Req() req:Request){
-        console.log(req?.user)
-        return await this.userService.getAllUsers()
+    async getAllUsers(
+        @Query('limit', new DefaultValuePipe(50), ParseIntPipe) limit: number,
+        @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number,
+    ) {
+        return await this.userService.getAllUsers(limit, offset);
     }
 
     @Get(":id")

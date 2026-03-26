@@ -5,10 +5,16 @@ import { ConfigService } from "@nestjs/config";
 import * as argon2 from 'argon2';
 import { PrismaService } from "src/prisma-service/prisma-service";
 import { JwtService } from "@nestjs/jwt";
-import {Request} from 'express'
+import { Redis } from "src/redis/redis";
 @Injectable()
 export class AuthService {
-    constructor(private userService:UsersService,private configService:ConfigService,private prismaService:PrismaService,private jwtService:JwtService){}
+    constructor(
+        private userService: UsersService,
+        private configService: ConfigService,
+        private prismaService: PrismaService,
+        private jwtService: JwtService,
+        private redis: Redis,
+    ) {}
 
     async signUp(body:UserCreationDTO){
         const present = await this.prismaService.users.findFirst({where:{
@@ -49,7 +55,18 @@ export class AuthService {
         return present
     }
 
-    async  loggedInUser(user:{userId:string,email:string}){
-        return await this.prismaService.users.findUnique({where:{userId:user.userId}})
+    async loggedInUser(user: { userId: string; email: string }) {
+        const cacheKey = `user:profile:${user.userId}`;
+        const cached = await this.redis.get(cacheKey);
+        if (cached) return JSON.parse(cached);
+
+        const found = await this.prismaService.users.findUnique({ where: { userId: user.userId } });
+        if (found) {
+            // Exclude password and location (PostGIS — not JSON-serializable) before caching
+            const { password, location, ...safe } = found as any;
+            await this.redis.set(cacheKey, JSON.stringify(safe), 30);
+            return safe;
+        }
+        return found;
     }
 }
