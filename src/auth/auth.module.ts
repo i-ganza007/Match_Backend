@@ -5,6 +5,7 @@ import { AuthService } from "./auth.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import {LocalStrategy} from './localStrategy/local.strategy'
+import { RedisModule } from "src/redis/redis.module";
 @Module({
     providers:[AuthService,LocalStrategy],
     controllers:[AuthController],
@@ -12,6 +13,7 @@ import {LocalStrategy} from './localStrategy/local.strategy'
     imports:[
         UsersModule,
         ConfigModule,
+        RedisModule,
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

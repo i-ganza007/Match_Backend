@@ -6,6 +6,7 @@ import * as http from 'http';
 import * as https from 'https';
 import * as path from 'path';
 import { PrismaService } from 'src/prisma-service/prisma-service';
+import { Redis } from 'src/redis/redis';
 
 // Maps AnimalSpecies enum values → Python model label strings (from CLASS_TO_TYPE in model_utils.py)
 // Must match keys in CLASS_TO_TYPE inside recommend_breeding.py exactly
@@ -46,7 +47,7 @@ export class RecommendationsService {
     private readonly tmpDir = path.join(process.cwd(), 'tmp');
     private readonly mlScript = path.join(process.cwd(), 'ML_model', 'recommend_breeding.py');
 
-    constructor(private prisma: PrismaService) {
+    constructor(private prisma: PrismaService, private redis: Redis) {
         if (!fs.existsSync(this.tmpDir)) fs.mkdirSync(this.tmpDir, { recursive: true });
         if (!fs.existsSync(this.mlScript)) {
             this.logger.error(`ML script not found at ${this.mlScript}`);
@@ -76,6 +77,11 @@ export class RecommendationsService {
     // ── GET /recommendations?animalId= ──────────────────────────────────────
 
     async getRecommendations(animalId: string) {
+        // Redis front-cache (5 min) — avoids hammering the DB cache check on every request
+        const recCacheKey = `rec:${animalId}`;
+        const cachedRedis = await this.redis.get(recCacheKey);
+        if (cachedRedis) return JSON.parse(cachedRedis);
+
         // Step 1: Fetch query animal — reject if not recommendable
         const animal = await this.prisma.animals.findUnique({ where: { animalId } });
         if (!animal) throw new NotFoundException('Animal not found');
@@ -88,7 +94,10 @@ export class RecommendationsService {
             include: this.recInclude,
             orderBy: { overall_score: 'desc' },
         });
-        if (cached.length >= 10) return cached;
+        if (cached.length >= 10) {
+            await this.redis.set(recCacheKey, JSON.stringify(cached), 300).catch(() => {});
+            return cached;
+        }
 
         // Step 3: Fetch candidates — opposite sex, same species type, different farm, alive, recommendable
         const oppositeSex = animal.sex === Gender.MALE ? Gender.FEMALE : Gender.MALE;
@@ -201,11 +210,13 @@ export class RecommendationsService {
             })),
         });
 
-        return this.prisma.breeding_rec.findMany({
+        const freshResults = await this.prisma.breeding_rec.findMany({
             where: { animalInitial: animalId, generatedAt: { gte: beforeCreate } },
             include: this.recInclude,
             orderBy: { overall_score: 'desc' },
         });
+        await this.redis.set(recCacheKey, JSON.stringify(freshResults), 300).catch(() => {});
+        return freshResults;
     }
 
     // ── PATCH /recommendations/:breedingRecId/accept ────────────────────────
@@ -222,6 +233,12 @@ export class RecommendationsService {
         const animalId    = rec.animalInitial;
         const candidateId = rec.recommendedAnimalId;
         const animal      = rec.originalAnimal;
+
+        // Invalidate Redis rec cache for both animals
+        await Promise.all([
+            this.redis.del(`rec:${animalId}`).catch(() => {}),
+            this.redis.del(`rec:${candidateId}`).catch(() => {}),
+        ]);
 
         return this.prisma.client.$transaction(async tx => {
             // 1. Mark this rec as accepted
@@ -289,6 +306,10 @@ export class RecommendationsService {
         if (!validRadii.includes(radiusKm)) {
             throw new BadRequestException('Radius must be 5, 10, or 15 km');
         }
+
+        const qmCacheKey = `qm:${userId}:${radiusKm}`;
+        const cachedQm = await this.redis.get(qmCacheKey);
+        if (cachedQm) return JSON.parse(cachedQm);
 
         // Fetch all the user's animals that are eligible (recommendable + have a photo)
         const myAnimals = await this.prisma.animals.findMany({
@@ -485,6 +506,7 @@ export class RecommendationsService {
             });
         }
 
+        await this.redis.set(qmCacheKey, JSON.stringify(output), 300).catch(() => {});
         return output;
     }
 

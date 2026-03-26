@@ -8,7 +8,8 @@ import { PrismaService } from 'src/prisma-service/prisma-service';
 export class UsersService {
     constructor(private configService:ConfigService,private prismaService:PrismaService){}
 
-async getAllUsers() {
+async getAllUsers(limit = 50, offset = 0) {
+  const safeLimit = Math.min(limit, 200);
   return await this.prismaService.$queryRaw<any[]>`
     SELECT
       "userId",
@@ -26,6 +27,8 @@ async getAllUsers() {
       ST_Y("location"::geometry) AS latitude,
       ST_X("location"::geometry) AS longitude
     FROM "User"
+    ORDER BY "createdAt" DESC
+    LIMIT ${safeLimit} OFFSET ${offset}
   `;
 }
 

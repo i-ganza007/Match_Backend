@@ -57,6 +57,10 @@ model Animal {
   performanceRecords      Perfomance_Records[]
   relatednessAsAnimal1    RelatedNess_Estimates[] @relation("Animal1")
   relatednessAsAnimal2    RelatedNess_Estimates[] @relation("Animal2")
+
+  @@index([ownerId])
+  @@index([ownerId, status])
+  @@index([type, sex, recommendable, status])
 }
 
 model Breeding {
@@ -94,6 +98,8 @@ model Breeding_Rec {
   originalAnimal                Animal    @relation("OriginalAnimal", fields: [animalInitial], references: [animalId])
   recommendedAnimal             Animal    @relation("RecommendedAnimal", fields: [recommendedAnimalId], references: [animalId])
   breeding                      Breeding?
+
+  @@index([animalInitial, generatedAt])
 }
 
 model RelatedNess_Estimates {
@@ -105,6 +111,9 @@ model RelatedNess_Estimates {
   pedigree_coeff   Float
   animal1Relation  Animal @relation("Animal1", fields: [animal1], references: [animalId])
   animal2Relation  Animal @relation("Animal2", fields: [animal2], references: [animalId])
+
+  @@index([animal1])
+  @@index([animal2])
 }
 
 model Perfomance_Records {

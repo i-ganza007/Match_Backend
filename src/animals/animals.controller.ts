@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, UseGuards, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Query, UseGuards, UploadedFile, UseInterceptors, BadRequestException, DefaultValuePipe, ParseIntPipe } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { ApiConsumes, ApiBody } from '@nestjs/swagger';
@@ -13,8 +13,12 @@ export class AnimalsController {
     constructor(private animalService: Animals) {}
 
     @Get()
-    async getAllAnimalsOfUser(@CookieUser() user: { userId: string; email: string }) {
-        return this.animalService.getAnimalsOfCertainUser(user);
+    async getAllAnimalsOfUser(
+        @CookieUser() user: { userId: string; email: string },
+        @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+        @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number,
+    ) {
+        return this.animalService.getAnimalsOfCertainUser(user, limit, offset);
     }
 
     @Get(':id')
