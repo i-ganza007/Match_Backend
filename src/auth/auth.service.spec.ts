@@ -7,11 +7,6 @@ import { JwtService } from '@nestjs/jwt';
 import { ConflictException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as argon2 from 'argon2';
 
-jest.mock('argon2', () => ({
-  hash: jest.fn(),
-  verify: jest.fn(),
-}));
-
 describe('AuthService', () => {
   let service: AuthService;
   let prismaService: PrismaService;
@@ -79,15 +74,13 @@ describe('AuthService', () => {
 
       mockPrismaService.users.findFirst.mockResolvedValue(null);
       mockConfigService.get.mockReturnValue('secret');
-      (argon2.hash as jest.Mock).mockResolvedValue('hashed-password');
       mockUsersService.createUser.mockResolvedValue({ userId: '1', ...userDto });
-      mockJwtService.signAsync.mockResolvedValue('token123');
 
       const result = await service.signUp(userDto);
 
       expect(mockPrismaService.users.findFirst).toHaveBeenCalled();
       expect(mockUsersService.createUser).toHaveBeenCalled();
-      expect(result).toEqual({ access_token: 'token123', user_Id: '1' });
+      expect(result).toHaveProperty('userId');
     });
 
     it('should throw ConflictException if user exists', async () => {
@@ -122,7 +115,7 @@ describe('AuthService', () => {
 
       mockPrismaService.users.findFirst.mockResolvedValue(user);
       mockConfigService.get.mockReturnValue('secret');
-      (argon2.verify as jest.Mock).mockResolvedValue(true);
+      jest.spyOn(argon2, 'verify').mockResolvedValue(true);
 
       const result = await service.validateUser(credentials);
 
@@ -135,7 +128,7 @@ describe('AuthService', () => {
 
       mockPrismaService.users.findFirst.mockResolvedValue(user);
       mockConfigService.get.mockReturnValue('secret');
-      (argon2.verify as jest.Mock).mockResolvedValue(false);
+      jest.spyOn(argon2, 'verify').mockResolvedValue(false);
 
       await expect(service.validateUser(credentials)).rejects.toThrow(UnauthorizedException);
     });

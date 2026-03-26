@@ -48,7 +48,7 @@ export class AnimalsController {
     @ApiBody({ schema: { type: 'object', properties: { photo: { type: 'string', format: 'binary' } }, required: ['photo'] } })
     async uploadPhoto(
         @Param('id') id: string,
-        @UploadedFile() file: Express.Multer.File
+        @UploadedFile() file: Express.Multer.File,
     ) {
         if (!file) throw new BadRequestException('No photo file provided — send it as multipart/form-data with field name "photo"');
         return await this.animalService.uploadProfilePhoto(id, file);
