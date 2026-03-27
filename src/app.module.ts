@@ -12,13 +12,15 @@ import { makeCounterProvider, PrometheusModule } from '@willsoto/nestjs-promethe
 import { AuthModule } from './auth/auth.module';
 import { StorageModule } from './storage/storage.module';
 import { RecommendationsModule } from './recommendations/recommendations.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
-    UsersModule, 
-    AnimalsModule, 
-    BreedingEventsModule, 
-    PrismaServiceModule, 
+    UsersModule,
+    AnimalsModule,
+    BreedingEventsModule,
+    MessagesModule,
+    PrismaServiceModule,
     JwtserviceModule,
     AuthModule,
     StorageModule,
