@@ -80,6 +80,9 @@ model Breeding {
   mother              Animal         @relation("BreedingAsMother", fields: [motherId], references: [animalId])
   farmers             User[]         @relation("BreedingToUser")
   breedingRec         Breeding_Rec?  @relation(fields: [breedingRecId], references: [breedingRecId])
+
+  @@index([fatherId])
+  @@index([motherId])
 }
 
 model Breeding_Rec {
