@@ -278,23 +278,23 @@ describe('AppGateway (WebSocket Unit)', () => {
   });
 
   describe('Error handling', () => {
-    it('should handle Redis errors gracefully', async () => {
+    it('should handle Redis errors gracefully by disconnecting the socket', async () => {
       jwtService.verifyAsync.mockResolvedValueOnce(mockJwtPayload);
       redisService.set.mockRejectedValueOnce(new Error('Redis unavailable'));
 
-      // Should not throw, just log warning
-      await expect(gateway.handleConnection(mockSocket)).rejects.toThrow('Redis unavailable');
+      // Gateway catches the Redis error, calls client.disconnect(), does not re-throw
+      await expect(gateway.handleConnection(mockSocket)).resolves.toBeUndefined();
+      expect(mockSocket.disconnect).toHaveBeenCalled();
     });
 
-    it('should handle database save errors', async () => {
+    it('should handle database save errors by returning an error object', async () => {
       const messagePayload = { message: 'Test', userTo: 'user-456' };
 
       redisService.get.mockResolvedValueOnce('user-123').mockResolvedValueOnce(null);
       prismaService.client.messages.create.mockRejectedValueOnce(new Error('DB error'));
 
-      await expect(
-        gateway.handleMessage(mockSocket, messagePayload),
-      ).rejects.toThrow();
+      const result = await gateway.handleMessage(mockSocket, messagePayload);
+      expect(result).toEqual({ error: 'Failed to save message.' });
     });
   });
 });
