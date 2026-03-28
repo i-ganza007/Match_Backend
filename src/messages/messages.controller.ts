@@ -10,6 +10,20 @@ import { MessagesService } from './messages.service';
 export class MessagesController {
     constructor(private messagesService: MessagesService) {}
 
+    @Get()
+    @ApiOperation({
+        summary: 'Get all conversations',
+        description: 'Returns one entry per conversation partner — the partner\'s profile and the last message exchanged, sorted by most recent.',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Array of conversations sorted by latest message descending',
+    })
+    getMyConversations(@Req() req: Request) {
+        const currentUserId = (req as any).user?.userId;
+        return this.messagesService.getMyConversations(currentUserId);
+    }
+
     @Get(':userId')
     @ApiOperation({
         summary: 'Get conversation history',
