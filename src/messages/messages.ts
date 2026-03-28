@@ -72,6 +72,16 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     console.log('Checking #3')
     const receiverSocketId = await this.redis.get(`ws:user:${payload.userTo}`);
     console.log('Checking #4 — receiverSocketId:', receiverSocketId)
+
+    // Verify receiver exists in DB before attempting insert (prevents FK violation)
+    const receiverExists = await this.prismaService.users.findUnique({
+      where: { userId: payload.userTo },
+      select: { userId: true },
+    });
+    if (!receiverExists) {
+      return { error: 'Recipient not found.' };
+    }
+
     if (receiverSocketId) {
       this.server
         .to(receiverSocketId)
