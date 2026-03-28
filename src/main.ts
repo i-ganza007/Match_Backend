@@ -35,6 +35,7 @@ async function bootstrap() {
 
   
   app.use(cookieParser());
+  app.enableCors({ origin: '*', credentials: true });
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

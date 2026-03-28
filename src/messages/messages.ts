@@ -28,7 +28,7 @@ type JwtPayloadShape = {
 };
 
 @Injectable()
-@WebSocketGateway(8000, { transports: ['websocket'],cors:{origin:"*",credentials:true} })
+@WebSocketGateway({ transports: ['websocket'], cors: { origin: '*', credentials: true } })
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private readonly logger: Logger = new Logger('AppGateway');
